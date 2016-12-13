@@ -7,16 +7,18 @@
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="160dp"
+        app:image_scale_type="fit_xy"
       />
     <View
+        android:id="@+id/struct"
         android:layout_below="@+id/banner"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#f0f0f0"/>
+        android:layout_height="2dp"
+        android:background="#f4f4f4"/>
     <LinearLayout
         android:id="@+id/three_ll"
         android:layout_width="match_parent"
-        android:layout_below="@+id/banner"
+        android:layout_below="@+id/struct"
         android:layout_height="90dp"
         android:orientation="horizontal"
         >
@@ -30,7 +32,7 @@
                 android:id="@+id/btn_1"
                 android:layout_width="64dip"
                 android:layout_height="64dip"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/apply"
                 android:layout_centerHorizontal="true"
                 app:cb_color="#FAAF13"
                 app:cb_pressedRingWidth="4dip" />
@@ -53,7 +55,7 @@
                 android:id="@+id/btn_2"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/process"
                 android:layout_centerHorizontal="true"
                 app:cb_color="#E3170D"
                 app:cb_pressedRingWidth="4dip" />
@@ -76,7 +78,7 @@
                 android:layout_width="64dip"
                 android:layout_height="64dip"
                 android:layout_centerHorizontal="true"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/problem"
                 app:cb_color="#03A89E"
                 app:cb_pressedRingWidth="4dip" />
             <TextView
@@ -89,12 +91,10 @@
         </RelativeLayout>
 
     </LinearLayout>
-    <View
-        android:id="@+id/struct2"
-        android:layout_below="@+id/three_ll"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="#f0f0f0"/>
-
+<View
+    android:layout_width="match_parent"
+    android:layout_height="0.5dp"
+    android:layout_below="@+id/three_ll"
+    android:background="#dbdbdb"/>
 
 </RelativeLayout>
