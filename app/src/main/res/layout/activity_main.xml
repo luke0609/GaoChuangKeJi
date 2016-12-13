@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jiaokaokeji.gaochuangkeji.MainActivity">
+    <View
+        android:id="@+id/struct"
+        android:background="#f00"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="56dp"
+        />
+    <FrameLayout
+        android:id="@+id/f1_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/struct"
+        android:layout_toRightOf="@id/struct">
+    </FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="#30808080"
+        android:layout_above="@+id/rg_tab"
+        />
+    <RadioGroup
+        android:id="@+id/rg_tab"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="#f7f7f7"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_rb1"
+            style="@style/radiobtn"
+            android:drawableTop="@drawable/radiotab_home_selector"
+            android:text="主页"
+            android:textSize="12sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:textColor="@drawable/radiotab_textcolor_seletor"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_rb2"
+            style="@style/radiobtn"
+            android:drawableTop="@drawable/radiotab_find_class"
+            android:text="课程"
+            android:textSize="12sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:textColor="@drawable/radiotab_textcolor_seletor" />
+
+        <RadioButton
+            android:id="@+id/rb_rb3"
+            style="@style/radiobtn"
+            android:drawableTop="@drawable/radiotab_service_book"
+            android:text="题库"
+            android:textSize="12sp"
+            android:paddingTop="8dp"
+            android:paddingBottom="4dp"
+            android:textColor="@drawable/radiotab_textcolor_seletor" />
+
+        <RadioButton
+            android:id="@+id/rb_rb4"
+            style="@style/radiobtn"
+            android:drawableTop="@drawable/radiotab_chat_my"
+            android:text="我的"
+            android:paddingTop="7dp"
+            android:paddingBottom="4dp"
+            android:textSize="12sp"
+            android:textColor="@drawable/radiotab_textcolor_seletor" />
+    </RadioGroup>
+
+</RelativeLayout>
