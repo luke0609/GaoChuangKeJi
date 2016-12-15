@@ -70,6 +70,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
     private Rect mCropRect = null;
     private boolean isHasSurface = false;
+    private ImageView iv;
 
     public Handler getHandler() {
         return handler;
@@ -90,6 +91,13 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         scanContainer = (RelativeLayout) findViewById(R.id.capture_container);
         scanCropView = (RelativeLayout) findViewById(R.id.capture_crop_view);
         scanLine = (ImageView) findViewById(R.id.capture_scan_line);
+        iv = ((ImageView) findViewById(R.id.iv));
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         inactivityTimer = new InactivityTimer(this);
         beepManager = new BeepManager(this);
