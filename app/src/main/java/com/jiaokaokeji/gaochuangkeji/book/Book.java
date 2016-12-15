@@ -43,7 +43,6 @@ public class Book extends Fragment {
         view1 = inflater.inflate(R.layout.fragment_book, container, false);
         tab = ((ScrollIndicatorView) view1.findViewById(R.id.moretab_indicator));
         viewpage = ((ViewPager) view1.findViewById(R.id.moretab_viewPager));
-        tab.setBackgroundColor(Color.WHITE);
         tab.setScrollBar(new DrawableBar(getActivity(), R.drawable.round_border_green_selector, ScrollBar.Gravity.CENTENT_BACKGROUND) {
             @Override
             public int getHeight(int tabHeight) {
@@ -55,8 +54,8 @@ public class Book extends Fragment {
                 return tabWidth - dipToPix(12);
             }
         });
-        unSelectTextColor =R.color.grey;
-        tab.setOnTransitionListener(new OnTransitionTextListener().setColor(Color.BLACK, unSelectTextColor));
+        unSelectTextColor =R.color.white;
+        tab.setOnTransitionListener(new OnTransitionTextListener().setColor(Color.WHITE, unSelectTextColor));
 
         viewpage.setOffscreenPageLimit(4);
         indicatorViewPager = new IndicatorViewPager(tab, viewpage);
