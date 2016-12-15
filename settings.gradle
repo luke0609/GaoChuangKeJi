@@ -1,1 +1,1 @@
-include ':app', ':libzxing'
+include ':app', ':libzxing', ':pubuliu', ':library', ':lib', ':StaggeredGridView-master'

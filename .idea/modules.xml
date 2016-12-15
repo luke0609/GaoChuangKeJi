@@ -3,8 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GaoChuangKeJi.iml" filepath="$PROJECT_DIR$/GaoChuangKeJi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StaggeredGridView-master/StaggeredGridView-master.iml" filepath="$PROJECT_DIR$/StaggeredGridView-master/StaggeredGridView-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib/lib.iml" filepath="$PROJECT_DIR$/lib/lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/libzxing/libzxing.iml" filepath="$PROJECT_DIR$/libzxing/libzxing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pubuliu/pubuliu.iml" filepath="$PROJECT_DIR$/pubuliu/pubuliu.iml" />
     </modules>
   </component>
 </project>
