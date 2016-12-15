@@ -38,12 +38,14 @@
         android:id="@+id/moretab_indicator"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:fillViewport="false" />
+        android:fillViewport="false"
+        android:background="@color/main_style" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/moretab_viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
     </android.support.v4.view.ViewPager>
     </LinearLayout>
     </RelativeLayout>

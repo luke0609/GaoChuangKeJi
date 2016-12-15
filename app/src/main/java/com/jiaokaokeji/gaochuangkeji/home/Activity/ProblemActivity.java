@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
-import com.andexert.expandablelayout.library.ExpandableLayoutListView;
 import com.jiaokaokeji.gaochuangkeji.R;
 
 public class ProblemActivity extends AppCompatActivity {
