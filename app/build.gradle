@@ -31,4 +31,6 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.5'
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.github.markushi:circlebutton:1.1'
+    compile 'com.github.traex.expandablelayout:library:1.2.2'
+
 }
