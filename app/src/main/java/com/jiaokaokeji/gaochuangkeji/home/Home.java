@@ -2,18 +2,21 @@ package com.jiaokaokeji.gaochuangkeji.home;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jiaokaokeji.gaochuangkeji.R;
+import com.jiaokaokeji.gaochuangkeji.home.Activity.ProblemActivity;
 import com.jiaokaokeji.gaochuangkeji.home.pojo.Student;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -24,13 +27,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import at.markushi.ui.CircleButton;
+
 import static android.R.id.list;
 
-public class Home extends Fragment {
+public class Home extends Fragment implements View.OnClickListener {
     View view;
     private List images;
     private ListView lv;
     private MyAdapter adapter;
+    CircleButton  btn1,btn2,btn3;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,7 +53,9 @@ public class Home extends Fragment {
     }
 
     private void initEvent() {
-
+        btn1.setOnClickListener(this);
+        btn2.setOnClickListener(this);
+        btn3.setOnClickListener(this);
     }
 
     private void initData() {
@@ -61,6 +69,9 @@ public class Home extends Fragment {
         lv = ((ListView) view.findViewById(R.id.message_lv));
         View header = View.inflate(getContext(), R.layout.home_head_layout, null);//头部内容
         lv.addHeaderView(header);//添加头部
+        btn1 = ((CircleButton) header.findViewById(R.id.btn_1));
+        btn2 = ((CircleButton) header.findViewById(R.id.btn_2));
+        btn3 = ((CircleButton) header.findViewById(R.id.btn_3));
         List<Student> stuList=new ArrayList<>();
         for(int i=0;i<10;i++){
             Student stu=new Student();
@@ -68,6 +79,8 @@ public class Home extends Fragment {
             stu.setName("name"+i);
             stu.setPhoto(R.mipmap.ic_launcher);
             stuList.add(stu);
+
+
         }
 
         adapter=new MyAdapter(stuList,getContext());
@@ -97,6 +110,23 @@ public class Home extends Fragment {
         //banner设置方法全部调用完毕时最后调用
         banner.start();
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.btn_1:
+
+                            break;
+            case R.id.btn_2:
+
+                break;
+            case R.id.btn_3:
+                Intent intent = new Intent(getActivity(),ProblemActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     public class GlideImageLoader extends ImageLoader {

@@ -51,8 +51,11 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".home.Activity.MessageActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".home.Activity.ProblemActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".myclass.Activity.AppointmentActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <activity android:name=".myclass.Activity.SignInActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".myclass.Activity.SimulationActivity"
