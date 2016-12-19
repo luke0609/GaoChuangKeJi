@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jiaokaokeji.gaochuangkeji.R;
+import com.jiaokaokeji.gaochuangkeji.home.Activity.ApplyActivity;
 import com.jiaokaokeji.gaochuangkeji.home.Activity.ProblemActivity;
 import com.jiaokaokeji.gaochuangkeji.home.pojo.Student;
 import com.youth.banner.Banner;
@@ -37,7 +38,7 @@ public class Home extends Fragment implements View.OnClickListener {
     private ListView lv;
     private MyAdapter adapter;
     CircleButton  btn1,btn2,btn3;
-
+    private  List<String> titles;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,13 +87,16 @@ public class Home extends Fragment implements View.OnClickListener {
         adapter=new MyAdapter(stuList,getContext());
         lv.setAdapter(adapter);
         images=new ArrayList();
-        images.add("http://pic.58pic.com/58pic/16/13/75/70658PICpiZ_1024.jpg");
-        images.add("http://pic.58pic.com/58pic/14/69/47/19v58PICXem_1024.jpg");
-        images.add("http://pic.58pic.com/58pic/16/13/75/70658PICpiZ_1024.jpg");
+        images.add(R.drawable.car2);
+        images.add(R.drawable.car4);
+        titles=new ArrayList();
+        titles.add("123");
+        titles.add("321");
+      //  images.add("http://pic.58pic.com/58pic/16/13/75/70658PICpiZ_1024.jpg");
 
 
         Banner banner = (Banner) header.findViewById(R.id.banner);
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        banner.setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE);
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         //设置图片集合
@@ -100,11 +104,11 @@ public class Home extends Fragment implements View.OnClickListener {
         //设置banner动画效果
         banner.setBannerAnimation(Transformer.DepthPage);
         //设置标题集合（当banner样式有显示title时）
-      //  banner.setBannerTitles(Arrays.asList(titles));
+          banner.setBannerTitles(titles);
         //设置自动轮播，默认为true
         banner.isAutoPlay(true);
         //设置轮播时间
-        banner.setDelayTime(1500);
+        banner.setDelayTime(2500);
         //设置指示器位置（当banner模式中有指示器时）
         banner.setIndicatorGravity(BannerConfig.CENTER);
         //banner设置方法全部调用完毕时最后调用
@@ -117,14 +121,15 @@ public class Home extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
 
             case R.id.btn_1:
-
-                            break;
+                Intent intent1 = new Intent(getActivity(),ApplyActivity.class);
+                startActivity(intent1);
+                break;
             case R.id.btn_2:
 
                 break;
             case R.id.btn_3:
-                Intent intent = new Intent(getActivity(),ProblemActivity.class);
-                startActivity(intent);
+                Intent intent3 = new Intent(getActivity(),ProblemActivity.class);
+                startActivity(intent3);
                 break;
         }
     }
