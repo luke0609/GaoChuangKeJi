@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
@@ -48,33 +50,39 @@ public class ListViewAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        ExpandableLayout expandableLayout;
-        TextView summoner;
-        TextView label;
-        TextView summoner_story_tv;
+//        ExpandableLayout expandableLayout;
+        final ViewHolder holder;
         if(convertView==null) {
+            holder = new ViewHolder();
             convertView=mLayoutInflater.inflate( R.layout.item_jinx,parent,false);
-            expandableLayout = (ExpandableLayout) convertView.findViewById(R.id.expandable_layout);
-            summoner= ((TextView) convertView.findViewById(R.id.summoner));
-            label= ((TextView) convertView.findViewById(R.id.label));
-            summoner_story_tv= ((TextView) convertView.findViewById(R.id.summoner_story_tv));
-            expandableLayout.setExpandWithParentScroll(false);
-            convertView.setTag(expandableLayout);
+            holder.expandableLayout = (ExpandableLayout) convertView.findViewById(R.id.expandable_layout);
+            holder.summoner= ((TextView) convertView.findViewById(R.id.summoner));
+            holder.summoner_story_tv= ((TextView) convertView.findViewById(R.id.summoner_story_tv));
+            holder.expandableLayout.setExpandWithParentScroll(true);
+            convertView.setTag(holder);
         }else {
-            expandableLayout =(ExpandableLayout) convertView.getTag();
+            holder =(ViewHolder) convertView.getTag();
         }
 
-        if(expandableLayout !=null) {
-            expandableLayout.setOnExpandListener(new ExpandableLayout.OnExpandListener() {
+        if(holder.expandableLayout !=null) {
+            holder.expandableLayout.setOnExpandListener(new ExpandableLayout.OnExpandListener() {
                 @Override
                 public void onExpand(boolean expanded) {
                     registerExpand(position);
                 }
             });
         }
-        expandableLayout.setExpand(mExpandedPositionSet.contains(position));
+        holder.summoner.setText(datas.get(position).get("problem").toString());
+        holder.summoner_story_tv.setText(datas.get(position).get("answer").toString());
+        holder.expandableLayout.setExpand(mExpandedPositionSet.contains(position));
         return convertView;
     }
+    static class ViewHolder {
+        ExpandableLayout expandableLayout;
+        TextView summoner_story_tv;
+        TextView summoner;
+    }
+
 
     private void registerExpand(int position) {
         if (mExpandedPositionSet.contains(position)) {
