@@ -20,6 +20,7 @@ import com.jiaokaokeji.gaochuangkeji.book.fragement.Book3_fragement;
 import com.jiaokaokeji.gaochuangkeji.book.fragement.Book4_fragement;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
+import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.slidebar.DrawableBar;
 import com.shizhefei.view.indicator.slidebar.ScrollBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
@@ -56,17 +57,17 @@ public class Book extends Fragment {
         });
         unSelectTextColor =R.color.white;
         tab.setOnTransitionListener(new OnTransitionTextListener().setColor(Color.WHITE, unSelectTextColor));
-
+        tab.setScrollBar(new ColorBar(getActivity(),Color.parseColor("#c0ffff00"),4));
         viewpage.setOffscreenPageLimit(4);
         indicatorViewPager = new IndicatorViewPager(tab, viewpage);
         inflate = LayoutInflater.from(getActivity());
         indicatorViewPager.setAdapter(new MyAdapter(getFragmentManager()));
+        indicatorViewPager.setPageOffscreenLimit(0);
 
         list.add(new Book1_fragement());
         list.add(new Book2_fragement());
         list.add(new Book3_fragement());
         list.add(new Book4_fragement());
-        System.out.println(list.size()+"////////////");
         return view1;
     }
 

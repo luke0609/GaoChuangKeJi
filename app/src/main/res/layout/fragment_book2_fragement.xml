@@ -7,6 +7,18 @@
     tools:context="com.jiaokaokeji.gaochuangkeji.book.fragement.Book1_fragement">
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <View
+        android:id="@+id/v1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+    <com.jiaokaokeji.gaochuangkeji.book.prjo.MyScollview
+        android:id="@+id/myScollview"
+        android:layout_below="@id/v1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
         <LinearLayout
@@ -150,19 +162,27 @@
             android:layout_below="@id/ll1"
             android:id="@+id/v"
             android:layout_width="match_parent"
-            android:layout_height="15dp"/>
-        <LinearLayout
-            android:layout_below="@id/v"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="15dp"
+            android:background="@color/line"/>
         <TextView
+            android:id="@+id/tv"
+            android:layout_below="@id/v"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="科二视频"
             android:textSize="13sp"
             />
-        </LinearLayout>
+            <com.jiaokaokeji.gaochuangkeji.book.StaggeredGridView.MyGrigview
+                android:id="@+id/staggeredGridView1"
+                android:layout_below="@id/tv"
+                android:numColumns="2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                >
+            </com.jiaokaokeji.gaochuangkeji.book.StaggeredGridView.MyGrigview>
+    </RelativeLayout>
+    </com.jiaokaokeji.gaochuangkeji.book.prjo.MyScollview>
     </RelativeLayout>
 </FrameLayout>
