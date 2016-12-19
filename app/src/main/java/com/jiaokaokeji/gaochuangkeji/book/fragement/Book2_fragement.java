@@ -3,30 +3,47 @@ package com.jiaokaokeji.gaochuangkeji.book.fragement;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
+import com.jiaokaokeji.gaochuangkeji.book.StaggeredGridView.MyGrigview;
+import com.jiaokaokeji.gaochuangkeji.book.prjo.MyGridViewAdapter;
+import com.jiaokaokeji.gaochuangkeji.book.prjo.MyScollview;
 
 public class Book2_fragement extends Fragment {
     View view1;
-    private String urls[] = {
-            "http://farm7.staticflickr.com/6101/6853156632_6374976d38_c.jpg",
-            "http://farm8.staticflickr.com/7232/6913504132_a0fce67a0e_c.jpg",
-            "http://farm5.staticflickr.com/4133/5096108108_df62764fcc_b.jpg",
-            "http://farm5.staticflickr.com/4074/4789681330_2e30dfcacb_b.jpg",
-            "http://farm9.staticflickr.com/8208/8219397252_a04e2184b2.jpg",
-            "http://farm9.staticflickr.com/8483/8218023445_02037c8fda.jpg",
-            "http://farm9.staticflickr.com/8335/8144074340_38a4c622ab.jpg",
-            "http://farm9.staticflickr.com/8060/8173387478_a117990661.jpg",};
+    private int urls[] = {R.drawable.detail,R.drawable.detail,R.drawable.detail,R.drawable.detail,
+            R.drawable.detail,R.drawable.detail,R.drawable.detail,R.drawable.detail};
     String title[]=new String[]{"倒车入库","倒车入库","倒车入库","倒车入库","倒车入库","倒车入库",
             "倒车入库","倒车入库"};
+    private TextView tv1;
+    private MyScollview myScollview;
+    private View v1;
+    private int buyLayoutHeight;
+    private int buyLayoutTop;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view1 = inflater.inflate(R.layout.fragment_book2_fragement,null);
+        MyGrigview gridView = (MyGrigview) view1.findViewById(R.id.staggeredGridView1);
+        v1 = ((View) view1.findViewById(R.id.v1));
+        myScollview = ((MyScollview) view1.findViewById(R.id.myScollview));
+        myScollview.setOnScrollListener(new MyScollview.OnScrollListener() {
+            @Override
+            public void onScroll(int scrollY) {
+
+            }
+        });
+
+
+        MyGridViewAdapter adapter = new MyGridViewAdapter(getActivity(), R.layout.item,
+                urls,title);
+        gridView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     return view1;
 }
+
 }
