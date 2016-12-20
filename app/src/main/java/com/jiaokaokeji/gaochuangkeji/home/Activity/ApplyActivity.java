@@ -3,13 +3,18 @@ package com.jiaokaokeji.gaochuangkeji.home.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
 
 public class ApplyActivity extends AppCompatActivity implements View.OnClickListener{
     private ImageView back;
+    private TextView apply;
+    private Spinner spinner;
 
     //报名
     @Override
@@ -23,6 +28,14 @@ public class ApplyActivity extends AppCompatActivity implements View.OnClickList
 
     private void initview() {
         back = ((ImageView) findViewById(R.id.iv_back));
+        apply = ((TextView) findViewById(R.id.tv_apply));
+        spinner = ((Spinner) findViewById(R.id.spinner));
+
+        final ArrayAdapter<CharSequence> adapterspinner1 = ArrayAdapter
+                .createFromResource(this, R.array.Tpye,
+                        android.R.layout.simple_spinner_item);
+        adapterspinner1.setDropDownViewResource(android.R.layout.simple_list_item_checked);
+        spinner.setAdapter(adapterspinner1);
 
     }
 

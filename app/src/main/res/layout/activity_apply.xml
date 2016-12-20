@@ -27,6 +27,7 @@
             android:textColor="#fff"
             android:layout_centerInParent="true"/>
         <TextView
+            android:id="@+id/tv_apply"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textColor="#fff"
@@ -46,6 +47,7 @@
         android:textColor="@color/text_style"
         android:text="报名车型"/>
 <RadioGroup
+    android:id="@+id/rg_type"
     android:layout_below="@+id/tv_type"
     android:layout_marginTop="20dp"
     android:layout_width="match_parent"
@@ -58,6 +60,10 @@
         android:button="@null"
         android:text="C1/C2/C3"
         android:gravity="center"
+        android:textColor="@drawable/radiotab_textcolor_seletor2"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/radiotab_bk_selector2"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
 
@@ -67,6 +73,10 @@
         android:button="@null"
         android:text="A1/A3/B1"
         android:gravity="center"
+        android:textColor="@drawable/radiotab_textcolor_seletor2"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/radiotab_bk_selector2"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
     <RadioButton
@@ -74,8 +84,77 @@
         android:layout_width="0dp"
         android:button="@null"
         android:text="A2/B2"
+        android:textColor="@drawable/radiotab_textcolor_seletor2"
         android:gravity="center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/radiotab_bk_selector2"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
 </RadioGroup>
+    <TextView
+        android:id="@+id/tv_menu"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rg_type"
+        android:layout_marginLeft="10dp"
+        android:textSize="16sp"
+        android:textColor="@color/text_style"
+        android:text="套餐类型"/>
+    <Spinner
+        android:layout_marginTop="20dp"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/tv_menu"
+        android:id="@+id/spinner"
+        android:gravity="center"
+        android:textColor="@color/text_style"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        >
+
+    </Spinner>
+    <TextView
+        android:id="@+id/tv_service"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner"
+        android:layout_marginLeft="10dp"
+        android:textSize="16sp"
+        android:textColor="@color/text_style"
+        android:text="服务类型"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_service"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+        <RadioButton
+            android:drawableTop="@drawable/shangmen"
+            android:layout_width="0dp"
+            android:button="@null"
+            android:textColor="@drawable/radiotab_textcolor_seletor2"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="免费上门报名"
+            android:background="@drawable/radiotab_bk_selector2"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <RadioButton
+            android:drawableTop="@drawable/wangdian"
+            android:layout_width="0dp"
+            android:button="@null"
+            android:text="中华路501号报名"
+            android:textColor="@drawable/radiotab_textcolor_seletor2"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/radiotab_bk_selector2"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+    </RadioGroup>
 </RelativeLayout>
