@@ -27,14 +27,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-                        <TextView
+                        <Button
+                            android:id="@+id/btn_1"
                             android:layout_width="0dp"
-                            android:layout_height="80dp"
+                            android:layout_height="90dp"
                             android:text="随机练习"
                             android:gravity="center"
-                            android:drawableTop="@drawable/myclass_selected"
+                            android:drawableTop="@drawable/random"
                             android:textSize="13sp"
                             android:layout_weight="1"
+                            android:textColor="@color/main_style"
+                            android:background="@color/white"
                             android:paddingTop="10dp"
                             android:paddingBottom="4dp"
                             />
@@ -43,12 +46,15 @@
                                     android:layout_width="1dp"
                                     android:layout_height="match_parent"
                                     android:background="@drawable/jianbian"/>
-                                <TextView
+                                <Button
+                                    android:id="@+id/btn_2"
                                     android:layout_width="0dp"
-                                    android:layout_height="80dp"
+                                    android:layout_height="90dp"
                                     android:text="章节练习"
+                                    android:background="@color/white"
                                     android:gravity="center"
-                                    android:drawableTop="@drawable/myclass_selected"
+                                    android:textColor="@color/main_style"
+                                    android:drawableTop="@drawable/chapter"
                                     android:textSize="13sp"
                                     android:layout_weight="1"
                                     android:paddingTop="10dp"
@@ -68,13 +74,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-                                <TextView
+                                <Button
+                                    android:id="@+id/btn_3"
                                     android:layout_width="0dp"
-                                    android:layout_height="80dp"
+                                    android:layout_height="90dp"
                                     android:text="顺序练习"
                                     android:gravity="center"
-                                    android:drawableTop="@drawable/myclass_selected"
+                                    android:background="@color/white"
+                                    android:drawableTop="@drawable/order"
                                     android:textSize="13sp"
+                                    android:textColor="@color/main_style"
                                     android:layout_weight="1"
                                     android:paddingTop="10dp"
                                     android:paddingBottom="4dp"
@@ -85,13 +94,16 @@
                                     android:layout_height="match_parent"
                                     android:background="@drawable/jianbian"
                                     />
-                                <TextView
+                                <Button
+                                    android:id="@+id/btn_4"
                                     android:layout_width="0dp"
-                                    android:layout_height="80dp"
+                                    android:layout_height="90dp"
                                     android:text="我的错题"
                                     android:gravity="center"
-                                    android:drawableTop="@drawable/myclass_selected"
+                                    android:background="@color/white"
+                                    android:drawableTop="@drawable/error"
                                     android:textSize="13sp"
+                                    android:textColor="@color/main_style"
                                     android:layout_weight="1"
                                     android:paddingTop="10dp"
                                     android:paddingBottom="4dp"
@@ -120,6 +132,56 @@
                     android:layout_width="match_parent"
                     android:layout_height="15dp"
                     android:background="@color/line"/>
+                <RadioGroup
+                    android:id="@+id/rg_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#f7f7f7"
+                    android:layout_below="@id/v1"
+                    android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/rb_rb1"
+                            style="@style/radiobtn"
+                            android:drawableTop="@drawable/radiotab_home_selector"
+                            android:text="科一技巧"
+                            android:textSize="12sp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="4dp"
+                            android:textColor="@drawable/radiotab_textcolor_seletor"
+                            />
+
+                        <RadioButton
+                            android:id="@+id/rb_rb2"
+                            style="@style/radiobtn"
+                            android:drawableTop="@drawable/radiotab_find_class"
+                            android:text="图标速记"
+                            android:textSize="12sp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="4dp"
+                            android:textColor="@drawable/radiotab_textcolor_seletor" />
+
+                        <RadioButton
+                            android:id="@+id/rb_rb3"
+                            style="@style/radiobtn"
+                            android:drawableTop="@drawable/radiotab_service_book"
+                            android:text="题库"
+                            android:textSize="12sp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="4dp"
+                            android:textColor="@drawable/radiotab_textcolor_seletor" />
+
+                        <RadioButton
+                            android:id="@+id/rb_rb4"
+                            style="@style/radiobtn"
+                            android:drawableTop="@drawable/radiotab_chat_my"
+                            android:text="我的"
+                            android:paddingTop="7dp"
+                            android:paddingBottom="4dp"
+                            android:textSize="12sp"
+                            android:textColor="@drawable/radiotab_textcolor_seletor" />
+                </RadioGroup>
         </RelativeLayout>
        </ScrollView>
 </FrameLayout>

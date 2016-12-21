@@ -11,16 +11,20 @@
         android:layout_height="wrap_content"
         android:background="@color/main_style"
         android:padding="8dp"
+        android:gravity="center"
         android:textColor="#eee"
         android:textSize="25sp"
         android:textStyle="bold"
         />
 
-    <TextView
+    <EditText
+        android:layout_marginTop="8dp"
         android:id="@+id/tv_dialog_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/bg_edittext"
         android:padding="3dp" />
     <RelativeLayout
         android:layout_width="match_parent"
@@ -44,5 +48,4 @@
             android:background="@drawable/btn_selector"
             />
     </RelativeLayout>
-
 </LinearLayout>

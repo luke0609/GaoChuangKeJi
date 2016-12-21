@@ -14,7 +14,8 @@
         <ImageView
             android:id="@+id/iv"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:background="@drawable/tiku"
             />
     <LinearLayout
@@ -27,7 +28,9 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:fillViewport="false"
-        android:background="@color/main_style" />
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/white" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/moretab_viewPager"

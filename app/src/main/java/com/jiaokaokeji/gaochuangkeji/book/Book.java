@@ -8,9 +8,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
@@ -37,13 +39,23 @@ public class Book extends Fragment {
     private LayoutInflater inflate;
     List<Fragment> list = new ArrayList<Fragment>();
     private IndicatorViewPager indicatorViewPager;
+    private ImageView iv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view1 = inflater.inflate(R.layout.fragment_book, container, false);
+        iv = ((ImageView) view1.findViewById(R.id.iv));
         tab = ((ScrollIndicatorView) view1.findViewById(R.id.moretab_indicator));
         viewpage = ((ViewPager) view1.findViewById(R.id.moretab_viewPager));
+
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        int width = display.getWidth();
+        ViewGroup.LayoutParams lp = iv.getLayoutParams();
+        lp.width = width;
+        lp.height =width/3;
+        iv.setLayoutParams(lp);
+
         tab.setScrollBar(new DrawableBar(getActivity(), R.drawable.round_border_green_selector, ScrollBar.Gravity.CENTENT_BACKGROUND) {
             @Override
             public int getHeight(int tabHeight) {
@@ -55,9 +67,9 @@ public class Book extends Fragment {
                 return tabWidth - dipToPix(12);
             }
         });
-        unSelectTextColor =R.color.white;
-        tab.setOnTransitionListener(new OnTransitionTextListener().setColor(Color.WHITE, unSelectTextColor));
-        tab.setScrollBar(new ColorBar(getActivity(),Color.parseColor("#c0ffff00"),4));
+        unSelectTextColor =R.color.commo_text_color;
+        tab.setOnTransitionListener(new OnTransitionTextListener().setColor(Color.parseColor("#4EAFAB"), unSelectTextColor));
+        tab.setScrollBar(new ColorBar(getActivity(),Color.parseColor("#4EAFAB"),4));
         viewpage.setOffscreenPageLimit(4);
         indicatorViewPager = new IndicatorViewPager(tab, viewpage);
         inflate = LayoutInflater.from(getActivity());
