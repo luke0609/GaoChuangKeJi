@@ -4,16 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
-
 import com.jiaokaokeji.gaochuangkeji.R;
 
 public class ApplyActivity extends AppCompatActivity implements View.OnClickListener{
     private ImageView back;
-    private TextView apply;
     private Spinner spinner;
 
     //报名
@@ -28,7 +24,6 @@ public class ApplyActivity extends AppCompatActivity implements View.OnClickList
 
     private void initview() {
         back = ((ImageView) findViewById(R.id.iv_back));
-        apply = ((TextView) findViewById(R.id.tv_apply));
         spinner = ((Spinner) findViewById(R.id.spinner));
 
         final ArrayAdapter<CharSequence> adapterspinner1 = ArrayAdapter
