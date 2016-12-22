@@ -54,6 +54,7 @@
     android:orientation="horizontal"
     android:layout_height="60dp">
     <RadioButton
+        android:id="@+id/rb_1"
         android:drawableTop="@drawable/vanpool"
         android:layout_width="0dp"
         android:button="@null"
@@ -67,6 +68,7 @@
         android:layout_weight="1"/>
 
     <RadioButton
+        android:id="@+id/rb_2"
         android:drawableTop="@drawable/trolleybus"
         android:layout_width="0dp"
         android:button="@null"
@@ -79,6 +81,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"/>
     <RadioButton
+        android:id="@+id/rb_3"
         android:drawableTop="@drawable/transportation"
         android:layout_width="0dp"
         android:button="@null"
@@ -125,12 +128,14 @@
         android:textColor="@color/text_style"
         android:text="服务类型"/>
     <RadioGroup
+        android:id="@+id/rg_se"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_service"
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
         <RadioButton
+            android:id="@+id/rb_4"
             android:drawableTop="@drawable/shangmen"
             android:layout_width="0dp"
             android:button="@null"
@@ -143,6 +148,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"/>
         <RadioButton
+            android:id="@+id/rb_5"
             android:drawableTop="@drawable/wangdian"
             android:layout_width="0dp"
             android:button="@null"
@@ -159,6 +165,7 @@
 
     <RelativeLayout
         android:layout_below="@+id/rl_top"
+        android:id="@+id/rl_p2"
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="15dp"

@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.jiaokaokeji.gaochuangkeji.home.Activity.ApplyActivity;
 import com.jiaokaokeji.gaochuangkeji.home.Activity.ProblemActivity;
+import com.jiaokaokeji.gaochuangkeji.home.Activity.ProcessActivity;
 import com.jiaokaokeji.gaochuangkeji.home.pojo.Student;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -125,7 +126,8 @@ public class Home extends Fragment implements View.OnClickListener {
                 startActivity(intent1);
                 break;
             case R.id.btn_2:
-
+                Intent intent2 = new Intent(getActivity(),ProcessActivity.class);
+                startActivity(intent2);
                 break;
             case R.id.btn_3:
                 Intent intent3 = new Intent(getActivity(),ProblemActivity.class);
