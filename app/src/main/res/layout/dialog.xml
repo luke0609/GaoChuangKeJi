@@ -26,6 +26,19 @@
         android:layout_marginRight="5dp"
         android:background="@drawable/bg_edittext"
         android:padding="3dp" />
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="您的身份证号不合法，请重新输入"
+        android:textSize="13sp"
+        android:visibility="gone"
+        android:textColor="@color/colorAccent"/>
+    <com.jiaokaokeji.gaochuangkeji.my.prjo.WheelView
+        android:id="@+id/wheel_view_wv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

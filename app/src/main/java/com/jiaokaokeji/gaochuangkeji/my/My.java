@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.jiaokaokeji.gaochuangkeji.R;
+import com.jiaokaokeji.gaochuangkeji.my.Activity.ArchivesActivity;
 import com.jiaokaokeji.gaochuangkeji.my.Activity.PersonalActivity;
+import com.jiaokaokeji.gaochuangkeji.my.Activity.SettingActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -51,10 +53,14 @@ public class My extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.btn_2:
+                Intent intent1=new Intent(getActivity(),ArchivesActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.btn_3:
                 break;
             case R.id.btn_4:
+                Intent intent3=new Intent(getActivity(),SettingActivity.class);
+                startActivity(intent3);
                 break;
         }
     }
