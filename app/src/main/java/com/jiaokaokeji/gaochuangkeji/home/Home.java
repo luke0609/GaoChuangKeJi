@@ -1,17 +1,22 @@
 package com.jiaokaokeji.gaochuangkeji.home;
 
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -31,7 +36,10 @@ import java.util.List;
 
 import at.markushi.ui.CircleButton;
 
+import static android.R.attr.y;
+import static android.R.drawable.title_bar;
 import static android.R.id.list;
+import static com.jiaokaokeji.gaochuangkeji.R.id.title_tv;
 
 public class Home extends Fragment implements View.OnClickListener {
     View view;
@@ -40,6 +48,8 @@ public class Home extends Fragment implements View.OnClickListener {
     private MyAdapter adapter;
     CircleButton  btn1,btn2,btn3;
     private  List<String> titles;
+    private RelativeLayout title_top;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,6 +68,26 @@ public class Home extends Fragment implements View.OnClickListener {
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
         btn3.setOnClickListener(this);
+        lv.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+
+                if (firstVisibleItem >= 1) {
+                    title_top.setVisibility(View.VISIBLE);
+                } else {
+
+                    title_top.setVisibility(View.GONE);
+                }
+            }
+        });
+
     }
 
     private void initData() {
@@ -70,10 +100,13 @@ public class Home extends Fragment implements View.OnClickListener {
     private void initView() {
         lv = ((ListView) view.findViewById(R.id.message_lv));
         View header = View.inflate(getContext(), R.layout.home_head_layout, null);//头部内容
+        View header2 = View.inflate(getContext(), R.layout.home_head2_layout, null);
         lv.addHeaderView(header);//添加头部
-        btn1 = ((CircleButton) header.findViewById(R.id.btn_1));
-        btn2 = ((CircleButton) header.findViewById(R.id.btn_2));
-        btn3 = ((CircleButton) header.findViewById(R.id.btn_3));
+        lv.addHeaderView(header2);
+        title_top = ((RelativeLayout) view.findViewById(R.id.title_top));
+        btn1 = ((CircleButton) header2.findViewById(R.id.btn_1));
+        btn2 = ((CircleButton) header2.findViewById(R.id.btn_2));
+        btn3 = ((CircleButton) header2.findViewById(R.id.btn_3));
         List<Student> stuList=new ArrayList<>();
         for(int i=0;i<10;i++){
             Student stu=new Student();
@@ -91,13 +124,13 @@ public class Home extends Fragment implements View.OnClickListener {
         images.add(R.drawable.car2);
         images.add(R.drawable.car4);
         titles=new ArrayList();
-        titles.add("123");
-        titles.add("321");
+        titles.add("学车指南");
+        titles.add("驾考新规");
       //  images.add("http://pic.58pic.com/58pic/16/13/75/70658PICpiZ_1024.jpg");
 
 
         Banner banner = (Banner) header.findViewById(R.id.banner);
-        banner.setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE);
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         //设置图片集合
@@ -114,6 +147,7 @@ public class Home extends Fragment implements View.OnClickListener {
         banner.setIndicatorGravity(BannerConfig.CENTER);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
+
 
     }
 
@@ -190,4 +224,35 @@ public class Home extends Fragment implements View.OnClickListener {
             return view;
         }
     }
+
+
+//    public void titleAnima(int y) {
+//        int scrollHeight = lv.getChildAt(0).getHeight()
+//                - lv.getHeight();
+//        float scrollPercent = (float) y / scrollHeight;
+//        System.out.println(scrollPercent+"==123");
+//        title_bar.getBackground().setAlpha((int) (255 * scrollPercent));
+//
+//        int color = title_tv.getTextColors().getDefaultColor();
+//        int r = Color.red(color);
+//        int g = Color.green(color);
+//        int b = Color.blue(color);
+//        int changeToColor = Color.argb((int) (255 * scrollPercent), r, g, b);
+//
+//        title_tv.setTextColor(changeToColor);
+//
+//
+//
+//
+//    }
+
+//    public int getScrollY() {
+//        View c = lv.getChildAt(1);
+//        if (c == null) {
+//            return 0;
+//        }
+//        int firstVisiblePosition = lv.getFirstVisiblePosition();
+//        int top = c.getTop();
+//        return -top + firstVisiblePosition * c.getHeight() ;
+//    }
 }

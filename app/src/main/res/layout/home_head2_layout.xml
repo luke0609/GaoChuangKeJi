@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:id="@+id/three_ll"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/struct"
+        android:layout_height="90dp"
+        android:orientation="horizontal"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_weight="1">
+
+            <at.markushi.ui.CircleButton
+                android:id="@+id/btn_1"
+                android:layout_width="64dip"
+                android:layout_height="64dip"
+                android:src="@drawable/apply"
+                android:layout_centerHorizontal="true"
+                app:cb_color="#FAAF13"
+                app:cb_pressedRingWidth="4dip" />
+            <TextView
+                android:layout_below="@+id/btn_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:text="预约报名"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_weight="1">
+
+            <at.markushi.ui.CircleButton
+                android:id="@+id/btn_2"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/process"
+                android:layout_centerHorizontal="true"
+                app:cb_color="#E3170D"
+                app:cb_pressedRingWidth="4dip" />
+            <TextView
+                android:layout_below="@+id/btn_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:text="学车流程"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_weight="1">
+
+            <at.markushi.ui.CircleButton
+                android:id="@+id/btn_3"
+                android:layout_width="64dip"
+                android:layout_height="64dip"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/problem"
+                app:cb_color="#03A89E"
+                app:cb_pressedRingWidth="4dip" />
+            <TextView
+                android:layout_below="@+id/btn_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:text="常见问题"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/three_ll"
+        android:background="#dbdbdb"/>
+
+</RelativeLayout>

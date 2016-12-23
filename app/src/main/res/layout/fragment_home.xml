@@ -4,38 +4,34 @@
     android:layout_height="match_parent"
     tools:context=".home.Home">
 
-    <!-- TODO: Update blank fragment layout -->
-<RelativeLayout
-    android:id="@+id/title_top"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:background="@color/main_style"
-   >
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="@color/white"
-    android:layout_centerVertical="true"
-    android:layout_marginLeft="15dp"
-    android:textSize="16sp"
-    android:text="南京"/>
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="@color/white"
-    android:textSize="20sp"
-    android:layout_centerInParent="true"
-    android:text="天保学车"/>
-</RelativeLayout>
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/title_top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/main_style"
+        >
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_centerInParent="true"
+            android:text="天保学车"/>
+    </RelativeLayout>
 
     <ListView
+        android:layout_below="@+id/title_top"
         android:id="@+id/message_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="5dp"
         android:divider="#f4f4f4"
-        android:layout_below="@+id/title_top">
+       >
     </ListView>
+    <!-- TODO: Update blank fragment layout -->
 
 
 </RelativeLayout>
