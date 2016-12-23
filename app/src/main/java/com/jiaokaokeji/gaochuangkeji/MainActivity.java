@@ -53,13 +53,29 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }
-
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);
-
         // 自定义颜色
         tintManager.setTintColor(Color.parseColor("#4EAFAB"));
+
+
+        home = new Home();
+        book = new Book();
+        my = new My();
+        myClass = new MyClass();
+        fragments = new Fragment[]{home, myClass, book, my};
+
+        //设置按钮的数组
+        tabs = new RadioButton[4];
+        tabs[0] = (RadioButton) findViewById(R.id.rb_rb1);//主页的button
+        tabs[1] = (RadioButton) findViewById(R.id.rb_rb2);//课程的button
+        tabs[2] = (RadioButton) findViewById(R.id.rb_rb3);//题库的button
+        tabs[3] = (RadioButton) findViewById(R.id.rb_rb4);//个人的button
+        //界面初始显示第一个fragment;添加第一个fragment
+        getSupportFragmentManager().beginTransaction().add(R.id.f1_content, fragments[0]).commit();
+        //初始时，按钮1选中
+        tabs[0].setChecked(true);
     }
 
     @TargetApi(19)
@@ -76,22 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    home = new Home();
-        book = new Book();
-        my = new My();
-        myClass = new MyClass();
-        fragments = new Fragment[]{home, myClass, book, my};
 
-        //设置按钮的数组
-        tabs = new RadioButton[4];
-        tabs[0] = (RadioButton) findViewById(R.id.rb_rb1);//主页的button
-        tabs[1] = (RadioButton) findViewById(R.id.rb_rb2);//课程的button
-        tabs[2] = (RadioButton) findViewById(R.id.rb_rb3);//题库的button
-        tabs[3] = (RadioButton) findViewById(R.id.rb_rb4);//个人的button
-        //界面初始显示第一个fragment;添加第一个fragment
-        getSupportFragmentManager().beginTransaction().add(R.id.f1_content, fragments[0]).commit();
-        //初始时，按钮1选中
-        tabs[0].setChecked(true);
     }
 
     public void addshow(int newIndex) {
