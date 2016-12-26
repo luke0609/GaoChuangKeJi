@@ -2,15 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
+
         android:id="@+id/three_ll"
         android:layout_width="match_parent"
         android:layout_below="@+id/struct"
         android:layout_height="75dp"
+        android:background="#f0f0f0"
         android:orientation="horizontal"
         >
         <RelativeLayout
+
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -29,6 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textSize="12sp"
                 android:layout_centerHorizontal="true"
                 android:text="预约报名"/>
         </RelativeLayout>
@@ -52,6 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textSize="12sp"
                 android:layout_centerHorizontal="true"
                 android:text="学车流程"/>
         </RelativeLayout>
@@ -74,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textSize="12sp"
                 android:layout_centerHorizontal="true"
                 android:text="常见问题"/>
         </RelativeLayout>
@@ -82,7 +90,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginTop="5dp"
+
         android:layout_below="@+id/three_ll"
         android:background="#dbdbdb"/>
 
