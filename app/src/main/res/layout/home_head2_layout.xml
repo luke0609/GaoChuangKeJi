@@ -23,7 +23,7 @@
                 android:src="@drawable/apply"
                 android:layout_centerHorizontal="true"
                 app:cb_color="#FAAF13"
-                app:cb_pressedRingWidth="5dip" />
+                app:cb_pressedRingWidth="2dip" />
             <TextView
                 android:layout_below="@+id/btn_1"
                 android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
                 android:src="@drawable/process"
                 android:layout_centerHorizontal="true"
                 app:cb_color="#E3170D"
-                app:cb_pressedRingWidth="4dip" />
+                app:cb_pressedRingWidth="2dip" />
             <TextView
                 android:layout_below="@+id/btn_2"
                 android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/problem"
                 app:cb_color="#03A89E"
-                app:cb_pressedRingWidth="4dip" />
+                app:cb_pressedRingWidth="2dip" />
             <TextView
                 android:layout_below="@+id/btn_3"
                 android:layout_width="wrap_content"

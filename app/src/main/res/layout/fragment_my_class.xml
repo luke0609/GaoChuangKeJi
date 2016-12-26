@@ -3,10 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.jiaokaokeji.gaochuangkeji.myclass.MyClass">
-    <Button
-        android:id="@+id/saoma"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="扫码签到"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@color/main_style">
+
+        <TextView
+            android:id="@+id/bar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的课程"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:layout_centerInParent="true"/>
+        <ImageView
+            android:id="@+id/saoma"
+            android:src="@drawable/smile"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:onClick="onClick"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+           />
+    </RelativeLayout>
+
 
 </FrameLayout>

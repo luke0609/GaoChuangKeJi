@@ -110,9 +110,9 @@ public class Home extends Fragment implements View.OnClickListener {
         List<Student> stuList=new ArrayList<>();
         for(int i=0;i<10;i++){
             Student stu=new Student();
-            stu.setAge(10+i);
-            stu.setName("name"+i);
-            stu.setPhoto(R.mipmap.ic_launcher);
+            stu.setAge("南京天保驾校始建于1990年，有着二十多年的办学历史和经验，是全市一流的汽车、摩托车驾驶员培训专业学校，年培训规模达2万余人。");
+            stu.setName("驾校简介");
+            stu.setPhoto(R.drawable.car2);
             stuList.add(stu);
 
 

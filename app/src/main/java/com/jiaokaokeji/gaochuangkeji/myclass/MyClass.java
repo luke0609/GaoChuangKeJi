@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
@@ -18,7 +19,7 @@ import butterknife.OnClick;
 public class MyClass extends Fragment {
     View view1;
     @InjectView(R.id.saoma)
-    Button saoma;
+    ImageView saoma;
     private static final int RESULT_OK = 123;
     private static final int  SCANNIN_GREQUEST_CODE = 13;
 
