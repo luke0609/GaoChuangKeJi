@@ -66,7 +66,6 @@ public class Home extends Fragment implements View.OnClickListener {
 
         initData();
         initView();
-
         initEvent();
 
         return  view;

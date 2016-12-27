@@ -29,7 +29,6 @@
                 android:text="驾校资讯"
                 android:textSize="18dp"
                 android:gravity="center"
-
                 android:layout_marginBottom="3dp"
                 />
 
