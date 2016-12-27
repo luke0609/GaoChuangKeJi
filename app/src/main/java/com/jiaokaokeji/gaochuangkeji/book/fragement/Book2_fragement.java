@@ -42,6 +42,7 @@ public class Book2_fragement extends Fragment {
         MyGrigview gridView = (MyGrigview) view1.findViewById(R.id.staggeredGridView1);
         v1 = ((View) view1.findViewById(R.id.v1));
         myScollview = ((MyScollview) view1.findViewById(R.id.myScollview));
+        myScollview.fullScroll(MyScollview.FOCUS_UP);
         myScollview.setOnScrollListener(new MyScollview.OnScrollListener() {
             @Override
             public void onScroll(int scrollY) {

@@ -1,6 +1,9 @@
 package com.jiaokaokeji.gaochuangkeji.my.Activity;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.jiaokaokeji.gaochuangkeji.my.prjo.WheelView;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,6 +54,16 @@ public class PersonalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
         ButterKnife.inject(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+        }
+
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setNavigationBarTintEnabled(true);
+
+        // 自定义颜色
+        tintManager.setTintColor(Color.parseColor("#4EAFAB"));
 
     }
 
@@ -242,5 +256,18 @@ public class PersonalActivity extends AppCompatActivity {
             return number.matches(num);
         }
     }
+    @TargetApi(19)
+    private void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
+    }
 
-}
+
+    }

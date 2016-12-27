@@ -13,13 +13,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.jiaokaokeji.gaochuangkeji.book.fragement.Book1_fragement;
 import com.jiaokaokeji.gaochuangkeji.book.fragement.Book2_fragement;
 import com.jiaokaokeji.gaochuangkeji.book.fragement.Book3_fragement;
 import com.jiaokaokeji.gaochuangkeji.book.fragement.Book4_fragement;
+import com.jiaokaokeji.gaochuangkeji.book.prjo.MyAnimations;
+import com.jiaokaokeji.gaochuangkeji.book.prjo.PullScrollView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
@@ -40,6 +44,12 @@ public class Book extends Fragment {
     List<Fragment> list = new ArrayList<Fragment>();
     private IndicatorViewPager indicatorViewPager;
     private ImageView iv;
+    private PullScrollView pullsc;
+    int width;
+    private boolean isShowing;
+    private RelativeLayout buttons_wrapper_layout;
+    private ImageView buttons_show_hide_button;
+    private RelativeLayout buttons_show_hide_button_layout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,13 +58,39 @@ public class Book extends Fragment {
         iv = ((ImageView) view1.findViewById(R.id.iv));
         tab = ((ScrollIndicatorView) view1.findViewById(R.id.moretab_indicator));
         viewpage = ((ViewPager) view1.findViewById(R.id.moretab_viewPager));
-
+        pullsc = ((PullScrollView) view1.findViewById(R.id.scroll_view));
         Display display = getActivity().getWindowManager().getDefaultDisplay();
-        int width = display.getWidth();
+        width = display.getWidth();
+
         ViewGroup.LayoutParams lp = iv.getLayoutParams();
         lp.width = width;
-        lp.height =width/3;
+        lp.height = width / 3;
         iv.setLayoutParams(lp);
+        buttons_wrapper_layout = (RelativeLayout) view1.findViewById(R.id.buttons_wrapper_layout);
+        buttons_show_hide_button_layout = (RelativeLayout) view1.findViewById(R.id.buttons_show_hide_button_layout);
+        buttons_show_hide_button = (ImageView) view1.findViewById(R.id.buttons_show_hide_button);
+        for (int i = 0; i < buttons_wrapper_layout.getChildCount(); i++) {
+            buttons_wrapper_layout.getChildAt(i).setOnClickListener(new OnClickImageButton());
+        }
+        buttons_show_hide_button_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isShowing) {
+                    MyAnimations.startAnimationsIn(buttons_wrapper_layout, 300);
+                    buttons_show_hide_button
+                            .startAnimation(MyAnimations.getRotateAnimation(0,
+                                    -270, 300));
+                } else {
+                    MyAnimations
+                            .startAnimationsOut(buttons_wrapper_layout, 300);
+                    buttons_show_hide_button
+                            .startAnimation(MyAnimations.getRotateAnimation(
+                                    -270, 0, 300));
+                }
+                isShowing = !isShowing;
+            }
+
+        });
 
         tab.setScrollBar(new DrawableBar(getActivity(), R.drawable.round_border_green_selector, ScrollBar.Gravity.CENTENT_BACKGROUND) {
             @Override
@@ -67,9 +103,9 @@ public class Book extends Fragment {
                 return tabWidth - dipToPix(12);
             }
         });
-        unSelectTextColor =R.color.commo_text_color;
+        unSelectTextColor = R.color.commo_text_color;
         tab.setOnTransitionListener(new OnTransitionTextListener().setColor(Color.parseColor("#4EAFAB"), unSelectTextColor));
-        tab.setScrollBar(new ColorBar(getActivity(),Color.parseColor("#4EAFAB"),4));
+        tab.setScrollBar(new ColorBar(getActivity(), Color.parseColor("#4EAFAB"), 4));
         viewpage.setOffscreenPageLimit(4);
         indicatorViewPager = new IndicatorViewPager(tab, viewpage);
         inflate = LayoutInflater.from(getActivity());
@@ -121,6 +157,21 @@ public class Book extends Fragment {
             //这是ViewPager适配器的特点,有两个值 POSITION_NONE，POSITION_UNCHANGED，默认就是POSITION_UNCHANGED,
             // 表示数据没变化不用更新.notifyDataChange的时候重新调用getViewForPage
             return PagerAdapter.POSITION_NONE;
+        }
+    }
+
+    public class OnClickImageButton implements View.OnClickListener {
+
+        @Override
+        public void onClick(View arg0) {
+            switch (arg0.getId()) {
+                case R.id.button_photo:
+                    Toast.makeText(getActivity(), "photo", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.button_people:
+                    Toast.makeText(getActivity(), "people", Toast.LENGTH_SHORT).show();
+                    break;
+            }
         }
     }
 }

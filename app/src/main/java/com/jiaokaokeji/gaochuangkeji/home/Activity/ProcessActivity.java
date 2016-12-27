@@ -37,8 +37,6 @@ public class ProcessActivity extends AppCompatActivity {
         String url = "file:///android_asset/ww.html";
         //    webview.setInitialScale(200);
         webview.loadUrl(url);
-
-
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -4,11 +4,13 @@
     android:id="@+id/activity_curve"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
     tools:context="com.jiaokaokeji.gaochuangkeji.book.Activity.CurveActivity">
     <RelativeLayout
         android:id="@+id/title_top"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:background="@color/main_style"
         >
         <ImageView
@@ -26,6 +28,6 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:layout_centerInParent="true"
-            android:text="章节练习"/>
+            android:text="曲线行驶"/>
     </RelativeLayout>
 </RelativeLayout>

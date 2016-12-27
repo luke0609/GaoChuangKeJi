@@ -15,8 +15,7 @@
                 
         <item>贵宾A</item>
                 
-        <item>贵宾B</item>
-               
-            
+        <item>贵宾B</item>  
     </string-array>
+    <string name="jiazhaoleixing">请选择驾照类型</string>
 </resources>

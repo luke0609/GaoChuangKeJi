@@ -24,8 +24,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class Book1_fragement extends Fragment {
-    View view1;
-    int i = 1;
+    private View view1;
     ImageView mHeadImg;
     @InjectView(R.id.rb_rb4)
     RadioButton rbRb4;
@@ -43,7 +42,6 @@ public class Book1_fragement extends Fragment {
     RelativeLayout rl;
     @InjectView(R.id.scroll_view)
     ScrollView scrollView;
-    private ScrollView scollview;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

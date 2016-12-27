@@ -39,6 +39,56 @@
         >
     </android.support.v4.view.ViewPager>
     </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/buttons_wrapper_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:clipChildren="false"
+            android:clipToPadding="false" >
+            <TextView
+                android:id="@+id/button_photo"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="70dp"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="#fff"
+                android:text="C1/C2/C3"
+                android:background="@drawable/cricle"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/button_people"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="70dp"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="#fff"
+                android:text="A2/B2"
+                android:background="@drawable/cricle"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/buttons_show_hide_button_layout"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/cricle" >
+            <ImageView
+                android:id="@+id/buttons_show_hide_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/cricle"/>
+        </RelativeLayout>
     </RelativeLayout>
     </com.jiaokaokeji.gaochuangkeji.book.prjo.PullScrollView>
 </FrameLayout>
