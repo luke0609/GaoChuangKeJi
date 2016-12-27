@@ -6,7 +6,7 @@ package com.jiaokaokeji.gaochuangkeji.home.pojo;
 
 public class Student {
         private String name;
-        private int age;
+        private String age;
         private int photo;
 
         public String getName() {
@@ -17,11 +17,11 @@ public class Student {
             this.name = name;
         }
 
-        public int getAge() {
+        public String getAge() {
             return age;
         }
 
-        public void setAge(int age) {
+        public void setAge(String age) {
             this.age = age;
         }
 

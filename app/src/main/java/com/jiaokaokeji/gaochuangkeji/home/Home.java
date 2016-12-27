@@ -17,10 +17,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jiaokaokeji.gaochuangkeji.R;
+import com.jiaokaokeji.gaochuangkeji.application.ListViewForScrollView;
+import com.jiaokaokeji.gaochuangkeji.application.ObservableScrollView;
 import com.jiaokaokeji.gaochuangkeji.home.Activity.ApplyActivity;
 import com.jiaokaokeji.gaochuangkeji.home.Activity.ProblemActivity;
 import com.jiaokaokeji.gaochuangkeji.home.Activity.ProcessActivity;
@@ -39,84 +42,120 @@ import at.markushi.ui.CircleButton;
 import static android.R.attr.y;
 import static android.R.drawable.title_bar;
 import static android.R.id.list;
+import static com.jiaokaokeji.gaochuangkeji.R.attr.header;
+import static com.jiaokaokeji.gaochuangkeji.R.id.image_photo;
 import static com.jiaokaokeji.gaochuangkeji.R.id.title_tv;
+import static com.jiaokaokeji.gaochuangkeji.R.id.v;
 
 public class Home extends Fragment implements View.OnClickListener {
     View view;
     private List images;
-    private ListView lv;
+    private ListViewForScrollView lv;
     private MyAdapter adapter;
     CircleButton  btn1,btn2,btn3;
     private  List<String> titles;
     private RelativeLayout title_top;
+    private  List<Student> stuList;
+    private TextView title_tv;
+    private ObservableScrollView sv_main;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_home,container, false);
 
-
-        initView();
         initData();
+        initView();
         initEvent();
 
         return  view;
 
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private void initEvent() {
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
         btn3.setOnClickListener(this);
-        lv.setOnScrollListener(new AbsListView.OnScrollListener() {
 
+        sv_main.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-
-                if (firstVisibleItem >= 1) {
-                    title_top.setVisibility(View.VISIBLE);
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY <= 0) {
+                    title_tv.setTextColor(Color.argb((int) 0, 78, 175, 171));
+                    title_top.setBackgroundColor(Color.argb((int) 0, 78, 175, 171));//AGB由相关工具获得，或者美工提供
+                } else if (scrollY > 0 && scrollY <= 500) {
+                    float scale = (float) scrollY / 500;
+                    float alpha = (255 * scale);
+                    // 只是layout背景透明(仿知乎滑动效果)
+                    title_tv.setTextColor(Color.argb((int) alpha, 255, 255, 255));
+                    title_top.setBackgroundColor(Color.argb((int) alpha, 78, 175, 171));
                 } else {
-
-                    title_top.setVisibility(View.GONE);
+                    title_tv.setTextColor(Color.argb((int) 255, 255, 255, 255));
+                    title_top.setBackgroundColor(Color.argb((int) 255, 78, 175, 171));
                 }
+
             }
         });
+
+
 
     }
 
     private void initData() {
-
+         stuList=new ArrayList<>();
       // images = new int[]{R.drawable.gp1, R.drawable.gp2, R.drawable.gp3};
+        Student stu1=new Student();
+        stu1.setName("驾校简介");
+        stu1.setAge("南京天保驾校始建于1990年，有着二十多年的办学历史和经验，是全市一流的汽车、摩托车驾驶员培训专业学校，年培训规模达2万余人。");
+        stu1.setPhoto(R.drawable.l1);
+        stuList.add(stu1);
+
+        Student stu2=new Student();
+        stu2.setName("教学特色");
+        stu2.setAge("南京天保驾校始建于1990年，有着二十多年的办学历史和经验，是全市一流的汽车、摩托车驾驶员培训专业学校，年培训规模达2万余人。");
+        stu2.setPhoto(R.drawable.l2);
+        stuList.add(stu2);
+
+        Student stu3=new Student();
+        stu3.setName("驾考大纲");
+        stu3.setAge("南京天保驾校始建于1990年，有着二十多年的办学历史和经验，是全市一流的汽车、摩托车驾驶员培训专业学校，年培训规模达2万余人。");
+        stu3.setPhoto(R.drawable.l3);
+        stuList.add(stu3);
+
+        Student stu4=new Student();
+        stu4.setName("驾校简介");
+        stu4.setAge("南京天保驾校始建于1990年，有着二十多年的办学历史和经验，是全市一流的汽车、摩托车驾驶员培训专业学校，年培训规模达2万余人。");
+        stu4.setPhoto(R.drawable.l4);
+        stuList.add(stu4);
+
+        Student stu5=new Student();
+        stu5.setName("驾校简介");
+        stu5.setAge("南京天保驾校始建于1990年，有着二十多年的办学历史和经验，是全市一流的汽车、摩托车驾驶员培训专业学校，年培训规模达2万余人。");
+        stu5.setPhoto(R.drawable.l5);
+        stuList.add(stu5);
+
+        Student stu6=new Student();
+        stu6.setName("驾校简介");
+        stu6.setAge("南京天保驾校始建于1990年，有着二十多年的办学历史和经验，是全市一流的汽车、摩托车驾驶员培训专业学校，年培训规模达2万余人。");
+        stu6.setPhoto(R.drawable.l6);
+        stuList.add(stu6);
+
+
 
 
     }
 
     private void initView() {
-        lv = ((ListView) view.findViewById(R.id.message_lv));
-        View header = View.inflate(getContext(), R.layout.home_head_layout, null);//头部内容
-        View header2 = View.inflate(getContext(), R.layout.home_head2_layout, null);
-        lv.addHeaderView(header);//添加头部
-        lv.addHeaderView(header2);
+        lv = ((ListViewForScrollView) view.findViewById(R.id.message_lv));
+        sv_main = ((ObservableScrollView) view.findViewById(R.id.sv_main));
+
         title_top = ((RelativeLayout) view.findViewById(R.id.title_top));
-        btn1 = ((CircleButton) header2.findViewById(R.id.btn_1));
-        btn2 = ((CircleButton) header2.findViewById(R.id.btn_2));
-        btn3 = ((CircleButton) header2.findViewById(R.id.btn_3));
-        List<Student> stuList=new ArrayList<>();
-        for(int i=0;i<10;i++){
-            Student stu=new Student();
-            stu.setAge(10+i);
-            stu.setName("name"+i);
-            stu.setPhoto(R.mipmap.ic_launcher);
-            stuList.add(stu);
+        title_tv = ((TextView) view.findViewById(R.id.title_tv));
+        btn1 = ((CircleButton) view.findViewById(R.id.button_bar).findViewById(R.id.btn_1));
+        btn2 = ((CircleButton) view.findViewById(R.id.button_bar).findViewById(R.id.btn_2));
+        btn3 = ((CircleButton) view.findViewById(R.id.button_bar).findViewById(R.id.btn_3));
 
-
-        }
 
         adapter=new MyAdapter(stuList,getContext());
         lv.setAdapter(adapter);
@@ -129,7 +168,7 @@ public class Home extends Fragment implements View.OnClickListener {
       //  images.add("http://pic.58pic.com/58pic/16/13/75/70658PICpiZ_1024.jpg");
 
 
-        Banner banner = (Banner) header.findViewById(R.id.banner);
+        Banner banner =(Banner) view.findViewById(R.id.banner).findViewById(R.id.banner2);
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
@@ -142,7 +181,7 @@ public class Home extends Fragment implements View.OnClickListener {
         //设置自动轮播，默认为true
         banner.isAutoPlay(true);
         //设置轮播时间
-        banner.setDelayTime(2500);
+        banner.setDelayTime(3000);
         //设置指示器位置（当banner模式中有指示器时）
         banner.setIndicatorGravity(BannerConfig.CENTER);
         //banner设置方法全部调用完毕时最后调用
@@ -218,7 +257,7 @@ public class Home extends Fragment implements View.OnClickListener {
             ImageView image_photo = (ImageView) view.findViewById(R.id.image_photo);
             TextView tv_name = (TextView) view.findViewById(R.id.name);
             TextView tv_age = (TextView) view.findViewById(R.id.age);
-            image_photo.setImageResource(student.getPhoto());
+             image_photo.setImageResource(student.getPhoto());
             tv_name.setText(student.getName());
             tv_age.setText(String.valueOf(student.getAge()));
             return view;
@@ -226,33 +265,10 @@ public class Home extends Fragment implements View.OnClickListener {
     }
 
 
-//    public void titleAnima(int y) {
-//        int scrollHeight = lv.getChildAt(0).getHeight()
-//                - lv.getHeight();
-//        float scrollPercent = (float) y / scrollHeight;
-//        System.out.println(scrollPercent+"==123");
-//        title_bar.getBackground().setAlpha((int) (255 * scrollPercent));
-//
-//        int color = title_tv.getTextColors().getDefaultColor();
-//        int r = Color.red(color);
-//        int g = Color.green(color);
-//        int b = Color.blue(color);
-//        int changeToColor = Color.argb((int) (255 * scrollPercent), r, g, b);
-//
-//        title_tv.setTextColor(changeToColor);
-//
-//
-//
-//
-//    }
 
-//    public int getScrollY() {
-//        View c = lv.getChildAt(1);
-//        if (c == null) {
-//            return 0;
-//        }
-//        int firstVisiblePosition = lv.getFirstVisiblePosition();
-//        int top = c.getTop();
-//        return -top + firstVisiblePosition * c.getHeight() ;
-//    }
+
+
+
+
+
 }

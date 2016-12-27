@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f4f4f4"
+    android:fitsSystemWindows="true"
+    android:clipToPadding="false"
     tools:context="com.jiaokaokeji.gaochuangkeji.home.Activity.ProblemActivity">
     <RelativeLayout
         android:id="@+id/rl_top"

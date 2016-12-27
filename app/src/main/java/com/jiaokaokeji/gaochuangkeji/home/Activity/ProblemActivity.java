@@ -1,14 +1,20 @@
 package com.jiaokaokeji.gaochuangkeji.home.Activity;
 
+import android.annotation.TargetApi;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.jiaokaokeji.gaochuangkeji.home.Activity.Adapter.ListViewAdapter;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +34,16 @@ public class ProblemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_problem);
         initData();
         initview();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+        }
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setNavigationBarTintEnabled(true);
+        // 自定义颜色
+        tintManager.setTintColor(Color.parseColor("#4EAFAB"));
+
     }
      private void initData() {
          Map<String, Object> map = new HashMap<String, Object>();
@@ -84,5 +100,21 @@ public class ProblemActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    @TargetApi(19)
+    private void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
+
+
+
+
     }
 }
