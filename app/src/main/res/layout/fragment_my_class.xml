@@ -1,7 +1,8 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.jiaokaokeji.gaochuangkeji.myclass.MyClass">
 
     <RelativeLayout
@@ -30,6 +31,81 @@
             android:layout_marginRight="5dp"
            />
     </RelativeLayout>
+    <cn.sdaduanbilei.library.DashboardView
+        android:id="@+id/dash_board"
+        android:layout_below="@+id/rl_top"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        app:dashTitle="Process"
+        app:dashTitleSize="24sp"
+        app:dashProMax="100"
+        app:dashProgress="80"
+        app:dashProColor="@color/main_style"
+        app:dashColor="@color/text_style"
+        app:dashProWidth="12dp"
+        android:layout_marginLeft="20dp"
+        app:dashWidth="6dp"
+        app:dashIcon="@drawable/bash_car"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:id="@+id/tv_now"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/dash_board"
+        android:layout_toRightOf="@+id/dash_board"
+        android:layout_marginLeft="10dp"
+        android:text="当前进度"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/dash_board"
+        android:text="80%"
+        android:textColor="@color/main_style"
+        android:textSize="50sp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/tv_now"/>
+    <LinearLayout
+        android:id="@+id/line2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/dash_board"
+        android:layout_toRightOf="@+id/dash_board"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="30dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/main_style"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="已完成进度"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/line2"
+        android:layout_toRightOf="@+id/dash_board"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="30dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/text_style"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="已完成进度"/>
+    </LinearLayout>
 
-</FrameLayout>
+</RelativeLayout>
