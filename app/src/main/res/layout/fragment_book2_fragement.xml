@@ -34,15 +34,17 @@
                     android:id="@+id/btn_1"
                     android:layout_width="64dip"
                     android:layout_height="64dip"
-                    android:src="@drawable/apply"
+                    android:src="@drawable/rule"
                     android:layout_centerHorizontal="true"
-                    app:cb_color="#FAAF13"
+                    app:cb_color="#1296db"
+                    android:scaleType="fitXY"
                     app:cb_pressedRingWidth="4dip" />
                 <TextView
                     android:layout_below="@+id/btn_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textColor="#999999"
                     android:layout_centerHorizontal="true"
                     android:text="科二规则"/>
             </RelativeLayout>
@@ -55,15 +57,17 @@
                     android:id="@+id/btn_2"
                     android:layout_width="64dip"
                     android:layout_height="64dip"
-                    android:src="@drawable/apply"
+                    android:src="@drawable/ruku"
                     android:layout_centerHorizontal="true"
-                    app:cb_color="#FAAF13"
+                    app:cb_color="#7d4ce4"
+                    android:scaleType="center"
                     app:cb_pressedRingWidth="4dip" />
                 <TextView
                     android:layout_below="@+id/btn_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textColor="#999999"
                     android:layout_centerHorizontal="true"
                     android:text="倒车入库"/>
             </RelativeLayout>
@@ -76,15 +80,17 @@
                     android:id="@+id/btn_3"
                     android:layout_width="64dip"
                     android:layout_height="64dip"
-                    android:src="@drawable/apply"
+                    android:src="@drawable/qibu"
                     android:layout_centerHorizontal="true"
-                    app:cb_color="#FAAF13"
+                    app:cb_color="#09b9f4"
+                    android:scaleType="fitXY"
                     app:cb_pressedRingWidth="4dip" />
                 <TextView
                     android:layout_below="@+id/btn_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textColor="#999999"
                     android:layout_centerHorizontal="true"
                     android:text="上坡起步"/>
             </RelativeLayout>
@@ -103,7 +109,7 @@
                     android:id="@+id/btn_4"
                     android:layout_width="64dip"
                     android:layout_height="64dip"
-                    android:src="@drawable/apply"
+                    android:src="@drawable/park"
                     android:layout_centerHorizontal="true"
                     app:cb_color="#FAAF13"
                     app:cb_pressedRingWidth="4dip" />
@@ -112,6 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textColor="#999999"
                     android:layout_centerHorizontal="true"
                     android:text="侧方停车"/>
             </RelativeLayout>
@@ -124,15 +131,16 @@
                     android:id="@+id/btn_5"
                     android:layout_width="64dip"
                     android:layout_height="64dip"
-                    android:src="@drawable/apply"
+                    android:src="@drawable/quxian"
                     android:layout_centerHorizontal="true"
-                    app:cb_color="#FAAF13"
+                    app:cb_color="#fe970e"
                     app:cb_pressedRingWidth="4dip" />
                 <TextView
                     android:layout_below="@+id/btn_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textColor="#999999"
                     android:layout_centerHorizontal="true"
                     android:text="曲线行驶"/>
             </RelativeLayout>
@@ -145,15 +153,16 @@
                     android:id="@+id/btn_6"
                     android:layout_width="64dip"
                     android:layout_height="64dip"
-                    android:src="@drawable/apply"
+                    android:src="@drawable/zhuanwan"
                     android:layout_centerHorizontal="true"
-                    app:cb_color="#FAAF13"
+                    app:cb_color="#f4827e"
                     app:cb_pressedRingWidth="4dip" />
                 <TextView
                     android:layout_below="@+id/btn_6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textColor="#999999"
                     android:layout_centerHorizontal="true"
                     android:text="直角转弯"/>
             </RelativeLayout>

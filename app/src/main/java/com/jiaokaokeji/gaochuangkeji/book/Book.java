@@ -2,7 +2,6 @@ package com.jiaokaokeji.gaochuangkeji.book;
 
 import android.graphics.Color;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
@@ -34,8 +33,17 @@ import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class Book extends Fragment {
     View view1;
+    @InjectView(R.id.button_photo)
+    TextView buttonPhoto;
+    @InjectView(R.id.button_photo1)
+    TextView buttonPhoto1;
+    @InjectView(R.id.button_people)
+    TextView buttonPeople;
     private int unSelectTextColor;
     private ScrollIndicatorView tab;
     private ViewPager viewpage;
@@ -48,7 +56,7 @@ public class Book extends Fragment {
     int width;
     private boolean isShowing;
     private RelativeLayout buttons_wrapper_layout;
-    private ImageView buttons_show_hide_button;
+    private TextView buttons_show_hide_button;
     private RelativeLayout buttons_show_hide_button_layout;
 
     @Override
@@ -68,26 +76,14 @@ public class Book extends Fragment {
         iv.setLayoutParams(lp);
         buttons_wrapper_layout = (RelativeLayout) view1.findViewById(R.id.buttons_wrapper_layout);
         buttons_show_hide_button_layout = (RelativeLayout) view1.findViewById(R.id.buttons_show_hide_button_layout);
-        buttons_show_hide_button = (ImageView) view1.findViewById(R.id.buttons_show_hide_button);
+        buttons_show_hide_button = (TextView) view1.findViewById(R.id.buttons_show_hide_button);
         for (int i = 0; i < buttons_wrapper_layout.getChildCount(); i++) {
             buttons_wrapper_layout.getChildAt(i).setOnClickListener(new OnClickImageButton());
         }
         buttons_show_hide_button_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isShowing) {
-                    MyAnimations.startAnimationsIn(buttons_wrapper_layout, 300);
-                    buttons_show_hide_button
-                            .startAnimation(MyAnimations.getRotateAnimation(0,
-                                    -270, 300));
-                } else {
-                    MyAnimations
-                            .startAnimationsOut(buttons_wrapper_layout, 300);
-                    buttons_show_hide_button
-                            .startAnimation(MyAnimations.getRotateAnimation(
-                                    -270, 0, 300));
-                }
-                isShowing = !isShowing;
+                Animations();
             }
 
         });
@@ -116,12 +112,19 @@ public class Book extends Fragment {
         list.add(new Book2_fragement());
         list.add(new Book3_fragement());
         list.add(new Book4_fragement());
+        ButterKnife.inject(this, view1);
         return view1;
     }
 
     private int dipToPix(float dip) {
         int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, getResources().getDisplayMetrics());
         return size;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
     }
 
     private class MyAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
@@ -166,12 +169,34 @@ public class Book extends Fragment {
         public void onClick(View arg0) {
             switch (arg0.getId()) {
                 case R.id.button_photo:
-                    Toast.makeText(getActivity(), "photo", Toast.LENGTH_SHORT).show();
+                    buttons_show_hide_button.setText(buttonPhoto.getText());
+                    Animations();
                     break;
                 case R.id.button_people:
-                    Toast.makeText(getActivity(), "people", Toast.LENGTH_SHORT).show();
+                    buttons_show_hide_button.setText(buttonPeople.getText());
+                    Animations();
+                    break;
+                case R.id.button_photo1:
+                    buttons_show_hide_button.setText(buttonPhoto1.getText());
+                    Animations();
                     break;
             }
         }
+    }
+    public void Animations(){
+        if (!isShowing) {
+            MyAnimations.startAnimationsIn(buttons_wrapper_layout, 300);
+            buttons_show_hide_button
+                    .startAnimation(MyAnimations.getRotateAnimation(0,
+                            -270, 300));
+        } else {
+            MyAnimations
+                    .startAnimationsOut(buttons_wrapper_layout, 300);
+            buttons_show_hide_button
+                    .startAnimation(MyAnimations.getRotateAnimation(
+                            -270, 0, 300));
+        }
+        isShowing = !isShowing;
+
     }
 }

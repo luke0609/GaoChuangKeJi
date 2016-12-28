@@ -40,32 +40,28 @@ public class Book4_fragement extends Fragment {
         ButterKnife.reset(this);
     }
 
-    @OnClick({R.id.btn_1, R.id.btn_2, R.id.btn_3, R.id.btn_4, R.id.btn_5, R.id.btn_6})
+    @OnClick({R.id.btn_1, R.id.btn_2, R.id.btn_3, R.id.btn_4, R.id.btn_8})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_1:
-                Intent intent=new Intent(getActivity(),OrderActivity.class);
+                Intent intent=new Intent(getActivity(),RadomActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_2:
-                Intent intent1=new Intent(getActivity(),RadomActivity.class);
+                Intent intent1=new Intent(getActivity(),ChapterActivity.class);
                 startActivity(intent1);
                 break;
             case R.id.btn_3:
-                Intent intent2=new Intent(getActivity(),ChapterActivity.class);
+                Intent intent2=new Intent(getActivity(),OrderActivity.class);
                 startActivity(intent2);
                 break;
             case R.id.btn_4:
-                Intent intent3=new Intent(getActivity(),SimulationActivity.class);
+                Intent intent3=new Intent(getActivity(),MymistakesActivity.class);
                 startActivity(intent3);
                 break;
-            case R.id.btn_5:
-                Intent intent4=new Intent(getActivity(),MymistakesActivity.class);
+            case R.id.btn_8:
+                Intent intent4=new Intent(getActivity(),SimulationActivity.class);
                 startActivity(intent4);
-                break;
-            case R.id.btn_6:
-                Intent intent5=new Intent(getActivity(),SkinActivity.class);
-                startActivity(intent5);
                 break;
         }
     }

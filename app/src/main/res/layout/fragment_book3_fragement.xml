@@ -22,15 +22,16 @@
                         android:id="@+id/btn_1"
                         android:layout_width="64dip"
                         android:layout_height="64dip"
-                        android:src="@drawable/apply"
+                        android:src="@drawable/rule"
                         android:layout_centerHorizontal="true"
-                        app:cb_color="#FAAF13"
+                        app:cb_color="#1296db"
                         app:cb_pressedRingWidth="4dip" />
                     <TextView
                         android:layout_below="@+id/btn_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textColor="#999999"
                         android:layout_centerHorizontal="true"
                         android:text="科三规则"/>
                 </RelativeLayout>
@@ -43,15 +44,16 @@
                         android:id="@+id/btn_2"
                         android:layout_width="64dip"
                         android:layout_height="64dip"
-                        android:src="@drawable/apply"
+                        android:src="@drawable/project"
                         android:layout_centerHorizontal="true"
-                        app:cb_color="#FAAF13"
+                        app:cb_color="#7d4ce4"
                         app:cb_pressedRingWidth="4dip" />
                     <TextView
                         android:layout_below="@+id/btn_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textColor="#999999"
                         android:layout_centerHorizontal="true"
                         android:text="考试项目"/>
                 </RelativeLayout>
@@ -64,15 +66,16 @@
                         android:id="@+id/btn_3"
                         android:layout_width="64dip"
                         android:layout_height="64dip"
-                        android:src="@drawable/apply"
+                        android:src="@drawable/ye"
                         android:layout_centerHorizontal="true"
-                        app:cb_color="#FAAF13"
+                        app:cb_color="#09b9f4"
                         app:cb_pressedRingWidth="4dip" />
                     <TextView
                         android:layout_below="@+id/btn_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textColor="#999999"
                         android:layout_centerHorizontal="true"
                         android:text="夜考规则"/>
                 </RelativeLayout>
@@ -90,7 +93,7 @@
                         android:id="@+id/btn_4"
                         android:layout_width="64dip"
                         android:layout_height="64dip"
-                        android:src="@drawable/apply"
+                        android:src="@drawable/light"
                         android:layout_centerHorizontal="true"
                         app:cb_color="#FAAF13"
                         app:cb_pressedRingWidth="4dip" />
@@ -99,6 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textColor="#999999"
                         android:layout_centerHorizontal="true"
                         android:text="夜考灯光"/>
                 </RelativeLayout>
@@ -111,15 +115,16 @@
                         android:id="@+id/btn_5"
                         android:layout_width="64dip"
                         android:layout_height="64dip"
-                        android:src="@drawable/apply"
+                        android:src="@drawable/voice"
                         android:layout_centerHorizontal="true"
-                        app:cb_color="#FAAF13"
+                        app:cb_color="#fe970e"
                         app:cb_pressedRingWidth="4dip" />
                     <TextView
                         android:layout_below="@+id/btn_5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textColor="#999999"
                         android:layout_centerHorizontal="true"
                         android:text="语音练习"/>
                 </RelativeLayout>
@@ -132,15 +137,16 @@
                         android:id="@+id/btn_6"
                         android:layout_width="64dip"
                         android:layout_height="64dip"
-                        android:src="@drawable/apply"
+                        android:src="@drawable/skill"
                         android:layout_centerHorizontal="true"
-                        app:cb_color="#FAAF13"
+                        app:cb_color="#f4827e"
                         app:cb_pressedRingWidth="4dip" />
                     <TextView
                         android:layout_below="@+id/btn_6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textColor="#999999"
                         android:layout_centerHorizontal="true"
                         android:text="科三技巧"/>
                 </RelativeLayout>

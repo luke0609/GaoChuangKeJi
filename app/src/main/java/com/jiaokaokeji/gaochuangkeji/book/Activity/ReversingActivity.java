@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 
@@ -32,12 +33,20 @@ public class ReversingActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }
-
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);
         // 自定义颜色
         tintManager.setTintColor(Color.parseColor("#4EAFAB"));
+
+        WebSettings wv_setttig = web.getSettings();
+        wv_setttig.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        wv_setttig.setJavaScriptEnabled(true);
+        web.setVerticalScrollBarEnabled(false);
+        wv_setttig.setTextSize(WebSettings.TextSize.NORMAL);
+        String url = "file:///android_asset/daocheruku.html";
+        //    webview.setInitialScale(200);
+        web.loadUrl(url);
     }
 
     @TargetApi(19)

@@ -53,12 +53,26 @@
                 android:layout_height="48dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="70dp"
+                android:layout_marginBottom="90dp"
                 android:gravity="center"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 android:textColor="#fff"
                 android:text="C1/C2/C3"
-                android:background="@drawable/cricle"
+                android:background="@drawable/circle"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/button_photo1"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="70dp"
+                android:layout_marginRight="70dp"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:textColor="#fff"
+                android:text="A1/A3/B1"
+                android:background="@drawable/circle"
                 android:visibility="gone" />
             <TextView
                 android:id="@+id/button_people"
@@ -66,28 +80,30 @@
                 android:layout_height="48dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="70dp"
+                android:layout_marginRight="90dp"
                 android:gravity="center"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 android:textColor="#fff"
                 android:text="A2/B2"
-                android:background="@drawable/cricle"
+                android:background="@drawable/circle"
                 android:visibility="gone" />
         </RelativeLayout>
-
         <RelativeLayout
             android:id="@+id/buttons_show_hide_button_layout"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:background="@drawable/cricle" >
-            <ImageView
+            android:background="@drawable/circle2" >
+            <TextView
                 android:id="@+id/buttons_show_hide_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
-                android:src="@drawable/cricle"/>
+                android:textSize="13sp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:src="@drawable/circle2"/>
         </RelativeLayout>
     </RelativeLayout>
     </com.jiaokaokeji.gaochuangkeji.book.prjo.PullScrollView>
