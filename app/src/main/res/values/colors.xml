@@ -14,6 +14,7 @@
     <color name="commo_text_color">#ff333333</color>
     <color name="line">#ffd3dde6</color>
     <color name="text_style">#313233</color>
-
+    <color name="qianhui">#a9b7b7</color>
+    <color name="chengse">#FF9900</color>
 <color name="main_style">#4EAFAB</color>
 </resources>

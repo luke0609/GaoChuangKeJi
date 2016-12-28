@@ -37,15 +37,16 @@
         android:layout_width="220dp"
         android:layout_height="220dp"
         app:dashTitle="Process"
-        app:dashTitleSize="24sp"
+        app:dashTitleSize="20sp"
+        app:dashTitlColor="@color/text_style"
         app:dashProMax="100"
         app:dashProgress="80"
-        app:dashProColor="@color/main_style"
+        app:dashProColor="@color/chengse"
         app:dashColor="@color/text_style"
         app:dashProWidth="12dp"
         android:layout_marginLeft="20dp"
-        app:dashWidth="6dp"
-        app:dashIcon="@drawable/bash_car"
+        app:dashWidth="3dp"
+        app:dashIcon="@drawable/rount_fangx"
         android:layout_marginTop="20dp"
         />
     <TextView
@@ -57,6 +58,7 @@
         android:layout_marginLeft="10dp"
         android:text="当前进度"/>
     <TextView
+        android:id="@+id/tv_percent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/dash_board"
@@ -65,6 +67,15 @@
         android:textSize="50sp"
         android:layout_marginLeft="10dp"
         android:layout_below="@+id/tv_now"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/dash_board"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="安全文明驾驶常识备考阶段，系统学习、预约考试、通过理论考试即可获取驾照"
+        android:layout_below="@+id/tv_percent"
+        />
     <LinearLayout
         android:id="@+id/line2"
         android:layout_width="wrap_content"
@@ -77,14 +88,14 @@
             android:layout_width="30dp"
             android:layout_height="4dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/main_style"
+            android:background="@color/chengse"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center"
-            android:text="已完成进度"/>
+            android:text="已完成"/>
     </LinearLayout>
 
     <LinearLayout
@@ -105,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center"
-            android:text="已完成进度"/>
+            android:text="未完成"/>
     </LinearLayout>
 
 </RelativeLayout>

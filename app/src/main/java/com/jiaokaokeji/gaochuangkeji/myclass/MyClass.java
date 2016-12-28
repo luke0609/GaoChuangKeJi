@@ -25,7 +25,7 @@ public class MyClass extends Fragment {
     private static final int RESULT_OK = 123;
     private static final int  SCANNIN_GREQUEST_CODE = 13;
     private DashboardView dash_borad;
-    private float progressNum=85;
+    private float progressNum=80;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,6 +39,7 @@ public class MyClass extends Fragment {
     private void initview() {
         dash_borad = ((DashboardView) view1.findViewById(R.id.dash_board));
         dash_borad.setDashStyle(DashBoard.RING);
+
     }
 
     @Override
