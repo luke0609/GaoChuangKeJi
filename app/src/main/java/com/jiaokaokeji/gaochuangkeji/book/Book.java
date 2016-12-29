@@ -83,6 +83,7 @@ public class Book extends Fragment {
         buttons_show_hide_button_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                buttons_wrapper_layout.setVisibility(View.VISIBLE);
                 Animations();
             }
 
@@ -171,14 +172,17 @@ public class Book extends Fragment {
                 case R.id.button_photo:
                     buttons_show_hide_button.setText(buttonPhoto.getText());
                     Animations();
+                    buttons_wrapper_layout.setVisibility(View.GONE);
                     break;
                 case R.id.button_people:
                     buttons_show_hide_button.setText(buttonPeople.getText());
                     Animations();
+                    buttons_wrapper_layout.setVisibility(View.GONE);
                     break;
                 case R.id.button_photo1:
                     buttons_show_hide_button.setText(buttonPhoto1.getText());
                     Animations();
+                    buttons_wrapper_layout.setVisibility(View.GONE);
                     break;
             }
         }
