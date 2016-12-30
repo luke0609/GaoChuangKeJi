@@ -74,9 +74,7 @@ public class MyClass extends Fragment {
 
         return view1;
     }
-    DisplayMetrics metrics = new DisplayMetrics();
-    final int sWidth = metrics.widthPixels;
-    final int sHeight = metrics.heightPixels;
+
 
     private void initview() {
         dash_borad = ((DashboardView) view1.findViewById(R.id.dash_board));
@@ -163,7 +161,10 @@ public class MyClass extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 popup.dismiss();
-                Toast.makeText(getContext(),position+ "", Toast.LENGTH_SHORT).show();
+               if(position==0){
+                   Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                   startActivity(intent);
+               }
             }
         });
     }
@@ -172,14 +173,17 @@ public class MyClass extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View root =inflater.inflate(R.layout.layout_popup_view, null);
         // 创建PopupWindow对象
-        popup = new PopupWindow(root, 350, 300);
+        popup = new PopupWindow(root,350,300);
+        popup.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popup.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         open = (ImageView) view1.findViewById(R.id.saoma);
         open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 以下拉方式显示。
-                popup.showAtLocation(view1.findViewById(R.id.saoma), Gravity.TOP
-                        | Gravity.RIGHT, sWidth, 180);
+//                popup.showAtLocation(view1.findViewById(R.id.saoma), Gravity.TOP
+//                        | Gravity.RIGHT, sWidth,20);
+                popup.showAsDropDown(view1.findViewById(R.id.struct));
             }
         });
         list(root);

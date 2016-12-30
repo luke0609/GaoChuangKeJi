@@ -25,10 +25,19 @@
             android:src="@drawable/smile"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:onClick="onClick"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
+
            />
+        <View
+            android:id="@+id/struct"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            />
     </RelativeLayout>
     <cn.sdaduanbilei.library.DashboardView
         android:id="@+id/dash_board"
@@ -37,14 +46,13 @@
         android:layout_height="220dp"
         app:dashTitle="Process"
         app:dashTitleSize="20sp"
-        app:dashTitlColor="@color/text_style"
         app:dashProMax="100"
         app:dashProgress="80"
         app:dashProColor="@color/chengse"
-        app:dashColor="@color/text_style"
+        app:dashColor="@color/qianhui"
         app:dashProWidth="12dp"
         android:layout_marginLeft="20dp"
-        app:dashWidth="3dp"
+        app:dashWidth="6dp"
         app:dashIcon="@drawable/rount_fangx"
         android:layout_marginTop="20dp"
         />
@@ -87,7 +95,7 @@
             android:layout_width="30dp"
             android:layout_height="4dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/chengse"
+            android:background="@color/main_style"
             />
         <TextView
             android:layout_width="wrap_content"
