@@ -16,5 +16,8 @@
     <color name="text_style">#313233</color>
     <color name="qianhui">#a9b7b7</color>
     <color name="chengse">#FF9900</color>
-<color name="main_style">#4EAFAB</color>
+    <color name="main_style">#4EAFAB</color>
+    <color name="submit_btn_normal">#1b89cd</color>
+    <color name="submit_btn_pressed">#166EA5</color>
+    <color name="submit_btn_disabled">#bcbcbc</color>
 </resources>

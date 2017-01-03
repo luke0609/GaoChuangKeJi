@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.jiaokaokeji.gaochuangkeji.MainActivity;
 import com.jiaokaokeji.gaochuangkeji.R;
+import com.jiaokaokeji.gaochuangkeji.myclass.Activity.SignInActivity;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
 import com.yuyh.library.BubblePopupWindow;
 
@@ -163,6 +164,10 @@ public class MyClass extends Fragment {
                 popup.dismiss();
                if(position==0){
                    Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                   startActivity(intent);
+               }
+                else if(position==1){
+                   Intent intent = new Intent(getActivity(), SignInActivity.class);
                    startActivity(intent);
                }
             }
