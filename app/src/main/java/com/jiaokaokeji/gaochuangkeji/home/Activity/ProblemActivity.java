@@ -42,7 +42,7 @@ public class ProblemActivity extends AppCompatActivity {
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);
         // 自定义颜色
-        tintManager.setTintColor(Color.parseColor("#4EAFAB"));
+        tintManager.setTintColor(Color.parseColor("#56ABE4"));
 
     }
      private void initData() {

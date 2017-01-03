@@ -83,17 +83,17 @@ public class Home extends Fragment implements View.OnClickListener {
                 @Override
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                     if (scrollY <= 0) {
-                        title_tv.setTextColor(Color.argb((int) 0, 78, 175, 171));
-                        title_top.setBackgroundColor(Color.argb((int) 0, 78, 175, 171));//AGB由相关工具获得，或者美工提供
+                        title_tv.setTextColor(Color.argb((int) 0, 86, 171, 228));
+                        title_top.setBackgroundColor(Color.argb((int) 0, 86, 171, 228));//AGB由相关工具获得，或者美工提供
                     } else if (scrollY > 0 && scrollY <= 500) {
                         float scale = (float) scrollY / 500;
                         float alpha = (255 * scale);
                         // 只是layout背景透明(仿知乎滑动效果)
                         title_tv.setTextColor(Color.argb((int) alpha, 255, 255, 255));
-                        title_top.setBackgroundColor(Color.argb((int) alpha, 78, 175, 171));
+                        title_top.setBackgroundColor(Color.argb((int) alpha, 86, 171, 228));
                     } else {
                         title_tv.setTextColor(Color.argb((int) 255, 255, 255, 255));
-                        title_top.setBackgroundColor(Color.argb((int) 255, 78, 175, 171));
+                        title_top.setBackgroundColor(Color.argb((int) 255, 86, 171, 228));
                     }
 
                 }
