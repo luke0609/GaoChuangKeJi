@@ -1,4 +1,4 @@
-package com.jiaokaokeji.gaochuangkeji.myclass.Calendar;
+package com.jiaokaokeji.gaochuangkeji.myclass.signview;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
-
 
 /**
  * SignDialogFragment

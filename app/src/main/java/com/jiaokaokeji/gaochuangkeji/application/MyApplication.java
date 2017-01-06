@@ -2,7 +2,8 @@ package com.jiaokaokeji.gaochuangkeji.application;
 
 import android.app.Application;
 
-import com.jiaokaokeji.gaochuangkeji.myclass.Calendar.ResolutionUtil;
+
+import com.jiaokaokeji.gaochuangkeji.myclass.signview.ResolutionUtil;
 
 import org.xutils.BuildConfig;
 import org.xutils.x;
@@ -18,5 +19,6 @@ public class MyApplication extends Application{
         x.Ext.init(this);
         x.Ext.setDebug(BuildConfig.DEBUG);
         ResolutionUtil.getInstance().init(this);
+
     }
 }

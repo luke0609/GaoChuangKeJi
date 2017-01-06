@@ -25,6 +25,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
+        android:name=".application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -58,7 +59,7 @@
         <activity android:name=".myclass.Activity.AppointmentActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
-        <activity android:name=".myclass.Calendar.SignInActivity"
+        <activity android:name=".myclass.Activity.SignInActivity"
             android:theme="@style/AppTheme"/>
         <activity android:name=".myclass.Activity.SimulationActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>

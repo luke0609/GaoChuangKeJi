@@ -15,7 +15,7 @@ import android.widget.SimpleAdapter;
 
 import com.jiaokaokeji.gaochuangkeji.MainActivity;
 import com.jiaokaokeji.gaochuangkeji.R;
-import com.jiaokaokeji.gaochuangkeji.myclass.Calendar.SignInActivity;
+import com.jiaokaokeji.gaochuangkeji.myclass.Activity.SignInActivity;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
 
 import java.util.ArrayList;

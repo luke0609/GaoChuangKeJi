@@ -1,4 +1,4 @@
-package com.jiaokaokeji.gaochuangkeji.myclass.Calendar;
+package com.jiaokaokeji.gaochuangkeji.myclass.Activity;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,11 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
-import com.jiaokaokeji.gaochuangkeji.myclass.Calendar.ResolutionUtil;
-import com.jiaokaokeji.gaochuangkeji.myclass.Calendar.SignAdapter;
-import com.jiaokaokeji.gaochuangkeji.myclass.Calendar.SignDialogFragment;
-import com.jiaokaokeji.gaochuangkeji.myclass.Calendar.SignEntity;
-import com.jiaokaokeji.gaochuangkeji.myclass.Calendar.SignView;
+import com.jiaokaokeji.gaochuangkeji.myclass.signview.ResolutionUtil;
+import com.jiaokaokeji.gaochuangkeji.myclass.signview.SignAdapter;
+import com.jiaokaokeji.gaochuangkeji.myclass.signview.SignDialogFragment;
+import com.jiaokaokeji.gaochuangkeji.myclass.signview.SignEntity;
+import com.jiaokaokeji.gaochuangkeji.myclass.signview.SignView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +37,7 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
         initView();
         onReady();
     }
