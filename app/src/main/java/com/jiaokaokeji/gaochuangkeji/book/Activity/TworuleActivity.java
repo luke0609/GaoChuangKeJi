@@ -3,20 +3,29 @@ package com.jiaokaokeji.gaochuangkeji.book.Activity;
 import android.annotation.TargetApi;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class TworuleActivity extends AppCompatActivity {
+
+    @InjectView(R.id.web)
+    WebView web;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tworule);
+        ButterKnife.inject(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }
@@ -25,8 +34,17 @@ public class TworuleActivity extends AppCompatActivity {
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);
         // 自定义颜色
-        tintManager.setTintColor(Color.parseColor("#4EAFAB"));
+        tintManager.setTintColor(Color.parseColor("#56ABE4"));
+        WebSettings wv_setttig = web.getSettings();
+        wv_setttig.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        wv_setttig.setJavaScriptEnabled(true);
+        web.setVerticalScrollBarEnabled(false);
+        wv_setttig.setTextSize(WebSettings.TextSize.NORMAL);
+        String url = "file:///android_asset/rule.html";
+        //    webview.setInitialScale(200);
+        web.loadUrl(url);
     }
+
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
         Window win = getWindow();

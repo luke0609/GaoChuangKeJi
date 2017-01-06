@@ -102,6 +102,7 @@
                 android:layout_centerInParent="true"
                 android:textSize="13sp"
                 android:gravity="center"
+                android:text="请选择驾照类型"
                 android:textColor="@color/white"
                 android:src="@drawable/circle2"/>
         </RelativeLayout>

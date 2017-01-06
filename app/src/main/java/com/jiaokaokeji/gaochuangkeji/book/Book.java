@@ -101,8 +101,8 @@ public class Book extends Fragment {
             }
         });
         unSelectTextColor = R.color.commo_text_color;
-        tab.setOnTransitionListener(new OnTransitionTextListener().setColor(Color.parseColor("#4EAFAB"), unSelectTextColor));
-        tab.setScrollBar(new ColorBar(getActivity(), Color.parseColor("#4EAFAB"), 4));
+        tab.setOnTransitionListener(new OnTransitionTextListener().setColor(Color.parseColor("#56ABE4"), unSelectTextColor));
+        tab.setScrollBar(new ColorBar(getActivity(), Color.parseColor("#56ABE4"), 4));
         viewpage.setOffscreenPageLimit(4);
         indicatorViewPager = new IndicatorViewPager(tab, viewpage);
         inflate = LayoutInflater.from(getActivity());
@@ -192,13 +192,13 @@ public class Book extends Fragment {
             MyAnimations.startAnimationsIn(buttons_wrapper_layout, 300);
             buttons_show_hide_button
                     .startAnimation(MyAnimations.getRotateAnimation(0,
-                            -270, 300));
+                            0, 0));
         } else {
             MyAnimations
                     .startAnimationsOut(buttons_wrapper_layout, 300);
             buttons_show_hide_button
                     .startAnimation(MyAnimations.getRotateAnimation(
-                            -270, 0, 300));
+                            0, 0, 0));
         }
         isShowing = !isShowing;
 

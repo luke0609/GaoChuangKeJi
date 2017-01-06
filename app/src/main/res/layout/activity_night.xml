@@ -30,4 +30,10 @@
             android:layout_centerInParent="true"
             android:text="夜考规则"/>
     </RelativeLayout>
+    <WebView
+        android:id="@+id/web"
+        android:layout_below="@+id/title_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </WebView>
 </RelativeLayout>

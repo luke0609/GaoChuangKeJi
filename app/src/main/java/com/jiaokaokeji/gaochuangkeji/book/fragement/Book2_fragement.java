@@ -3,15 +3,16 @@ package com.jiaokaokeji.gaochuangkeji.book.fragement;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.jiaokaokeji.gaochuangkeji.book.Activity.CurveActivity;
 import com.jiaokaokeji.gaochuangkeji.book.Activity.ParallelActivity;
-import com.jiaokaokeji.gaochuangkeji.book.Activity.RadomActivity;
 import com.jiaokaokeji.gaochuangkeji.book.Activity.ReversingActivity;
 import com.jiaokaokeji.gaochuangkeji.book.Activity.RightActivity;
 import com.jiaokaokeji.gaochuangkeji.book.Activity.TworuleActivity;
@@ -21,10 +22,13 @@ import com.jiaokaokeji.gaochuangkeji.book.prjo.MyGridViewAdapter;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.MyScollview;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class Book2_fragement extends Fragment {
     View view1;
+    int height;
+    int width;
     private int urls[] = {R.drawable.detail, R.drawable.detail, R.drawable.detail, R.drawable.detail,
             R.drawable.detail, R.drawable.detail, R.drawable.detail, R.drawable.detail};
     String title[] = new String[]{"倒车入库", "倒车入库", "倒车入库", "倒车入库", "倒车入库", "倒车入库",
@@ -32,8 +36,6 @@ public class Book2_fragement extends Fragment {
     private TextView tv1;
     private MyScollview myScollview;
     private View v1;
-    private int buyLayoutHeight;
-    private int buyLayoutTop;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,8 +51,12 @@ public class Book2_fragement extends Fragment {
 
             }
         });
-
-
+        gridView.setFocusable(false);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            }
+        });
         MyGridViewAdapter adapter = new MyGridViewAdapter(getActivity(), R.layout.item,
                 urls, title);
         gridView.setAdapter(adapter);
@@ -69,27 +75,27 @@ public class Book2_fragement extends Fragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_1:
-                Intent intent=new Intent(getActivity(),TworuleActivity.class);
+                Intent intent = new Intent(getActivity(), TworuleActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_2:
-                Intent intent2=new Intent(getActivity(),ReversingActivity.class);
+                Intent intent2 = new Intent(getActivity(), ReversingActivity.class);
                 startActivity(intent2);
                 break;
             case R.id.btn_3:
-                Intent intent3=new Intent(getActivity(),UpActivity.class);
+                Intent intent3 = new Intent(getActivity(), UpActivity.class);
                 startActivity(intent3);
                 break;
             case R.id.btn_4:
-                Intent intent4=new Intent(getActivity(),ParallelActivity.class);
+                Intent intent4 = new Intent(getActivity(), ParallelActivity.class);
                 startActivity(intent4);
                 break;
             case R.id.btn_5:
-                Intent intent5=new Intent(getActivity(),CurveActivity.class);
+                Intent intent5 = new Intent(getActivity(), CurveActivity.class);
                 startActivity(intent5);
                 break;
             case R.id.btn_6:
-                Intent intent6=new Intent(getActivity(),RightActivity.class);
+                Intent intent6 = new Intent(getActivity(), RightActivity.class);
                 startActivity(intent6);
                 break;
         }
