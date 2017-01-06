@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_sign_in"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jiaokaokeji.gaochuangkeji.myclass.Activity.SignInActivity">
+    tools:context="com.jiaokaokeji.gaochuangkeji.myclass.Calendar.SignInActivity">
     <TextView
         android:id="@+id/activity_main_tv_main_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40px"
-        android:text="123"
-        android:textSize="42px" />
+        android:layout_marginTop="@dimen/d_40_px"
+        android:textSize="@dimen/d_42_px" />
 
     <TextView
         android:id="@+id/activity_main_tv_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40px"
+        android:layout_marginTop="@dimen/d_40_px"
         android:textColor="#1b89cd"
-        android:textSize="95px" />
+        android:textSize="@dimen/d_95_px" />
 
     <LinearLayout
         android:id="@+id/activity_main_ll_date"
         android:layout_width="match_parent"
-        android:layout_height="130px"
-        android:layout_marginTop="54px"
+        android:layout_height="@dimen/d_130_px"
+        android:layout_marginTop="@dimen/d_54_px"
         android:background="#e9e9ea"
         android:orientation="horizontal">
 
@@ -37,35 +35,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="43px"
-            android:layout_marginStart="43px"
+            android:layout_marginLeft="@dimen/d_43_px"
+            android:layout_marginStart="@dimen/d_43_px"
             android:textColor="#9c9c9c"
-            android:textSize="43px" />
+            android:textSize="@dimen/d_43_px" />
 
         <TextView
             android:id="@+id/activity_main_tv_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="44px"
-            android:layout_marginStart="44px"
+            android:layout_marginLeft="@dimen/d_44_px"
+            android:layout_marginStart="@dimen/d_44_px"
             android:textColor="#9c9c9c"
-            android:textSize="43px" />
+            android:textSize="@dimen/d_43_px" />
     </LinearLayout>
 
     <com.jiaokaokeji.gaochuangkeji.myclass.Calendar.SignView
         android:id="@+id/activity_main_cv"
         android:layout_width="match_parent"
-        android:layout_height="818px" />
+        android:layout_height="@dimen/d_818_px" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/activity_main_btn_sign"
         android:layout_width="match_parent"
-        android:layout_height="142px"
-        android:layout_marginLeft="42px"
-        android:layout_marginRight="42px"
-        android:layout_marginTop="42px"
-        android:text="sign"
+        android:layout_height="@dimen/d_142_px"
+        android:layout_marginLeft="@dimen/d_42_px"
+        android:layout_marginRight="@dimen/d_42_px"
+        android:layout_marginTop="@dimen/d_111_px"
+        android:text="@string/sign"
         android:textColor="@color/white"
-        android:textSize="54px" />
+        android:textSize="@dimen/d_54_px" />
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.jiaokaokeji.gaochuangkeji.myclass.Activity;
+package com.jiaokaokeji.gaochuangkeji.myclass.Calendar;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -112,7 +112,7 @@ public class SignInActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         int month = calendar.get(Calendar.MONTH);
 
-        tvSignDay.setText(Html.fromHtml(String.format("已签到", "#999999", "#1B89CD", 3)));
+        tvSignDay.setText(Html.fromHtml(String.format(getString(R.string.you_have_sign), "#999999", "#1B89CD", 3)));
         tvScore.setText(String.valueOf(3015));
         tvYear.setText(String.valueOf(calendar.get(Calendar.YEAR)));
         tvMonth.setText(getResources().getStringArray(R.array.month_array)[month]);
@@ -145,7 +145,7 @@ public class SignInActivity extends AppCompatActivity {
         data.get(signView.getDayOfMonthToday() - 1).setDayType(SignView.DayType.SIGNED.getValue());
         signView.notifyDataSetChanged();
         btnSign.setEnabled(false);
-        btnSign.setText("已签到");
+        btnSign.setText(R.string.have_signed);
 
         int score = Integer.valueOf((String) tvScore.getText());
         tvScore.setText(String.valueOf(score + 15));

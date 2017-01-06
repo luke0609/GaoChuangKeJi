@@ -58,7 +58,7 @@
         <activity android:name=".myclass.Activity.AppointmentActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
-        <activity android:name=".myclass.Activity.SignInActivity"
+        <activity android:name=".myclass.Calendar.SignInActivity"
             android:theme="@style/AppTheme"/>
         <activity android:name=".myclass.Activity.SimulationActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>

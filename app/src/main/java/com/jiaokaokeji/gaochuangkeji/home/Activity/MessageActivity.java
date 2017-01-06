@@ -40,8 +40,5 @@ public class MessageActivity extends AppCompatActivity {
         }
         win.setAttributes(winParams);
 
-
-
-
     }
 }
