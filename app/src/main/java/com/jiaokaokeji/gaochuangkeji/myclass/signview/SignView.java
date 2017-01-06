@@ -52,7 +52,7 @@ public class SignView extends View {
     private static final int MARKER_TEXT_SIZE = 40;
     private static final int CELL_TEXT_SIZE = 40;
 
-    private static final int VERTICAL_SPACE = 51;
+    private static final int VERTICAL_SPACE = 35;
     private static final int VERTICAL_MARGIN = 62;
     private static final int HORIZONTAL_MARGIN = 39;
     private static final int CELL_SIZE = 80;

@@ -34,7 +34,7 @@ public class ParallelActivity extends AppCompatActivity {
         tintManager.setStatusBarTintEnabled(true);
         tintManager.setNavigationBarTintEnabled(true);
         // 自定义颜色
-        tintManager.setTintColor(Color.parseColor("#4EAFAB"));
+        tintManager.setTintColor(Color.parseColor("#56ABE4"));
         WebSettings wv_setttig = web.getSettings();
         wv_setttig.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         wv_setttig.setJavaScriptEnabled(true);

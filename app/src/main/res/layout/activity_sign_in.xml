@@ -54,7 +54,7 @@
     <com.jiaokaokeji.gaochuangkeji.myclass.signview.SignView
         android:id="@+id/activity_main_cv"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/d_818_px" />
+        android:layout_height="@dimen/d_962_px" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/activity_main_btn_sign"
