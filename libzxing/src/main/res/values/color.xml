@@ -2,5 +2,6 @@
 <resources>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#7a7</color>
-    <color name="main_style">#4EAFAB</color>
+    <color name="main_style">#56ABE4</color>
+    <color name="submit_btn_pressed">#166EA5</color>
 </resources>
