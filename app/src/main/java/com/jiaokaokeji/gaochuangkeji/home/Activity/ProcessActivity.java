@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
@@ -40,6 +41,9 @@ public class ProcessActivity extends AppCompatActivity {
         //   wv_setttig.setUseWideViewPort(true); //将图片调整到适合webview的大小
         //  wv_setttig.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
         //  wv_setttig.setDefaultTextEncodingName("utf-8");//设置编码格式
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//            webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//        }
         String url = "file:///android_asset/ww.html";
         //    webview.setInitialScale(200);
         webview.loadUrl(url);
