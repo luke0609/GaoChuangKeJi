@@ -91,4 +91,9 @@
     <dimen name="d_65_px">65px</dimen>
     <dimen name="d_481_px">481px</dimen>
     <dimen name="d_962_px">962px</dimen>
+    <dimen name="home_menu_margin_5">5dip</dimen>
+    <dimen name="home_menu_margin_8">8dip</dimen>
+    <dimen name="margin_10">10dip</dimen>
+    <dimen name="margin_15">15dip</dimen>
+    <dimen name="btn_height">45dip</dimen>
 </resources>

@@ -15,13 +15,11 @@
         >
         <ImageView
             android:id="@+id/iv"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:textColor="@color/white"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/back"
-            />
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/back"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,5 +27,27 @@
             android:textSize="20sp"
             android:layout_centerInParent="true"
             android:text="随机练习"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/vote_submit_relative"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/title_top"
+        >
+
+        <com.jiaokaokeji.gaochuangkeji.book.StaggeredGridView.VoteSubmitViewPager
+            android:id="@+id/vote_submit_viewpager"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <LinearLayout
+            android:id="@+id/vote_submit_linear_dot"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="horizontal" />
     </RelativeLayout>
 </RelativeLayout>
