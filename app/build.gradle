@@ -38,5 +38,6 @@ dependencies {
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'com.github.sdaduanbilei:dashboard-view:1.0.0'
     compile 'com.yuyh.bubble:library:1.0.0'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 
 }

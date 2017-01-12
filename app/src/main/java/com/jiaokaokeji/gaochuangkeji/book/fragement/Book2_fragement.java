@@ -21,6 +21,7 @@ import com.jiaokaokeji.gaochuangkeji.book.StaggeredGridView.MyGrigview;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.MyGridViewAdapter;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.MyScollview;
 
+import at.markushi.ui.CircleButton;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -36,11 +37,20 @@ public class Book2_fragement extends Fragment {
     private TextView tv1;
     private MyScollview myScollview;
     private View v1;
+    private CircleButton btn_2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view1 = inflater.inflate(R.layout.fragment_book2_fragement, null);
+        btn_2 = ((CircleButton) view1.findViewById(R.id.btn_2));
+        btn_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(getActivity(), ReversingActivity.class);
+                startActivity(intent2);
+            }
+        });
         MyGrigview gridView = (MyGrigview) view1.findViewById(R.id.staggeredGridView1);
         v1 = ((View) view1.findViewById(R.id.v1));
         myScollview = ((MyScollview) view1.findViewById(R.id.myScollview));
@@ -71,16 +81,12 @@ public class Book2_fragement extends Fragment {
         ButterKnife.reset(this);
     }
 
-    @OnClick({R.id.btn_1, R.id.btn_2, R.id.btn_3, R.id.btn_4, R.id.btn_5, R.id.btn_6})
+    @OnClick({R.id.btn_1,R.id.btn_3, R.id.btn_4, R.id.btn_5, R.id.btn_6})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_1:
                 Intent intent = new Intent(getActivity(), TworuleActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.btn_2:
-                Intent intent2 = new Intent(getActivity(), ReversingActivity.class);
-                startActivity(intent2);
                 break;
             case R.id.btn_3:
                 Intent intent3 = new Intent(getActivity(), UpActivity.class);

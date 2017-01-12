@@ -43,7 +43,7 @@ public class RadomActivity extends AppCompatActivity {
     private ImageView leftIv;
     private TextView titleTv;
     private TextView right;
-
+    private ImageView iv;
     VoteSubmitViewPager viewPager;
     ExaminationSubmitAdapter pagerAdapter;
     List<View> viewItems = new ArrayList<View>();
@@ -187,6 +187,13 @@ public class RadomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radom);
+        iv = ((ImageView) findViewById(R.id.iv));
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         viewPager = (VoteSubmitViewPager) findViewById(R.id.vote_submit_viewpager);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);

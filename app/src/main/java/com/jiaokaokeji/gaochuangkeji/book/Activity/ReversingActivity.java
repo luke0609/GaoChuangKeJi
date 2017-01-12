@@ -9,7 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -18,10 +18,9 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+
 public class ReversingActivity extends AppCompatActivity {
 
-    @InjectView(R.id.iv_back)
-    ImageView ivBack;
     @InjectView(R.id.web)
     WebView web;
 
@@ -62,7 +61,7 @@ public class ReversingActivity extends AppCompatActivity {
         win.setAttributes(winParams);
     }
 
-    @OnClick(R.id.iv_back)
+    @OnClick(R.id.iv)
     public void onClick() {
         finish();
     }

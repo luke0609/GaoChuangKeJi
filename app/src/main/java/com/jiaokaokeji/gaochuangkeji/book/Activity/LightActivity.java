@@ -5,8 +5,10 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -14,12 +16,15 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LightActivity extends AppCompatActivity {
+public class LightActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private ImageView iv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light);
+        iv = ((ImageView) findViewById(R.id.iv));
         ButterKnife.inject(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
@@ -48,4 +53,10 @@ public class LightActivity extends AppCompatActivity {
         }
         win.setAttributes(winParams);
     }
-}
+
+    @Override
+    public void onClick(View v) {
+
+        }
+    }
+

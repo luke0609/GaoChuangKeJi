@@ -19,32 +19,25 @@
             android:background="@drawable/set"
             android:layout_marginTop="15dp"
             android:layout_marginRight="15dp"/>
-        <ImageButton
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/ib2"
-            android:layout_below="@id/ib"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:background="@drawable/head"
-            android:layout_centerInParent="true"
-            />
-        <TextView
-            android:id="@+id/tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="点击登录"
-            android:textSize="18sp"
-            android:textColor="@color/grey"
-            android:gravity="center"
-            android:layout_marginTop="8dp"
-            android:layout_below="@id/ib2"/>
+            android:src="@drawable/head"
+            app:civ_border_width="2dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/ib"
+            app:civ_border_color="#FF000000"/>
     </RelativeLayout>
         <RelativeLayout
             android:layout_below="@id/rl"
             android:id="@+id/rl1"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="@color/white"
             android:layout_marginTop="-20dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:id="@+id/ll"
@@ -79,13 +72,6 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="4dp"
                     />
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ll1"
-                android:layout_below="@id/ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
                 <Button
                     android:id="@+id/btn_3"
                     android:layout_width="0dp"
@@ -95,6 +81,42 @@
                     android:gravity="center"
                     android:textColor="@color/main_bg"
                     android:drawableTop="@drawable/order1"
+                    android:textSize="13sp"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="4dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:id="@+id/ll1"
+                android:layout_below="@id/ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_5"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:text="驾照类型"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:textColor="@color/main_bg"
+                    android:drawableTop="@drawable/jialei"
+                    android:textSize="13sp"
+                    android:layout_weight="1"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="4dp"
+                    />
+                <Button
+                    android:id="@+id/btn_6"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:text="离线视频"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:textColor="@color/main_bg"
+                    android:drawableTop="@drawable/video"
                     android:textSize="13sp"
                     android:layout_weight="1"
                     android:paddingTop="10dp"

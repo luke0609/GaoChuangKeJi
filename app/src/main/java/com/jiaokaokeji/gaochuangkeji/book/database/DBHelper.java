@@ -12,23 +12,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
 	
 	//数据库名称
-	static final String DB_NAME = "DB";
+	static final String DB_NAME = "examination_question1.db";
 	static final int VERSION = 2;
 	
 	//题库数据
-	static final String TABLE_NAME_TEST_LIBRARY = "table_test_library";
-	static final String TEST_LIBRARY_COL_ID = "test_id";
-	static final String TEST_LIBRARY_QUESTION_ID = "test_question_id";
-	static final String TEST_LIBRARY_QUESTION_NAME = "test_question_name";
-	static final String TEST_LIBRARY_QUESTION_TYPE = "test_question_type";
-	static final String TEST_LIBRARY_QUESTION_ANSWER = "test_question_answer";
-	static final String TEST_LIBRARY_QUESTION_ANALYSIS = "test_question_analysis";
-	static final String TEST_LIBRARY_QUESTION_FOR = "test_question_for";
-	static final String TEST_LIBRARY_QUESTION_SCORE = "test_question_score";
-	static final String TEST_LIBRARY_QUESTION_OPTION_A = "test_question_option_a";
-	static final String TEST_LIBRARY_QUESTION_OPTION_B = "test_question_option_b";
-	static final String TEST_LIBRARY_QUESTION_OPTION_C = "test_question_option_c";
-	static final String TEST_LIBRARY_QUESTION_OPTION_D = "test_question_option_d";
+	static final String TABLE_NAME_TEST_LIBRARY = "examination_question1";
+	static final String TEST_LIBRARY_COL_ID = "iid";
+	static final String TEST_LIBRARY_QUESTION_ID = "id";
+	static final String TEST_LIBRARY_QUESTION_NAME = "question";
+	static final String TEST_LIBRARY_QUESTION_ANSWER = "answer";
+	static final String TEST_LIBRARY_QUESTION_ANALYSIS = "explains";
+	static final String TEST_LIBRARY_QUESTION_OPTION_A = "item1";
+	static final String TEST_LIBRARY_QUESTION_OPTION_B = "item2";
+	static final String TEST_LIBRARY_QUESTION_OPTION_C = "item3";
+	static final String TEST_LIBRARY_QUESTION_OPTION_D = "item4";
 	
 	//错误题数据
 		static final String TABLE_NAME_MY_ERROR_QUESTION = "table_my_error_question";
@@ -64,10 +61,7 @@ public class DBHelper extends SQLiteOpenHelper {
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ TEST_LIBRARY_QUESTION_ID + " TEXT,"
 				+ TEST_LIBRARY_QUESTION_NAME + " TEXT,"
-				+ TEST_LIBRARY_QUESTION_TYPE + " TEXT,"
 				+ TEST_LIBRARY_QUESTION_ANSWER + " TEXT,"
-				+ TEST_LIBRARY_QUESTION_FOR + " TEXT,"
-				+ TEST_LIBRARY_QUESTION_SCORE + " TEXT,"
 				+ TEST_LIBRARY_QUESTION_ANALYSIS + " TEXT,"
 				+ TEST_LIBRARY_QUESTION_OPTION_A + " TEXT,"
 				+ TEST_LIBRARY_QUESTION_OPTION_B + " TEXT,"

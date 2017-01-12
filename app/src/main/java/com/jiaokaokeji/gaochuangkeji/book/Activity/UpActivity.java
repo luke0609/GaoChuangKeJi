@@ -5,10 +5,12 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ImageView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -20,12 +22,19 @@ public class UpActivity extends AppCompatActivity {
 
     @InjectView(R.id.web)
     WebView web;
-
+    private ImageView iv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_up);
         ButterKnife.inject(this);
+        iv = ((ImageView) findViewById(R.id.iv));
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }

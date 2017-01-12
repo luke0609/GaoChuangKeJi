@@ -203,6 +203,7 @@ int width;
         alertDialog.show();
         Window window = alertDialog.getWindow();
         window.setContentView(R.layout.dialog);
+
         TextView tv_title = (TextView) window.findViewById(R.id.tv_dialog_title);
         tv_title.setText("签到信息");
         TextView tv_message = (TextView) window.findViewById(R.id.tv_dialog_message);

@@ -7,12 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class VideoActivity extends AppCompatActivity {
-
+    private ImageView iv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
