@@ -27,4 +27,5 @@
     <color name="submit_btn_normal">#1b89cd</color>
     <color name="submit_btn_pressed">#166EA5</color>
     <color name="submit_btn_disabled">#bcbcbc</color>
+    <color name="playing">#FAAF13</color>
 </resources>

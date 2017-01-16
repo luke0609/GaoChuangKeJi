@@ -68,7 +68,7 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".myclass.Activity.SimulationActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".book.Activity.OrderActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
