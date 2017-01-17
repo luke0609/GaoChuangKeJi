@@ -119,7 +119,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".book.Activity.VoiceActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".book.Activity.ThreeSkillActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
