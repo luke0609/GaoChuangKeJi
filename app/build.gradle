@@ -39,5 +39,5 @@ dependencies {
     compile 'com.github.sdaduanbilei:dashboard-view:1.0.0'
     compile 'com.yuyh.bubble:library:1.0.0'
     compile 'de.hdodenhof:circleimageview:2.1.0'
-
+    compile 'com.github.Rukey7:IjkPlayerView:v1.0.3'
 }

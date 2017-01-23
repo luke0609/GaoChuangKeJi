@@ -44,6 +44,7 @@ public class ProcessActivity extends AppCompatActivity {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 //            webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 //        }
+       // String url = "file:///android_asset/ww.html";
         String url = "file:///android_asset/ww.html";
         //    webview.setInitialScale(200);
         webview.loadUrl(url);

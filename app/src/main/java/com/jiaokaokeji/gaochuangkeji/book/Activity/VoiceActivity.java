@@ -26,7 +26,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-import static android.R.attr.path;
 
 
 public class VoiceActivity extends AppCompatActivity {
@@ -58,8 +57,6 @@ public class VoiceActivity extends AppCompatActivity {
         ButterKnife.inject(this);
         initDate();
         initView();
-
-
     }
 
     private void initDate() {
@@ -80,12 +77,27 @@ public class VoiceActivity extends AppCompatActivity {
         Explain ex3=new Explain();
         ex3.setExplain("正确操作:近光灯");
         ex3.setInstructions("3.夜间在窄路与非机动车会车");
+        ex3.setPhoto1(R.drawable.y1_4);
+        ex3.setPhoto2(R.drawable.y1_5);
         ExplainList.add(ex3);
 
         Explain ex4=new Explain();
         ex4.setExplain("正确操作:远光灯");
-        ex4.setInstructions("4.请将前照灯变换成远光");
+        ex4.setInstructions("4.请将前照灯成远光");
+        ex4.setPhoto1(R.drawable.y1_2);
         ExplainList.add(ex4);
+
+        Explain ex5=new Explain();
+        ex5.setExplain("正确操作:近光灯");
+        ex5.setInstructions("5.夜间同方向近距离跟车行驶");
+        ex5.setPhoto1(R.drawable.y1_5);
+        ExplainList.add(ex5);
+
+        Explain ex6=new Explain();
+        ex6.setExplain("正确操作:示宽灯、警示灯");
+        ex6.setInstructions("5.夜间在道路上发生故障，妨碍交通又难以移动");
+        ex6.setPhoto1(R.drawable.y1_5);
+        ExplainList.add(ex6);
     }
 
     private void initView() {
