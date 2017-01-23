@@ -129,7 +129,9 @@
         <activity
             android:name=".book.Activity.VideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+
+        </activity>
         <activity
             android:name=".my.Activity.PersonalActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

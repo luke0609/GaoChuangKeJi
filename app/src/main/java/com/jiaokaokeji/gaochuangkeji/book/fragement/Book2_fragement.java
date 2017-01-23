@@ -17,6 +17,7 @@ import com.jiaokaokeji.gaochuangkeji.book.Activity.ReversingActivity;
 import com.jiaokaokeji.gaochuangkeji.book.Activity.RightActivity;
 import com.jiaokaokeji.gaochuangkeji.book.Activity.TworuleActivity;
 import com.jiaokaokeji.gaochuangkeji.book.Activity.UpActivity;
+import com.jiaokaokeji.gaochuangkeji.book.Activity.VideoActivity;
 import com.jiaokaokeji.gaochuangkeji.book.StaggeredGridView.MyGrigview;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.MyGridViewAdapter;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.MyScollview;
@@ -65,6 +66,47 @@ public class Book2_fragement extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                      Intent intent1=new Intent(getActivity(), VideoActivity.class);
+                        intent1.putExtra("title","倒车入库");
+                        intent1.putExtra("url","");
+                        startActivity(intent1);
+                        break;
+                    case 1:
+                        Intent intent2=new Intent(getActivity(), VideoActivity.class);
+                        intent2.putExtra("title","倒车入库");
+                        intent2.putExtra("url","");
+                        startActivity(intent2);
+                        break;
+                    case 2:
+                        Intent intent3=new Intent(getActivity(), VideoActivity.class);
+                        intent3.putExtra("title","倒车入库");
+                        intent3.putExtra("url","");
+                        startActivity(intent3);
+                        break;
+                    case 3:
+                        Intent intent4=new Intent(getActivity(), VideoActivity.class);
+                        intent4.putExtra("title","倒车入库");
+                        intent4.putExtra("url","");
+                        startActivity(intent4);
+                        break;
+                    case 4:
+                        Intent intent5=new Intent(getActivity(), VideoActivity.class);
+                        intent5.putExtra("title","倒车入库");
+                        intent5.putExtra("url","");
+                        startActivity(intent5);
+                        break;
+                    case 5:
+                        Intent intent6=new Intent(getActivity(), VideoActivity.class);
+                        intent6.putExtra("title","倒车入库");
+                        intent6.putExtra("url","");
+                        startActivity(intent6);
+                        break;
+                    default:
+                        break;
+
+                }
             }
         });
         MyGridViewAdapter adapter = new MyGridViewAdapter(getActivity(), R.layout.item,
