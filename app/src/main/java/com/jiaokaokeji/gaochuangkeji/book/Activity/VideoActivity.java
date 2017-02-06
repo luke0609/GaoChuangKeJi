@@ -26,6 +26,7 @@ public class VideoActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         mToolbar.setTitle("Video Player");
+        mToolbar.setSubtitle("123");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Glide.with(this).load(IMAGE_URL).fitCenter().into(mPlayerView.mPlayerThumb);
         mPlayerView.init()
