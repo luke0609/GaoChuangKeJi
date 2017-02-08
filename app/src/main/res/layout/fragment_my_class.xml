@@ -125,5 +125,69 @@
             android:gravity="center"
             android:text="未完成"/>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/mid_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#f0f0f0"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/dash_board"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_marginTop="3dp"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/jiaxiaozixun"
+            android:layout_marginBottom="3dp"
+            android:layout_gravity="center_vertical"
+            />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="#30000000"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="服务是根本，质量求生存"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_below="@+id/mid_bar"
+        android:padding="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/btn_1"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:text="实战模拟"
+            android:textSize="18sp"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <Button
+                android:id="@+id/btn_2"
+                android:layout_width="match_parent"
+                android:layout_weight="2"
+                android:layout_height="0dp" />
+            <Button
+                android:id="@+id/btn_3"
+                android:layout_width="match_parent"
+                android:layout_weight="2"
+                android:layout_height="0dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

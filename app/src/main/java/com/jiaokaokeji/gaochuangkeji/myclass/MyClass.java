@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -15,7 +16,10 @@ import android.widget.SimpleAdapter;
 
 import com.jiaokaokeji.gaochuangkeji.MainActivity;
 import com.jiaokaokeji.gaochuangkeji.R;
+import com.jiaokaokeji.gaochuangkeji.myclass.Activity.AppointmentActivity;
+import com.jiaokaokeji.gaochuangkeji.myclass.Activity.ChooseActivity;
 import com.jiaokaokeji.gaochuangkeji.myclass.Activity.SignInActivity;
+import com.jiaokaokeji.gaochuangkeji.myclass.Activity.SimulationActivity;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
 
 import java.util.ArrayList;
@@ -27,7 +31,7 @@ import butterknife.ButterKnife;
 import cn.sdaduanbilei.library.DashBoard;
 import cn.sdaduanbilei.library.DashboardView;
 
-public class MyClass extends Fragment {
+public class MyClass extends Fragment implements View.OnClickListener{
     View view1;
     private ImageView open;
     private static final int RESULT_OK = 123;
@@ -42,8 +46,9 @@ public class MyClass extends Fragment {
     private String[] names = new String[] { "扫一扫", "签到" };
     private int[] imag = new int[] { R.drawable.saoyisao,
             R.drawable.qiandao };
-
-
+    private Button btn1;
+    private Button btn2;
+    private Button btn3;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,6 +76,12 @@ public class MyClass extends Fragment {
     private void initview() {
         dash_borad = ((DashboardView) view1.findViewById(R.id.dash_board));
         dash_borad.setDashStyle(DashBoard.RING);
+        btn1 = ((Button) view1.findViewById(R.id.btn_1));
+        btn2 = ((Button) view1.findViewById(R.id.btn_2));
+        btn3 = ((Button) view1.findViewById(R.id.btn_3));
+        btn1.setOnClickListener(this);
+        btn2.setOnClickListener(this);
+        btn3.setOnClickListener(this);
         iv_saoma = ((ImageView) view1.findViewById(R.id.saoma));
         popup();
     }
@@ -80,15 +91,15 @@ public class MyClass extends Fragment {
         super.onResume();
         progressBarChange(progressNum);
     }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        System.out.println("123"+hidden);
-        if (!hidden) {
-            progressBarChange(progressNum);
-        }
-    }
+//
+//    @Override
+//    public void onHiddenChanged(boolean hidden) {
+//        super.onHiddenChanged(hidden);
+//        System.out.println("123"+hidden);
+//        if (!hidden) {
+//            progressBarChange(progressNum);
+//        }
+//    }
 
     @Override
     public void onDestroyView() {
@@ -186,4 +197,23 @@ public class MyClass extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_1:
+                Intent intent=new Intent(getContext(), SimulationActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_2:
+                Intent intent2=new Intent(getContext(), AppointmentActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.btn_3:
+                Intent intent3=new Intent(getContext(), ChooseActivity.class);
+                startActivity(intent3);
+                break;
+
+
+        }
+    }
 }
