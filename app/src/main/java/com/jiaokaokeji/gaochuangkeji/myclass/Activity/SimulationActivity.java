@@ -2,28 +2,32 @@ package com.jiaokaokeji.gaochuangkeji.myclass.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.jiaokaokeji.gaochuangkeji.R;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 public class SimulationActivity extends AppCompatActivity {
+
+
     @InjectView(R.id.ll1)
-    LinearLayout ll1;
+    RelativeLayout ll1;
     @InjectView(R.id.ll2)
-    LinearLayout ll2;
+    RelativeLayout ll2;
     @InjectView(R.id.ll3)
-    LinearLayout ll3;
+    RelativeLayout ll3;
     @InjectView(R.id.ll4)
-    LinearLayout ll4;
+    RelativeLayout ll4;
     @InjectView(R.id.ll5)
-    LinearLayout ll5;
+    RelativeLayout ll5;
     @InjectView(R.id.ll6)
-    LinearLayout ll6;
+    RelativeLayout ll6;
 
     //模拟考试
     @Override
@@ -38,4 +42,21 @@ public class SimulationActivity extends AppCompatActivity {
     }
 
 
+    @OnClick({R.id.ll1, R.id.ll2, R.id.ll3, R.id.ll4, R.id.ll5, R.id.ll6})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ll1:
+                break;
+            case R.id.ll2:
+                break;
+            case R.id.ll3:
+                break;
+            case R.id.ll4:
+                break;
+            case R.id.ll5:
+                break;
+            case R.id.ll6:
+                break;
+        }
+    }
 }

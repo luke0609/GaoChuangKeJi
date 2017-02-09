@@ -12,7 +12,7 @@
         android:layout_width="fill_parent"
         android:layout_weight="1" >
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll1"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
@@ -22,20 +22,23 @@
             <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:src="@drawable/bash_car" />
 
             <TextView
                 android:id="@+id/textView1"
-                android:layout_width="55dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="科目三训练"
                 android:textSize="35px"
+                android:layout_below="@+id/imageView1"
+                android:layout_centerHorizontal="true"
                 android:textColor="#FFFFFF"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll2"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
@@ -45,20 +48,23 @@
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:src="@drawable/bash_car" />
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="44dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="科目二训练"
                 android:textSize="35px"
+                android:layout_below="@+id/imageView2"
+                android:layout_centerHorizontal="true"
                 android:textColor="#FFFFFF"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll3"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
@@ -67,19 +73,22 @@
 
             <ImageView
                 android:id="@+id/imageView3"
+                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:src="@drawable/bash_car" />
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="40dp"
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/imageView3"
+                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
                 android:text="信号测试"
                 android:textSize="35px"
                 android:textColor="#FFFFFF"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </TableRow>
 
@@ -87,7 +96,7 @@
         android:id="@+id/tableRow2"
         android:layout_width="fill_parent"
         android:layout_weight="1" >
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll4"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
@@ -97,18 +106,21 @@
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:src="@drawable/bash_car" />
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="39dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="参数设置"
                 android:textSize="35px"
+                android:layout_below="@+id/imageView4"
+                android:layout_centerHorizontal="true"
                 android:textColor="#FFFFFF"/>
-        </LinearLayout>
-        <LinearLayout
+        </RelativeLayout>
+        <RelativeLayout
             android:id="@+id/ll5"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
@@ -117,17 +129,20 @@
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:src="@drawable/bash_car" />
             <TextView
                 android:id="@+id/textView5"
-                android:layout_width="34dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/imageView5"
                 android:text="科目二采集"
                 android:textSize="35px"
                 android:textColor="#FFFFFF"/>
-        </LinearLayout>
-        <LinearLayout
+        </RelativeLayout>
+        <RelativeLayout
             android:id="@+id/ll6"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
@@ -136,16 +151,19 @@
             <ImageView
                 android:id="@+id/imageView6"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:src="@drawable/bash_car" />
             <TextView
                 android:id="@+id/textView6"
-                android:layout_width="34dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="退      出"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/imageView6"
                 android:textSize="35px"
                 android:textColor="#FFFFFF"/>
-        </LinearLayout>
+        </RelativeLayout>
     </TableRow>
 
 </TableLayout>
