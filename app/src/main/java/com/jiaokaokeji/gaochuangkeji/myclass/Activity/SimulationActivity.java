@@ -1,5 +1,6 @@
 package com.jiaokaokeji.gaochuangkeji.myclass.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.jiaokaokeji.gaochuangkeji.R;
+import com.jiaokaokeji.gaochuangkeji.myclass.Activity.Simulation.Km2ExamActivity;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -46,6 +48,8 @@ public class SimulationActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll1:
+                Intent intent1=new Intent(SimulationActivity.this, Km2ExamActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.ll2:
                 break;

@@ -13,8 +13,8 @@ import com.dl7.player.media.IjkPlayerView;
 import com.jiaokaokeji.gaochuangkeji.R;
 
 public class VideoActivity extends AppCompatActivity {
-    private static final String VIDEO_URL = "http://flv2.bn.netease.com/videolib3/1611/28/GbgsL3639/SD/movie_index.m3u8";
-    private static final String VIDEO_HD_URL = "http://flv2.bn.netease.com/videolib3/1611/28/GbgsL3639/HD/movie_index.m3u8";
+    private static final String VIDEO_URL = "http://k.youku.com/player/getFlvPath/sid/0486696154553120c7fb3_00/st/flv/fileid/03000201005546382C1E69010DD7BB852DE34F-3B4C-81FA-6447-E7E2278D50CC?K=e2a7a75a27de0ba4261f81d7&sign=3671adc87d987a00c225808af20a1949&ctype=12&ev=1&token=0519&oip=1968735650&ep=ciacHE%2BEUM8F4Sbaiz8bZ3%2FlIiUMXP4J9h%2BFg9JjALshTey5mjbTtJzFSPZCF%2FltBiV0YuP0qaSSaURiYfMxrRsQ10%2FeSPrm%2BvTk5dhUsZICYRFCd82kx1SeRjH4&ymovie=1";
+    private static final String VIDEO_HD_URL = "http://k.youku.com/player/getFlvPath/sid/0486696154553120c7fb3_00/st/mp4/fileid/030008010055466AF61E69010DD7BB852DE34F-3B4C-81FA-6447-E7E2278D50CC?K=08ffa3e1373922d2282c1c2e&sign=3671adc87d987a00c225808af20a1949&ctype=12&ev=1&token=0519&oip=1968735650&ep=ciacHE%2BEUM8F4Sbaiz8bZ3%2FlIiUMXP4J9h%2BFidJjALshTey5n0%2BnwZzFSPZCF%2FltBiV0YuP0qaSSaURiYfMxrRsQ10%2FeSPrm%2BvTk5dhUsZICYRFCd82kx1SeRjH4&ymovie=1";
     private static final String IMAGE_URL = "http://vimg2.ws.126.net/image/snapshot/2016/11/I/M/VC62HMUIM.jpg";
     private IjkPlayerView mPlayerView;
     Toolbar mToolbar;
@@ -30,7 +30,7 @@ public class VideoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Glide.with(this).load(IMAGE_URL).fitCenter().into(mPlayerView.mPlayerThumb);
         mPlayerView.init()
-                .setTitle("这是个跑马灯TextView，标题要足够长才会跑。-(゜ -゜)つロ 乾杯~")
+                .setTitle("科目二考试记录")
 
                 .setVideoSource(null, VIDEO_URL, VIDEO_HD_URL, null, null)
                 .setMediaQuality(IjkPlayerView.MEDIA_QUALITY_HIGH);
