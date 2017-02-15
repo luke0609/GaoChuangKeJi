@@ -2,17 +2,17 @@ package com.jiaokaokeji.gaochuangkeji.book.prjo;
 
 public class SaveQuestionInfo {
 	
-	private String questionId;//题目id
+	private int questionId;//题目id
 	private String questionType;//题目类型
 	private String realAnswer;//题目答案
 	private String is_correct;//是否正确
 	private String score;//分值
 	
-	public String getQuestionId() {
+	public int getQuestionId() {
 		return questionId;
 	}
 
-	public void setQuestionId(String questionId) {
+	public void setQuestionId(int questionId) {
 		this.questionId = questionId;
 	}
 	

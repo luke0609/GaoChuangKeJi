@@ -31,8 +31,8 @@ public class Book2_fragement extends Fragment {
     View view1;
     int height;
     int width;
-    private int urls[] = {R.drawable.detail, R.drawable.detail, R.drawable.detail, R.drawable.detail,
-            R.drawable.detail, R.drawable.detail, R.drawable.detail, R.drawable.detail};
+    private int urls[] = {R.drawable.video1, R.drawable.video1, R.drawable.video1, R.drawable.video1,
+            R.drawable.video1, R.drawable.video1, R.drawable.video1, R.drawable.video1};
     String title[] = new String[]{"倒车入库", "倒车入库", "倒车入库", "倒车入库", "倒车入库", "倒车入库",
             "倒车入库", "倒车入库"};
     private TextView tv1;

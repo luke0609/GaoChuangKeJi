@@ -17,10 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jiaokaokeji.gaochuangkeji.R;
+import com.jiaokaokeji.gaochuangkeji.book.database.DBManager;
 import com.jiaokaokeji.gaochuangkeji.book.fragement.Book1_fragement;
 import com.jiaokaokeji.gaochuangkeji.book.fragement.Book2_fragement;
 import com.jiaokaokeji.gaochuangkeji.book.fragement.Book3_fragement;
 import com.jiaokaokeji.gaochuangkeji.book.fragement.Book4_fragement;
+import com.jiaokaokeji.gaochuangkeji.book.prjo.AnSwerInfo;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.MyAnimations;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.PullScrollView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
@@ -201,6 +203,25 @@ public class Book extends Fragment {
                             0, 0, 0));
         }
         isShowing = !isShowing;
-
     }
-}
+
+        //}
+
+//            @Override
+//            public void onError(Throwable ex, boolean isOnCallback) {
+//                Toast.makeText(MainActivity.this, "请求数据失败,请检查网络是否连接", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onCancelled(CancelledException cex) {
+//
+//            }
+//
+//            @Override
+//            public void onFinished() {
+//
+//            }
+//        });
+//    }
+    }
+

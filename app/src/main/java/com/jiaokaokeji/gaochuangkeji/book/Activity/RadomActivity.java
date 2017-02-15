@@ -24,9 +24,7 @@ import com.jiaokaokeji.gaochuangkeji.book.StaggeredGridView.VoteSubmitViewPager;
 import com.jiaokaokeji.gaochuangkeji.book.adapter.ExaminationSubmitAdapter;
 import com.jiaokaokeji.gaochuangkeji.book.database.DBManager;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.AnSwerInfo;
-import com.jiaokaokeji.gaochuangkeji.book.prjo.ErrorQuestionInfo;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.SaveQuestionInfo;
-import com.jiaokaokeji.gaochuangkeji.book.util.ConstantData;
 import com.jiaokaokeji.gaochuangkeji.book.util.ConstantUtil;
 import com.jiaokaokeji.gaochuangkeji.book.util.ViewPagerScroller;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -44,6 +42,7 @@ public class RadomActivity extends AppCompatActivity {
     private TextView titleTv;
     private TextView right;
     private ImageView iv;
+    AnSwerInfo anSwerInfo = new AnSwerInfo();
     VoteSubmitViewPager viewPager;
     ExaminationSubmitAdapter pagerAdapter;
     List<View> viewItems = new ArrayList<View>();
@@ -56,8 +55,7 @@ public class RadomActivity extends AppCompatActivity {
     private int errortopicNums1;// 错题数
     private String isPerfectData = "1";// 是否完善资料0完成 1未完成
     private String type = "0";// 0模拟 1竞赛
-    private String errorMsg="";
-
+    private String errorMsg = "";
     Dialog builderSubmit;
 
     public List<Map<String, SaveQuestionInfo>> list = new ArrayList<Map<String, SaveQuestionInfo>>();
@@ -77,10 +75,10 @@ public class RadomActivity extends AppCompatActivity {
     String dateStr = "";
     String imgServerUrl = "";
 
-    private boolean isUpload= false;
+    private boolean isUpload = false;
 
 
-    private Handler handlerSubmit = new Handler(){
+    private Handler handlerSubmit = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             // TODO Auto-generated method stub
@@ -116,9 +114,9 @@ public class RadomActivity extends AppCompatActivity {
             }
             if (minute == 0) {
                 if (second == 0) {
-                    isFirst+=1;
+                    isFirst += 1;
                     // 时间到
-                    if(isFirst==1){
+                    if (isFirst == 1) {
                         showTimeOutDialog(true, "0");
                     }
                     right.setText("00:00");
@@ -163,7 +161,9 @@ public class RadomActivity extends AppCompatActivity {
                     }
                 }
             }
-        };
+        }
+
+        ;
     };
 
     private Handler handlerStopTime = new Handler() {
@@ -183,6 +183,7 @@ public class RadomActivity extends AppCompatActivity {
             super.handleMessage(msg);
         }
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -204,17 +205,16 @@ public class RadomActivity extends AppCompatActivity {
         tintManager.setNavigationBarTintEnabled(true);
         // 自定义颜色
         tintManager.setTintColor(Color.parseColor("#56ABE4"));
-        dbManager = new DBManager(RadomActivity.this);
-        dbManager.openDB();
         initViewPagerScroll();
         //initView();
         loadData();
-        ErrorQuestionInfo[] errorQuestionInfos = dbManager.queryAllData();
-        if (errorQuestionInfos != null) {
-            // 删除上次保存的我的错题
-            int colunm = (int) dbManager.deleteAllData();
-        }
+//        ErrorQuestionInfo[] errorQuestionInfos = dbManager.queryAllData();
+//        if (errorQuestionInfos != null) {
+//            // 删除上次保存的我的错题
+//            int colunm = (int) dbManager.deleteAllData();
+//        }
     }
+
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
         Window win = getWindow();
@@ -227,21 +227,23 @@ public class RadomActivity extends AppCompatActivity {
         }
         win.setAttributes(winParams);
     }
-    private void loadData(){
-        for (int i = 0; i < ConstantData.answerName.length; i++) {
+
+    private void loadData() {
+        DBManager dbManager = new DBManager(RadomActivity.this);
+        dbManager.openDB1();
+        AnSwerInfo[] info1 = dbManager.queryAllData1();
+        dbManager.closeDB();
+        for (int i = 0; i < info1.length; i++) {
             AnSwerInfo info = new AnSwerInfo();
-            info.setQuestionId(ConstantData.answerId[i]);// 试题主键
-            info.setQuestionName(ConstantData.answerName[i]);// 试题题目
-            info.setQuestionType(ConstantData.answerType[i]);// 试题类型0单选1多选
-            info.setQuestionFor("0");// （0模拟试题，1竞赛试题）
-            info.setAnalysis(ConstantData.answerAnalysis[i]);// 试题分析
-            info.setCorrectAnswer(ConstantData.answerCorrect[i]);// 正确答案
-            info.setOptionA(ConstantData.answerOptionA[i]);// 试题选项A
-            info.setOptionB(ConstantData.answerOptionB[i]);// 试题选项B
-            info.setOptionC(ConstantData.answerOptionC[i]);// 试题选项C
-            info.setOptionD(ConstantData.answerOptionD[i]);// 试题选项D
-            info.setOptionE(ConstantData.answerOptionE[i]);// 试题选项E
-            info.setScore(ConstantData.answerScore[i]);// 分值
+            info.setQuestionId(info1[i].questionId);// 试题主键
+            info.setQuestionName(info1[i].questionName);// 试题题目
+            info.setAnalysis(info1[i].analysis);// 试题分析
+            info.setQuestionType("0");
+            info.setCorrectAnswer(info1[i].correctAnswer);// 正确答案
+            info.setOptionA(info1[i].optionA);// 试题选项A
+            info.setOptionB(info1[i].optionB);// 试题选项B
+            info.setOptionC(info1[i].optionC);// 试题选项C
+            info.setOptionD(info1[i].optionD);// 试题选项D
             info.setOption_type("0");
             dataItems.add(info);
         }
@@ -253,33 +255,33 @@ public class RadomActivity extends AppCompatActivity {
         }
         pagerAdapter = new ExaminationSubmitAdapter(
                 RadomActivity.this, viewItems,
-                dataItems,imgServerUrl);
+                dataItems, imgServerUrl);
         viewPager.setAdapter(pagerAdapter);
         viewPager.getParent()
                 .requestDisallowInterceptTouchEvent(false);
     }
+
     /**
      * 设置ViewPager的滑动速度
-     *
-     * */
-    private void initViewPagerScroll( ){
+     */
+    private void initViewPagerScroll() {
         try {
             Field mScroller = null;
             mScroller = ViewPager.class.getDeclaredField("mScroller");
             mScroller.setAccessible(true);
             ViewPagerScroller scroller = new ViewPagerScroller(viewPager.getContext());
             mScroller.set(viewPager, scroller);
-        }catch(NoSuchFieldException e){
+        } catch (NoSuchFieldException e) {
 
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
 
-        }catch (IllegalAccessException e){
+        } catch (IllegalAccessException e) {
 
         }
     }
+
     /**
-     * @param index
-     *            根据索引值切换页面
+     * @param index 根据索引值切换页面
      */
     public void setCurrentView(int index) {
         viewPager.setCurrentItem(index);
@@ -293,6 +295,7 @@ public class RadomActivity extends AppCompatActivity {
         second = -1;
         super.onDestroy();
     }
+
     // 弹出对话框通知用户答题时间到
     protected void showTimeOutDialog(final boolean flag, final String backtype) {
         final Dialog builder = new Dialog(this, R.style.dialog);
@@ -301,10 +304,10 @@ public class RadomActivity extends AppCompatActivity {
         TextView content = (TextView) builder.findViewById(R.id.dialog_content);
         if (backtype.equals("0")) {
             content.setText("您的答题时间结束,是否提交试卷?");
-        } else if(backtype.equals("1")){
+        } else if (backtype.equals("1")) {
             content.setText("您要结束本次模拟答题吗？");
-        }else{
-            content.setText(errorMsg+"");
+        } else {
+            content.setText(errorMsg + "");
         }
         final Button confirm_btn = (Button) builder
                 .findViewById(R.id.dialog_sure);
@@ -312,20 +315,20 @@ public class RadomActivity extends AppCompatActivity {
         if (backtype.equals("0")) {
             confirm_btn.setText("提交");
             cancel_btn.setText("退出");
-        } else if(backtype.equals("1")){
+        } else if (backtype.equals("1")) {
             confirm_btn.setText("退出");
             cancel_btn.setText("继续答题");
-        }else{
+        } else {
             confirm_btn.setText("确定");
             cancel_btn.setVisibility(View.GONE);
         }
         confirm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (backtype.equals("0")){
+                if (backtype.equals("0")) {
                     builder.dismiss();
                     uploadExamination(pagerAdapter.errorTopicNum());
-                }else{
+                } else {
                     builder.dismiss();
                     finish();
                 }
@@ -359,6 +362,7 @@ public class RadomActivity extends AppCompatActivity {
         });
         builder.show();
     }
+
     private void startTime() {
         if (timer == null) {
             timer = new Timer();
@@ -379,26 +383,27 @@ public class RadomActivity extends AppCompatActivity {
         }
     }
 
-    private void stopTime(){
-        if(timer!=null){
+    private void stopTime() {
+        if (timer != null) {
             timer.cancel();
-            timer=null;
+            timer = null;
         }
-        if(timerTask!=null){
+        if (timerTask != null) {
             timerTask.cancel();
-            timerTask=null;
+            timerTask = null;
         }
     }
+
     // 提交试卷
     public void uploadExamination(int errortopicNum) {
         // TODO Auto-generated method stub
         String resultlist = "[";
         errortopicNums = errortopicNum;
 
-        if(questionInfos.size()>0){
+        if (questionInfos.size() > 0) {
             //选择过题目
             //全部选中
-            if(questionInfos.size()==dataItems.size()){
+            if (questionInfos.size() == dataItems.size()) {
                 for (int i = 0; i < questionInfos.size(); i++) {
                     if (i == questionInfos.size() - 1) {
                         resultlist += questionInfos.get(i).toString() + "]";
@@ -414,23 +419,21 @@ public class RadomActivity extends AppCompatActivity {
                         pageScore += score;
                     }
                 }
-            }else{
+            } else {
                 //部分选中
                 for (int i = 0; i < dataItems.size(); i++) {
-                    if(dataItems.get(i).getIsSelect()==null){
-                        errortopicNums1+=1;
+                    if (dataItems.get(i).getIsSelect() == null) {
+                        errortopicNums1 += 1;
                         //保存数据
-                        SaveQuestionInfo questionInfo=new SaveQuestionInfo();
+                        SaveQuestionInfo questionInfo = new SaveQuestionInfo();
                         questionInfo.setQuestionId(dataItems.get(i).getQuestionId());
-                        questionInfo.setQuestionType(dataItems.get(i).getQuestionType());
                         questionInfo.setRealAnswer(dataItems.get(i).getCorrectAnswer());
-                        questionInfo.setScore(dataItems.get(i).getScore());
                         questionInfo.setIs_correct(ConstantUtil.isError);
                         questionInfos.add(questionInfo);
                     }
                 }
 
-                for (int i = 0; i < dataItems.size(); i++){
+                for (int i = 0; i < dataItems.size(); i++) {
                     if (i == dataItems.size() - 1) {
                         resultlist += questionInfos.get(i).toString() + "]";
                     } else {
@@ -446,23 +449,21 @@ public class RadomActivity extends AppCompatActivity {
                     }
                 }
             }
-        }else{
+        } else {
             //没有选择题目
             for (int i = 0; i < dataItems.size(); i++) {
-                if(dataItems.get(i).getIsSelect()==null){
-                    errortopicNums1+=1;
+                if (dataItems.get(i).getIsSelect() == null) {
+                    errortopicNums1 += 1;
                     //保存数据
-                    SaveQuestionInfo questionInfo=new SaveQuestionInfo();
+                    SaveQuestionInfo questionInfo = new SaveQuestionInfo();
                     questionInfo.setQuestionId(dataItems.get(i).getQuestionId());
-                    questionInfo.setQuestionType(dataItems.get(i).getQuestionType());
                     questionInfo.setRealAnswer(dataItems.get(i).getCorrectAnswer());
-                    questionInfo.setScore(dataItems.get(i).getScore());
                     questionInfo.setIs_correct(ConstantUtil.isError);
                     questionInfos.add(questionInfo);
                 }
             }
 
-            for (int i = 0; i < dataItems.size(); i++){
+            for (int i = 0; i < dataItems.size(); i++) {
                 if (i == dataItems.size() - 1) {
                     resultlist += questionInfos.get(i).toString() + "]";
                 } else {
@@ -479,7 +480,7 @@ public class RadomActivity extends AppCompatActivity {
             }
         }
 
-        System.out.println("提交的已经选择的题目数组给后台===="+resultlist);
+        System.out.println("提交的已经选择的题目数组给后台====" + resultlist);
 
 
         Message msg = handlerSubmit.obtainMessage();
@@ -487,6 +488,7 @@ public class RadomActivity extends AppCompatActivity {
         handlerSubmit.sendMessage(msg);
 
     }
+
     // 弹出对话框通知用户提交成功
     protected void showSubmitDialog() {
         builderSubmit = new Dialog(this, R.style.dialog);
@@ -510,4 +512,7 @@ public class RadomActivity extends AppCompatActivity {
         });
         builderSubmit.show();
     }
-}
+
+
+    }
+

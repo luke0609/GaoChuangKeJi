@@ -1,0 +1,197 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!--<head>-->
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+    <!--<title>分校地图 - 南京天保驾校</title>-->
+    <!--&lt;!&ndash;引用百度地图API&ndash;&gt;-->
+    <!--<style type="text/css">-->
+    <!--html,body{margin:0;padding:0;}-->
+    <!--.iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}-->
+    <!--.iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}-->
+<!--</style>-->
+    <!--<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>-->
+
+<!--</head>-->
+
+<body>
+<div>
+    <dl>
+<!--<div class="header">-->
+    <!--<div class="header_top"></div>-->
+    <!--<div class="header_menu"><script type='text/javascript' src='menu.js'></script></div>-->
+    <!--<div class="header_banner">-->
+        <!--<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="600" height="129">-->
+            <!--<param name="movie" value="images/feng.swf" />-->
+            <!--<param name="quality" value="high" />-->
+            <!--<param name="wmode" value="transparent" />-->
+            <!--<embed src="images/feng.swf" width="600" height="129" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" wmode="transparent"></embed>-->
+        <!--</object>-->
+    <!--</div>-->
+<!--</div>-->
+<div >
+    <div><script language="javascript" type="text/javascript" src="left_menu.js"></script>
+    </div>
+
+    <div >
+        <dl>
+            <strong><h3>分校地图</h3></strong>
+            <dd>
+                <p>
+                    <link rel="stylesheet" type="text/css" href="images/css.css" />
+                    <!--百度地图容器-->
+                <div style="width:100%;height:420px;border:#ccc solid 1px ;" id="dituContent"></div>
+                <div><br />
+
+                    <p><strong>其他报名和训练点</strong></p>
+
+                    <p>1）<strong>郭家山分校： </strong><br />
+                        电话：83461229<br />
+                        公交线路：可乘班车前往 <br />
+                        训练科目：空驾、路训、倒桩 <br />
+                        适合人群：模范马路、黑龙江路一带学员均可就近选择学习 <br />
+                        <br />
+                        2)<strong> 模范马路报名点：</strong><br />
+                        &nbsp;电话：83492985<br />
+                        地址：南京邮电大学旁 <br />
+                        公交线路：乘83、45、32、30路到司背后下，或乘95路到马台街下 <br />
+                        训练科目：空驾 <br />
+                        适合人群：三牌楼大街、山西路、中央门、草场门、定淮门一带学员均可就近选择报名 <br />
+                        <br />
+                        3)
+                        <strong>金港晓庄分校：</strong><br />
+                        &nbsp;&nbsp;
+                        电话：85335656<br />
+                        地址：晓庄广场往北500米，中心村81号 <br />
+                        公交线路：乘8、64、74路到城市绿洲站下 <br />
+                        训练科目：空驾、路训、倒桩 <br />
+                        适合人群：迈皋桥、栖霞大道、和燕路、月苑小区一带学员均可就近选择学习 </p>
+                    <p><br />
+
+                    </p>
+                </div>
+<style type="text/css">
+    html,body{margin:0;padding:0;}
+    .iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:5px;white-space:nowrap}
+    .iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+
+
+<script type="text/javascript">
+    //创建和初始化地图函数：
+    function initMap(){
+        createMap();//创建地图
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+        addMarker();//向地图中添加marker
+    }
+
+    //创建地图函数：
+    function createMap(){
+        var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+        var point = new BMap.Point(118.927786,31.952993);//定义一个中心点坐标
+        map.centerAndZoom(point,10);//设定地图的中心点和坐标并将地图显示在地图容器中
+        window.map = map;//将map变量存储在全局
+    }
+
+    //地图事件设置函数：
+    function setMapEvent(){
+        map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+        map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+        map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+        map.enableKeyboard();//启用键盘上下左右键移动地图
+    }
+
+    //地图控件添加函数：
+    function addMapControl(){
+        //向地图中添加缩放控件
+	var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+	map.addControl(ctrl_nav);
+        //向地图中添加缩略图控件
+	var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+	map.addControl(ctrl_ove);
+        //向地图中添加比例尺控件
+	var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+	map.addControl(ctrl_sca);
+    }
+
+    //标注点数组
+    var markerArr = [{title:"天保驾校白马分校",content:"地址：白马公园公交总站旁<br/>联系电话：85429416<br/>公交线路：乘20路、44路、48路、308路、125路公交车到白马公园站下或2路、40路、58路、59路、11路、24路、68路、70路公交车太平门站下<br/>训练科目：C1、C2、空驾、路训<br/>就近区域：新街口、鼓楼、新庄一带学员均可就近选择学习",point:"118.822581|32.065281",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+		 ,{title:"天保驾校南理工分校",content:"地址：南京理工大学4号门往东500米<br/>联系电话：84310711<br/>公交线路：乘17路、81路、115路、37路公交车到南理工科技园站下往北<br/>训练科目：C1、C2、空驾、路训、倒桩<br/>就近区域：新街口、孝陵卫、光华路、马群一带学员均可就近选择学习",point:"118.871324|32.029335",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+		 ,{title:"天保驾校大明路分校",content:"地址：大明路113号（东方出租公司院内）<br/>联系电话：52604455<br/>公交线路：乘27路、84路、99路、118路、南金线公交车到后江沿站下<br/>训练科目：C1、C2、空驾、路训<br/>就近区域：中华路、大明路、雨花台一带学员均可就近选择学习",point:"118.816455|32.008157",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+		 ,{title:"天保驾校小行分校",content:"地址：小行尤家凹1号（原南京压缩机厂内），小行地铁站120路车站马路对面巷子进去400米<br/>联系电话：83241915<br/>公交线路：乘地铁到小行地铁站下或乘26路、96路、120路、127路、153路、155路、158路、169路、822路、春江社区巴士公交车到小行站下<br/>训练科目：C1、C2、空驾、路训、倒桩<br/>就近区域：中华路、雨花台、光华门、江宁岔路口、大学城、将军大道、地铁沿线学员均可就近选择学习",point:"118.751984|31.980335",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+		 ,{title:"天保驾校总校",content:"地址：天保桥8号<br/>联系电话：52814155&nbsp;&nbsp;&nbsp;52805405（贵宾班服务专线）<br/>公交线路：乘地铁到小行地铁站下转153路、96路公交车到天保桥站下<br/>自驾线路：绕城公路到板桥汽渡出口下，弘阳装饰城对面向内500米<br/>训练科目：所有科目训练及考前训练、模拟<br/>就近区域：梅山、小行、江宁一带学员均可就近选择学习",point:"118.680218|31.953179",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+		 ,{title:"天保驾校中华路报名点",content:"地址：中华路501号<br/>联系电话：52266739&nbsp;&nbsp;&nbsp;52266006<br/>公交线路：乘2路、16路、26路、33路、44路、49路、88路、101路、102路、105路、106路到中华门内站下<br/>训练科目：理论课培训、招生、宣传、审核",point:"118.789375|32.021422",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+		 ,{title:"天保驾校五塘村分校",content:"地点：中央北路156号（大件加气站旁）<br/>联系电话：83461229<br/>公交线路：乘公交1路、42路、35路、77路、175路、308路到五塘村站下<br/>训练科目：C1、C2、空驾、路训、倒桩<br/>就近区域：中央门、模范马路、鼓楼一带学员均可就近选择学习",point:"118.786547|32.113952",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+		 ,{title:"天保驾校大桥分校",content:"地址：宝塔桥东街2号（南堡公园对面、春之宾大酒店二楼）<br/>联系电话：58712169<br/>公交线路：乘12路、95路到南堡公园（西）站下<br/>训练科目：C1、C2、空驾、路训、倒桩<br/>就近区域：下关、金陵小区、中央门、热河路、三岔河一带学员均可就近选择学习",point:"118.759797|32.113784",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+		 ,{title:"天保驾校七星分校",content:"地址：七星修理厂院内<br/>联系电话：85501212<br/>公交线路：乘15路、38路、35路、42路、77路、69路、175路、308路到干休所站下<br/>训练科目：C1、C2、空驾、路训、倒桩<br/>就近区域：中央门、模范马路、鼓楼一带学员均可就近选择学习",point:"118.787443|32.109443",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+		 ,{title:"天保驾校河西分校",content:"地址：东宝路18号（南京交警五大队旁）<br/>联系电话：86652895<br/>公交线路：乘19路、39路、56路、60路、63路、72路、113路、129路、170路、303路、370路到东宝路（清河新寓）站下<br/>训练科目：C1、C2、空驾、路训、倒桩<br/>就近区域：河西、奥体中心、汉中门、南湖一带学员均可就近选择学习",point:"118.737843|32.049017",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+		 ,{title:"天保驾校麻田路分校",content:"地址：江宁区麻田路向西到头<br/>联系电话：15105199387<br/>公交线路：乘154路、705路、711路、719路、768路、安凤线到麻田路站下<br/>训练科目：C1、C2、空驾、路训、倒桩<br/>就近区域：将军大道、南航、河海大学、东南大学、河定桥、胜太路、百家湖一带学员均可就近选择学习",point:"118.776413|31.958295",isOpen:0,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
+		 ];
+    //创建marker
+    function addMarker(){
+        for(var i=0;i<markerArr.length;i++){
+            var json = markerArr[i];
+            var p0 = json.point.split("|")[0];
+            var p1 = json.point.split("|")[1];
+            var point = new BMap.Point(p0,p1);
+			var iconImg = createIcon(json.icon);
+            var marker = new BMap.Marker(point,{icon:iconImg});
+			var iw = createInfoWindow(i);
+			var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-json.icon.x+10,-20)});
+			marker.setLabel(label);
+            map.addOverlay(marker);
+            label.setStyle({
+                        borderColor:"#808080",
+                        color:"#333",
+                        cursor:"pointer"
+            });
+
+			(function(){
+				var index = i;
+				var _iw = createInfoWindow(i);
+				var _marker = marker;
+				_marker.addEventListener("click",function(){
+				    this.openInfoWindow(_iw);
+			    });
+			    _iw.addEventListener("open",function(){
+				    _marker.getLabel().hide();
+			    })
+			    _iw.addEventListener("close",function(){
+				    _marker.getLabel().show();
+			    })
+				label.addEventListener("click",function(){
+				    _marker.openInfoWindow(_iw);
+			    })
+				if(!!json.isOpen){
+					label.hide();
+					_marker.openInfoWindow(_iw);
+				}
+			})()
+        }
+    }
+    //创建InfoWindow
+    function createInfoWindow(i){
+        var json = markerArr[i];
+        var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
+        return iw;
+    }
+    //创建一个Icon
+    function createIcon(json){
+        var icon = new BMap.Icon("http://app.baidu.com/map/images/us_mk_icon.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
+        return icon;
+    }
+
+    initMap();//创建和初始化地图
+</script>
+
+</p>
+</dd>
+</dl>
+</div>
+</div>
+<script language="javascript" src="/foot.js"></script>
+<script language="javascript" src="/left_s.js"></script>
+</dl>
+</div>
+</body>
+</html>
