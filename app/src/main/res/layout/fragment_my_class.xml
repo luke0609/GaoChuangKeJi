@@ -29,7 +29,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
-
            />
         <View
             android:id="@+id/struct"
@@ -74,57 +73,9 @@
         android:textSize="50sp"
         android:layout_marginLeft="10dp"
         android:layout_below="@+id/tv_now"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/dash_board"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:text="安全文明驾驶常识备考阶段，系统学习、预约考试、通过理论考试即可获取驾照"
-        android:layout_below="@+id/tv_percent"
-        />
-    <LinearLayout
-        android:id="@+id/line2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/dash_board"
-        android:layout_toRightOf="@+id/dash_board"
-        android:layout_marginLeft="10dp"
-        android:orientation="horizontal">
-        <View
-            android:layout_width="30dp"
-            android:layout_height="4dp"
-            android:layout_gravity="center_vertical"
-            android:background="@color/main_style"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:text="已完成"/>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/line2"
-        android:layout_toRightOf="@+id/dash_board"
-        android:layout_marginLeft="10dp"
-        android:orientation="horizontal">
-        <View
-            android:layout_width="30dp"
-            android:layout_height="4dp"
-            android:layout_gravity="center_vertical"
-            android:background="@color/text_style"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:text="未完成"/>
-    </LinearLayout>
+
+
     <LinearLayout
         android:id="@+id/mid_bar"
         android:layout_width="match_parent"
@@ -162,26 +113,44 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <Button
             android:id="@+id/btn_1"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:text="实战模拟"
-            android:textSize="18sp"
+            android:textSize="25sp"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:background="#03A89E"
+
             android:layout_height="match_parent" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_marginLeft="5dp"
             >
             <Button
                 android:id="@+id/btn_2"
                 android:layout_width="match_parent"
                 android:layout_weight="2"
+                android:background="#FF9912"
+                android:text="考试预约"
+                android:textSize="18sp"
+                android:textColor="#fff"
+                android:textStyle="bold"
                 android:layout_height="0dp" />
             <Button
                 android:id="@+id/btn_3"
+                android:background="#FF4500"
+                android:text="课程预约"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"
+                android:textColor="#fff"
+                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_weight="2"
                 android:layout_height="0dp" />
@@ -189,5 +158,14 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:text="安全文明驾驶常识备考阶段，系统学习、预约考试、通过理论考试即可获取驾照"
+        android:layout_below="@+id/tv_percent"
+        android:layout_alignStart="@+id/tv_percent"
+        android:id="@+id/textView" />
 
 </RelativeLayout>

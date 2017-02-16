@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.jiaokaokeji.gaochuangkeji.myclass.Activity.Simulation.Km2ExamActivity;
+import com.jiaokaokeji.gaochuangkeji.myclass.Activity.Simulation.Km3ExamActivity;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -52,6 +53,8 @@ public class SimulationActivity extends AppCompatActivity {
                 startActivity(intent1);
                 break;
             case R.id.ll2:
+                Intent intent2=new Intent(SimulationActivity.this, Km3ExamActivity.class);
+                startActivity(intent2);
                 break;
             case R.id.ll3:
                 break;
