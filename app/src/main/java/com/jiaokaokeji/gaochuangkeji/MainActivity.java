@@ -15,11 +15,18 @@ import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.jiaokaokeji.gaochuangkeji.book.Book;
+import com.jiaokaokeji.gaochuangkeji.book.database.DBManager;
+import com.jiaokaokeji.gaochuangkeji.book.prjo.AnSwerInfo;
 import com.jiaokaokeji.gaochuangkeji.home.Home;
 import com.jiaokaokeji.gaochuangkeji.my.My;
 import com.jiaokaokeji.gaochuangkeji.myclass.MyClass;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 
@@ -32,7 +39,10 @@ public class MainActivity extends AppCompatActivity {
     Fragment[] fragments;
     Home home;
     Book book;
+    //ArrayList<AnSwerInfo> gonggaoList = new ArrayList<>();
+    AnSwerInfo anSwerInfo = new AnSwerInfo();
     My my;
+    DBManager dbManager=new DBManager(MainActivity.this);
     MyClass myClass;
     int oldIndex;//用户看到的item
     int newIndex;//用户即将看到的item
@@ -45,14 +55,14 @@ public class MainActivity extends AppCompatActivity {
     RadioButton rbRb3;
     @InjectView(R.id.rb_rb4)
     RadioButton rbRb4;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        dbManager.openDB1();
+        getGonggao();
        // StatusBarCompat.compat(this, Color.parseColor("#4EAFAB"));
         ButterKnife.inject(this);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }
@@ -92,10 +102,6 @@ public class MainActivity extends AppCompatActivity {
             winParams.flags &= ~bits;
         }
         win.setAttributes(winParams);
-
-
-
-
     }
 
     public void addshow(int newIndex) {
@@ -195,5 +201,32 @@ public class MainActivity extends AppCompatActivity {
             listener.onTouchEvent(ev);
         }
         return super.dispatchTouchEvent(ev);
+    }
+    public void getGonggao() {
+//        RequestParams params = new RequestParams("http://192.168.0.104:8080/ex/exa");
+//        x.http().get(params, new Callback.CommonCallback<String>() {
+//            @Override
+//            public void onSuccess(String result) {
+//                Gson gson = new Gson();
+//                AnSwerInfo bean = gson.fromJson(result, AnSwerInfo.class);
+//                gonggaoList.clear();
+//                gonggaoList.addAll(bean.ggList);
+        String[] gonggaoList = new String[]{"1", "这个标志是何含义?", "D", "小型车车道", "小型车专用车道",
+                "多乘员车辆专用车道", "机动车车道", "此为机动车车道,比多乘员车辆专用车道少俩人."};
+        for (int i = 0; i < gonggaoList.length; i++) {
+            anSwerInfo.setQuestionId(Integer.parseInt(gonggaoList[0]));
+            // anSwerInfo.setQuestionType(gonggaoList.get(i).questionType);
+            anSwerInfo.setCorrectAnswer(gonggaoList[2]);
+            //anSwerInfo.setIsSelect(gonggaoList.get(i).isSelect);
+            // anSwerInfo.setOption_type(gonggaoList.get(i).option_type);
+            anSwerInfo.setQuestionName(gonggaoList[1]);
+            anSwerInfo.setAnalysis(gonggaoList[7]);
+            anSwerInfo.setOptionA(gonggaoList[3]);
+            anSwerInfo.setOptionB(gonggaoList[4]);
+            anSwerInfo.setOptionC(gonggaoList[5]);
+            anSwerInfo.setOptionD(gonggaoList[6]);
+            anSwerInfo.setUrl(null);
+        }
+        dbManager.insertQuestion(anSwerInfo);
     }
 }

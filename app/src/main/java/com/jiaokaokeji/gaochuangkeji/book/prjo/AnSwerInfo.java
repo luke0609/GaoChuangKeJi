@@ -1,26 +1,35 @@
 package com.jiaokaokeji.gaochuangkeji.book.prjo;
 
 
-public class AnSwerInfo {
+import java.util.ArrayList;
 
-	public String questionId; // 试题主键
+public class AnSwerInfo {
+	public ArrayList<AnSwerInfo> ggList;
+	public int questionId; // 试题主键
 	public String questionName; // 试题题目
-	public String QuestionFor; // （0模拟试题，1竞赛试题）
-	public String QuestionType; // 试题类型
 	public String analysis; // 试题分析
+	public String questionType; // 试题类型
 	public String correctAnswer; // 正确答案
 	public String optionA; // 正确答案A
 	public String optionB; // 正确答案B
 	public String optionC; // 正确答案C
 	public String optionD; // 正确答案D
-	public String optionE; // 正确答案E
-	public String score; // 分值
 	public String option_type; // 是否是图片题0是1否
+	public String url;
 	public String isSelect; // 是否选择0是1否
-	public String getQuestionId() {
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public int getQuestionId() {
 		return questionId;
 	}
-	public void setQuestionId(String questionId) {
+	public void setQuestionId(int questionId) {
 		this.questionId = questionId;
 	}
 	public String getQuestionName() {
@@ -28,18 +37,6 @@ public class AnSwerInfo {
 	}
 	public void setQuestionName(String questionName) {
 		this.questionName = questionName;
-	}
-	public String getQuestionFor() {
-		return QuestionFor;
-	}
-	public void setQuestionFor(String questionFor) {
-		QuestionFor = questionFor;
-	}
-	public String getQuestionType() {
-		return QuestionType;
-	}
-	public void setQuestionType(String questionType) {
-		QuestionType = questionType;
 	}
 	public String getAnalysis() {
 		return analysis;
@@ -77,23 +74,11 @@ public class AnSwerInfo {
 	public void setOptionD(String optionD) {
 		this.optionD = optionD;
 	}
-	public String getScore() {
-		return score;
-	}
-	public void setScore(String score) {
-		this.score = score;
-	}
 	public String getIsSelect() {
 		return isSelect;
 	}
 	public void setIsSelect(String isSelect) {
 		this.isSelect = isSelect;
-	}
-	public String getOptionE() {
-		return optionE;
-	}
-	public void setOptionE(String optionE) {
-		this.optionE = optionE;
 	}
 	public String getOption_type() {
 		return option_type;
@@ -101,7 +86,12 @@ public class AnSwerInfo {
 	public void setOption_type(String option_type) {
 		this.option_type = option_type;
 	}
-	
-	
-	
+
+	public String getQuestionType() {
+		return questionType;
+	}
+
+	public void setQuestionType(String questionType) {
+		this.questionType = questionType;
+	}
 }

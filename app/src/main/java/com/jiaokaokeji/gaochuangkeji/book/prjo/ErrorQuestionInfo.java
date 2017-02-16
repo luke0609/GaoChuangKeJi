@@ -8,13 +8,30 @@ public class ErrorQuestionInfo {
 	public String questionAnswer;
 	public String questionSelect;
 	public String isRight;
+	public String optionType;
 	public String Analysis;
 	public String optionA;
 	public String optionB;
 	public String optionC;
 	public String optionD;
-	public String optionE;
-	public String optionType;
+	public String url;
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getQuestionType() {
+		return questionType;
+	}
+
+	public void setQuestionType(String questionType) {
+		questionType = questionType;
+	}
+
 	public int getQuestionId() {
 		return questionId;
 	}
@@ -26,12 +43,6 @@ public class ErrorQuestionInfo {
 	}
 	public void setQuestionName(String questionName) {
 		this.questionName = questionName;
-	}
-	public String getQuestionType() {
-		return questionType;
-	}
-	public void setQuestionType(String questionType) {
-		this.questionType = questionType;
 	}
 	public String getQuestionAnswer() {
 		return questionAnswer;
@@ -81,19 +92,12 @@ public class ErrorQuestionInfo {
 	public void setOptionD(String optionD) {
 		this.optionD = optionD;
 	}
-	public String getOptionE() {
-		return optionE;
-	}
-	public void setOptionE(String optionE) {
-		this.optionE = optionE;
-	}
+
 	public String getOptionType() {
 		return optionType;
 	}
-	public void setOptionType(String optionType) {
+
+	public void setOptionType(String questionType) {
 		this.optionType = optionType;
 	}
-	
-	
-
 }

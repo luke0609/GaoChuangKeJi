@@ -49,7 +49,7 @@ public class TworuleActivity extends AppCompatActivity {
         wv_setttig.setJavaScriptEnabled(true);
         web.setVerticalScrollBarEnabled(false);
         wv_setttig.setTextSize(WebSettings.TextSize.NORMAL);
-        String url = "file:///android_asset/rule.html";
+        String url = "file:///android_asset/ditu.html";
         //    webview.setInitialScale(200);
         web.loadUrl(url);
     }
