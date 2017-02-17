@@ -79,23 +79,12 @@ public class DBManager {
 				newValues);
 	}
 //	//添加题库
-	public long insertQuestion(AnSwerInfo info) {
-		ContentValues newValues = new ContentValues();
-         newValues.put("_question_id",info.getQuestionId());
-		newValues.put("_question_name", info.getQuestionName());
-		//newValues.put(DBHelper.MY_ERROR_QUESTION_OPTION_TYPE, info.getOption_type());
-		newValues.put("_question_answer", info.getCorrectAnswer());
-		newValues.put("_question_analysis", info.getAnalysis());
-		newValues.put("_question_option_a", info.getOptionA());
-		newValues.put("_question_option_b", info.getOptionB());
-		newValues.put("_question_option_c", info.getOptionC());
-		newValues.put("_question_option_d", info.getOptionD());
-		newValues.put("_question_url", info.getUrl());
-		//newValues.put(DBHelper.MY_ERROR_QUESTION_OPTION_E, info.getOptionE());
-		//newValues.put(DBHelper.MY_ERROR_QUESTION_OPTION_TYPE, info.getOption_type());
-
-		return database.insert("examination_question1", null,
-				newValues);
+	public void insertQuestion(int _question_id,String _question_name,String _question_answer
+	,String _question_analysis,String _question_option_a,String _question_option_b
+	,String _question_option_c,String _question_option_d,String _question_url) {
+		String sql="insert into examination_question1(_question_id,_question_name,_question_answer,_question_analysis,_question_option_a,_question_option_b,_question_option_c,_question_option_d,_question_url) values(?,?,?,?,?,?,?,?,?)";
+           database.execSQL(sql,new Object[]{_question_id,_question_name,_question_answer,_question_analysis,
+				   _question_option_a,_question_option_b,_question_option_c,_question_option_d,_question_url});
 	}
 	/**
 	 * 删除我的错题所有数据
@@ -163,11 +152,13 @@ public class DBManager {
 	//所有题目
 	private AnSwerInfo[] ConvertToQuestion1(Cursor cursor) {
 		int resultCounts = cursor.getCount();
+		System.out.println("9999"+resultCounts);
 		if (resultCounts == 0 || !cursor.moveToFirst()) {
 			return null;
 		}
 		AnSwerInfo[] peoples = new AnSwerInfo[resultCounts];
 		for (int i = 0; i < resultCounts; i++) {
+
 			peoples[i] = new AnSwerInfo();
 			peoples[i].questionId =cursor.getInt(0);
 			peoples[i].questionType="0";

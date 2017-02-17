@@ -7,21 +7,22 @@ public class ErrorQuestion implements Parcelable{
 	
 	public int questionId;
 	public String questionName;
+	public String questionType;
 	public String questionAnswer;
 	public String questionSelect;
-	public String questionType;
 	public String isRight;
 	public String Analysis;
 	public String optionA;
 	public String optionB;
 	public String optionC;
 	public String optionD;
-	public String option_type;
-	protected ErrorQuestion(Parcel in) {
+	public String optionType;
+
+	public ErrorQuestion(Parcel in) {
 		questionId = in.readInt();
 		questionName = in.readString();
-		questionAnswer = in.readString();
 		questionType = in.readString();
+		questionAnswer = in.readString();
 		questionSelect = in.readString();
 		isRight = in.readString();
 		Analysis = in.readString();
@@ -29,7 +30,7 @@ public class ErrorQuestion implements Parcelable{
 		optionB = in.readString();
 		optionC = in.readString();
 		optionD = in.readString();
-		option_type= in.readString();
+		optionType = in.readString();
 	}
 
 	public static final Creator<ErrorQuestion> CREATOR = new Creator<ErrorQuestion>() {
@@ -44,34 +45,27 @@ public class ErrorQuestion implements Parcelable{
 		}
 	};
 
+	public ErrorQuestion() {
+
+	}
+
 	public int getQuestionId() {
 		return questionId;
 	}
 	public void setQuestionId(int questionId) {
 		this.questionId = questionId;
 	}
-
-	public String getQuestionType() {
-		return questionType;
-	}
-
-	public void setQuestionType(String questionType) {
-		this.questionType = questionType;
-	}
-
-	public String getOption_type() {
-		return option_type;
-	}
-
-	public void setOption_type(String option_type) {
-		this.option_type = option_type;
-	}
-
 	public String getQuestionName() {
 		return questionName;
 	}
 	public void setQuestionName(String questionName) {
 		this.questionName = questionName;
+	}
+	public String getQuestionType() {
+		return questionType;
+	}
+	public void setQuestionType(String questionType) {
+		this.questionType = questionType;
 	}
 	public String getQuestionAnswer() {
 		return questionAnswer;
@@ -121,6 +115,12 @@ public class ErrorQuestion implements Parcelable{
 	public void setOptionD(String optionD) {
 		this.optionD = optionD;
 	}
+	public String getOptionType() {
+		return optionType;
+	}
+	public void setOptionType(String optionType) {
+		this.optionType = optionType;
+	}
 	@Override
 	public int describeContents() {
 		// TODO Auto-generated method stub
@@ -130,6 +130,7 @@ public class ErrorQuestion implements Parcelable{
 	public void writeToParcel(Parcel dest, int arg1) {
 		// TODO Auto-generated method stub
 		dest.writeString(questionName);
+		dest.writeString(questionType);
 		dest.writeString(questionAnswer);
 		dest.writeString(questionSelect);
 		dest.writeString(isRight);
@@ -138,6 +139,9 @@ public class ErrorQuestion implements Parcelable{
 		dest.writeString(optionB);
 		dest.writeString(optionC);
 		dest.writeString(optionD);
-		dest.writeString(questionType);
+		dest.writeString(optionType);
 	}
+	
+	
+
 }

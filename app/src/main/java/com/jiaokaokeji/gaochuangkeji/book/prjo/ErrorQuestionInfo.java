@@ -100,4 +100,23 @@ public class ErrorQuestionInfo {
 	public void setOptionType(String questionType) {
 		this.optionType = optionType;
 	}
+
+	@Override
+	public String toString() {
+		return "ErrorQuestionInfo{" +
+				"questionId=" + questionId +
+				", questionName='" + questionName + '\'' +
+				", questionType='" + questionType + '\'' +
+				", questionAnswer='" + questionAnswer + '\'' +
+				", questionSelect='" + questionSelect + '\'' +
+				", isRight='" + isRight + '\'' +
+				", optionType='" + optionType + '\'' +
+				", Analysis='" + Analysis + '\'' +
+				", optionA='" + optionA + '\'' +
+				", optionB='" + optionB + '\'' +
+				", optionC='" + optionC + '\'' +
+				", optionD='" + optionD + '\'' +
+				", url='" + url + '\'' +
+				'}';
+	}
 }
