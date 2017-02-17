@@ -320,6 +320,28 @@
                     />
 
             </TableRow>
+            <TableRow
+                android:id="@+id/tableRow31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView android:text="速     度 ："
+                    android:id="@+id/textViewSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:textColor="#FFFFFF"/>
+                <TextView android:id="@+id/textSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30km/h"
+                    android:textColor="#fff"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp"
+                    />
+
+            </TableRow>
 
         </TableLayout>
 
@@ -398,6 +420,28 @@
                     />
 
             </TableRow>
+            <TableRow
+                android:id="@+id/tableRow22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView android:text="转     速 ："
+                    android:id="@+id/textViewRound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#FFFFFF"/>
+                <TextView android:id="@+id/textRound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1100r/min"
+                    android:textColor="#fff"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp"
+                    />
+
+            </TableRow>
         </TableLayout>
         <TableLayout
             android:layout_width="0dp"
@@ -405,14 +449,15 @@
             android:layout_weight="1"
             android:orientation="vertical">
             <TableRow
+                android:layout_marginTop="5dp"
                 android:id="@+id/tableRow10"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <Button
                     android:layout_width="40dp"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:layout_weight="1"
+                    android:textSize="16sp"
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/rp_btn_login_sign_in"
@@ -421,9 +466,10 @@
                     android:textColor="#fff"
                     />
                 <Button android:layout_width="40dp"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:layout_weight="1"
                     android:layout_marginTop="5dp"
+                    android:textSize="16sp"
                     android:background="@drawable/rp_btn_login_sign_in"
                     android:text="结束\n考试"
                     android:textStyle="bold"
