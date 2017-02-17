@@ -1,9 +1,12 @@
 package com.jiaokaokeji.gaochuangkeji;
 
 import android.annotation.TargetApi;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -40,10 +43,12 @@ public class MainActivity extends AppCompatActivity {
     Home home;
     Book book;
     //ArrayList<AnSwerInfo> gonggaoList = new ArrayList<>();
+    AnSwerInfo anSwerInfo1 = new AnSwerInfo();
     AnSwerInfo anSwerInfo = new AnSwerInfo();
     My my;
-    DBManager dbManager=new DBManager(MainActivity.this);
+    DBManager dbManager = new DBManager(MainActivity.this);
     MyClass myClass;
+    ArrayList<AnSwerInfo> infoArrayList = new ArrayList<>();
     int oldIndex;//用户看到的item
     int newIndex;//用户即将看到的item
     RadioButton[] tabs;
@@ -55,14 +60,21 @@ public class MainActivity extends AppCompatActivity {
     RadioButton rbRb3;
     @InjectView(R.id.rb_rb4)
     RadioButton rbRb4;
+    private boolean isFirst;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbManager.openDB1();
-        getGonggao();
-       // StatusBarCompat.compat(this, Color.parseColor("#4EAFAB"));
         ButterKnife.inject(this);
+        dbManager.openDB1();
+        SharedPreferences setting = getSharedPreferences("share", 0);
+        Boolean user_first = setting.getBoolean("FIRST",true);
+        if(user_first){//第一次
+            setting.edit().putBoolean("FIRST", false).commit();
+            getGonggao();
+        }
+
+        // StatusBarCompat.compat(this, Color.parseColor("#4EAFAB"));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }
@@ -203,30 +215,46 @@ public class MainActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
     public void getGonggao() {
-//        RequestParams params = new RequestParams("http://192.168.0.104:8080/ex/exa");
-//        x.http().get(params, new Callback.CommonCallback<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                Gson gson = new Gson();
-//                AnSwerInfo bean = gson.fromJson(result, AnSwerInfo.class);
-//                gonggaoList.clear();
-//                gonggaoList.addAll(bean.ggList);
+
         String[] gonggaoList = new String[]{"1", "这个标志是何含义?", "D", "小型车车道", "小型车专用车道",
                 "多乘员车辆专用车道", "机动车车道", "此为机动车车道,比多乘员车辆专用车道少俩人."};
+        String[] gonggaoList1 = new String[]{"2", "这个标志是何含义?", "D", "小型车车道", "小型车专用车道",
+                "多乘员车辆专用车道", "机动车车道", "此为机动车车道,比多乘员车辆专用车道少俩人."};
         for (int i = 0; i < gonggaoList.length; i++) {
-            anSwerInfo.setQuestionId(Integer.parseInt(gonggaoList[0]));
+            anSwerInfo1.setQuestionId(Integer.parseInt(gonggaoList[0]));
             // anSwerInfo.setQuestionType(gonggaoList.get(i).questionType);
-            anSwerInfo.setCorrectAnswer(gonggaoList[2]);
+            anSwerInfo1.setCorrectAnswer(gonggaoList[2]);
             //anSwerInfo.setIsSelect(gonggaoList.get(i).isSelect);
             // anSwerInfo.setOption_type(gonggaoList.get(i).option_type);
-            anSwerInfo.setQuestionName(gonggaoList[1]);
-            anSwerInfo.setAnalysis(gonggaoList[7]);
-            anSwerInfo.setOptionA(gonggaoList[3]);
-            anSwerInfo.setOptionB(gonggaoList[4]);
-            anSwerInfo.setOptionC(gonggaoList[5]);
-            anSwerInfo.setOptionD(gonggaoList[6]);
+            anSwerInfo1.setQuestionName(gonggaoList[1]);
+            anSwerInfo1.setAnalysis(gonggaoList[7]);
+            anSwerInfo1.setOptionA(gonggaoList[3]);
+            anSwerInfo1.setOptionB(gonggaoList[4]);
+            anSwerInfo1.setOptionC(gonggaoList[5]);
+            anSwerInfo1.setOptionD(gonggaoList[6]);
+            anSwerInfo1.setUrl(null);
+        }
+        infoArrayList.add(anSwerInfo1);
+        for (int i = 0; i < gonggaoList.length; i++) {
+            anSwerInfo.setQuestionId(Integer.parseInt(gonggaoList1[0]));
+            // anSwerInfo.setQuestionType(gonggaoList.get(i).questionType);
+            anSwerInfo.setCorrectAnswer(gonggaoList1[2]);
+            //anSwerInfo.setIsSelect(gonggaoList.get(i).isSelect);
+            // anSwerInfo.setOption_type(gonggaoList.get(i).option_type);
+            anSwerInfo.setQuestionName(gonggaoList1[1]);
+            anSwerInfo.setAnalysis(gonggaoList1[7]);
+            anSwerInfo.setOptionA(gonggaoList1[3]);
+            anSwerInfo.setOptionB(gonggaoList1[4]);
+            anSwerInfo.setOptionC(gonggaoList1[5]);
+            anSwerInfo.setOptionD(gonggaoList1[6]);
             anSwerInfo.setUrl(null);
         }
-        dbManager.insertQuestion(anSwerInfo);
+        infoArrayList.add(anSwerInfo);
+        for(int i=0;i<infoArrayList.size();i++) {
+            System.out.println("^^^^^"+infoArrayList.get(i).questionId);
+            dbManager.insertQuestion(infoArrayList.get(i).questionId,infoArrayList.get(i).questionName
+            ,infoArrayList.get(i).correctAnswer,infoArrayList.get(i).analysis,infoArrayList.get(i).optionA
+            ,infoArrayList.get(i).optionB,infoArrayList.get(i).optionC,infoArrayList.get(i).optionD,infoArrayList.get(i).url);
+        }
     }
 }
