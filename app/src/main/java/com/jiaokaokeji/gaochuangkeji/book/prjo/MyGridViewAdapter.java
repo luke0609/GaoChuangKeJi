@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jiaokaokeji.gaochuangkeji.R;
 
 /**
@@ -20,12 +21,12 @@ public class MyGridViewAdapter extends BaseAdapter {
     private static final String TAG = "MyGridViewAdapter";
     private Context context;
     private int layoutId;
-    private int listData[];
+    private String listData[];
     private String title[];
 
 
     public MyGridViewAdapter(Context context, int layoutId,
-                             int[] listData,String title[]) {
+                             String[] listData,String title[]) {
         this.context = context;
         this.layoutId = layoutId;
         this.listData = listData;
@@ -66,7 +67,7 @@ public class MyGridViewAdapter extends BaseAdapter {
         holder = (ViewHolder) convertView.getTag();
 
         //mLoader.DisplayImage(getItem(position), holder.imageView);
-        holder.imageView.setImageResource(listData[position]);
+        Glide.with(context).load(listData[position]).fitCenter().into(holder.imageView);
         holder.tv.setText(title[position].toString());
         return convertView;
     }

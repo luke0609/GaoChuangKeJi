@@ -12,6 +12,7 @@
         android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:gravity="center_vertical"
         android:textSize="13sp"
         android:layout_gravity="center_vertical"
         android:textColor="@color/main_style"

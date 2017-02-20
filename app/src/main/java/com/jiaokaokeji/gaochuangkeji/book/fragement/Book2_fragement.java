@@ -31,10 +31,12 @@ public class Book2_fragement extends Fragment {
     View view1;
     int height;
     int width;
-    private int urls[] = {R.drawable.video1, R.drawable.video1, R.drawable.video1, R.drawable.video1,
-            R.drawable.video1, R.drawable.video1, R.drawable.video1, R.drawable.video1};
-    String title[] = new String[]{"倒车入库", "倒车入库", "倒车入库", "倒车入库", "倒车入库", "倒车入库",
-            "倒车入库", "倒车入库"};
+    String title[] = new String[]{"倒车入库", "空驾练习", "直角转弯", "曲线行驶", "坡道定点停车和起步", "侧方停车",
+            "起步，上车动作", "天保驾校全国首创：电动教学训练仪"};
+    String image[]=new String[]{"http://www.tbqjx.com/loadimage.php?id=54","http://www.tbqjx.com/loadimage.php?id=55",
+    "http://www.tbqjx.com/loadimage.php?id=48","http://www.tbqjx.com/loadimage.php?id=49",
+    "http://www.tbqjx.com/loadimage.php?id=50","http://www.tbqjx.com/loadimage.php?id=51",
+    "http://www.tbqjx.com/loadimage.php?id=52","http://www.tbqjx.com/loadimage.php?id=53"};
     private TextView tv1;
     private MyScollview myScollview;
     private View v1;
@@ -69,39 +71,59 @@ public class Book2_fragement extends Fragment {
                 switch (position){
                     case 0:
                       Intent intent1=new Intent(getActivity(), VideoActivity.class);
-                        intent1.putExtra("title","倒车入库");
-                        intent1.putExtra("url","");
+                        intent1.putExtra("title",title[position]);
+                        intent1.putExtra("url","http://www.tbqjx.com/files/video/7.mp4");
+                        intent1.putExtra("image",image[position]);
                         startActivity(intent1);
                         break;
                     case 1:
                         Intent intent2=new Intent(getActivity(), VideoActivity.class);
-                        intent2.putExtra("title","倒车入库");
-                        intent2.putExtra("url","");
+                        intent2.putExtra("title",title[position]);
+                        intent2.putExtra("url","http://www.tbqjx.com/files/video/8.mp4");
+                        intent2.putExtra("image",image[position]);
                         startActivity(intent2);
                         break;
                     case 2:
                         Intent intent3=new Intent(getActivity(), VideoActivity.class);
-                        intent3.putExtra("title","倒车入库");
-                        intent3.putExtra("url","");
+                        intent3.putExtra("title",title[position]);
+                        intent3.putExtra("url","http://www.tbqjx.com/files/video/6.mp4");
+                        intent3.putExtra("image",image[position]);
                         startActivity(intent3);
                         break;
                     case 3:
                         Intent intent4=new Intent(getActivity(), VideoActivity.class);
-                        intent4.putExtra("title","倒车入库");
-                        intent4.putExtra("url","");
+                        intent4.putExtra("title",title[position]);
+                        intent4.putExtra("url","http://www.tbqjx.com/files/video/5.mp4");
+                        intent4.putExtra("image",image[position]);
                         startActivity(intent4);
                         break;
                     case 4:
                         Intent intent5=new Intent(getActivity(), VideoActivity.class);
-                        intent5.putExtra("title","倒车入库");
-                        intent5.putExtra("url","");
+                        intent5.putExtra("title",title[position]);
+                        intent5.putExtra("url","http://www.tbqjx.com/files/video/4.mp4");
+                        intent5.putExtra("image",image[position]);
                         startActivity(intent5);
                         break;
                     case 5:
                         Intent intent6=new Intent(getActivity(), VideoActivity.class);
-                        intent6.putExtra("title","倒车入库");
-                        intent6.putExtra("url","");
+                        intent6.putExtra("title",title[position]);
+                        intent6.putExtra("url","http://www.tbqjx.com/files/video/3.mp4");
+                        intent6.putExtra("image",image[position]);
                         startActivity(intent6);
+                        break;
+                    case 6:
+                        Intent intent7=new Intent(getActivity(), VideoActivity.class);
+                        intent7.putExtra("title",title[position]);
+                        intent7.putExtra("url","http://www.tbqjx.com/files/video/2.mp4");
+                        intent7.putExtra("image",image[position]);
+                        startActivity(intent7);
+                        break;
+                    case 7:
+                        Intent intent8=new Intent(getActivity(), VideoActivity.class);
+                        intent8.putExtra("title",title[position]);
+                        intent8.putExtra("url","http://www.tbqjx.com/files/video/1.mp4");
+                        intent8.putExtra("image",image[position]);
+                        startActivity(intent8);
                         break;
                     default:
                         break;
@@ -110,7 +132,7 @@ public class Book2_fragement extends Fragment {
             }
         });
         MyGridViewAdapter adapter = new MyGridViewAdapter(getActivity(), R.layout.item,
-                urls, title);
+                image, title);
         gridView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         ButterKnife.inject(this, view1);

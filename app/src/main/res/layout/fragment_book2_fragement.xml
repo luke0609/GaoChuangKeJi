@@ -172,7 +172,7 @@
             android:id="@+id/v"
             android:layout_width="match_parent"
             android:layout_height="15dp"
-            android:background="@color/line"/>
+            android:background="#f0f0f0"/>
         <TextView
             android:id="@+id/tv"
             android:layout_below="@id/v"
@@ -180,7 +180,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:text="科二视频"
-            android:textSize="13sp"
+            android:textSize="18sp"
             />
             <com.jiaokaokeji.gaochuangkeji.book.StaggeredGridView.MyGrigview
                 android:id="@+id/staggeredGridView1"

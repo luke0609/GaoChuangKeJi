@@ -13,9 +13,9 @@ import com.dl7.player.media.IjkPlayerView;
 import com.jiaokaokeji.gaochuangkeji.R;
 
 public class VideoActivity extends AppCompatActivity {
-    private static final String VIDEO_URL = "http://k.youku.com/player/getFlvPath/sid/0486696154553120c7fb3_00/st/flv/fileid/03000201005546382C1E69010DD7BB852DE34F-3B4C-81FA-6447-E7E2278D50CC?K=e2a7a75a27de0ba4261f81d7&sign=3671adc87d987a00c225808af20a1949&ctype=12&ev=1&token=0519&oip=1968735650&ep=ciacHE%2BEUM8F4Sbaiz8bZ3%2FlIiUMXP4J9h%2BFg9JjALshTey5mjbTtJzFSPZCF%2FltBiV0YuP0qaSSaURiYfMxrRsQ10%2FeSPrm%2BvTk5dhUsZICYRFCd82kx1SeRjH4&ymovie=1";
-    private static final String VIDEO_HD_URL = "http://k.youku.com/player/getFlvPath/sid/0486696154553120c7fb3_00/st/mp4/fileid/030008010055466AF61E69010DD7BB852DE34F-3B4C-81FA-6447-E7E2278D50CC?K=08ffa3e1373922d2282c1c2e&sign=3671adc87d987a00c225808af20a1949&ctype=12&ev=1&token=0519&oip=1968735650&ep=ciacHE%2BEUM8F4Sbaiz8bZ3%2FlIiUMXP4J9h%2BFidJjALshTey5n0%2BnwZzFSPZCF%2FltBiV0YuP0qaSSaURiYfMxrRsQ10%2FeSPrm%2BvTk5dhUsZICYRFCd82kx1SeRjH4&ymovie=1";
-    private static final String IMAGE_URL = "http://vimg2.ws.126.net/image/snapshot/2016/11/I/M/VC62HMUIM.jpg";
+    private  String VIDEO_URL;
+    private  String title;
+    private  String IMAGE_URL;
     private IjkPlayerView mPlayerView;
     Toolbar mToolbar;
     @Override
@@ -25,14 +25,17 @@ public class VideoActivity extends AppCompatActivity {
         mPlayerView = (IjkPlayerView) findViewById(R.id.player_view);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        title=getIntent().getStringExtra("title");
+        IMAGE_URL=getIntent().getStringExtra("image");
+        VIDEO_URL=getIntent().getStringExtra("url");
         mToolbar.setTitle("Video Player");
-        mToolbar.setSubtitle("123");
+        mToolbar.setSubtitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Glide.with(this).load(IMAGE_URL).fitCenter().into(mPlayerView.mPlayerThumb);
         mPlayerView.init()
                 .setTitle("科目二考试记录")
 
-                .setVideoSource(null, VIDEO_URL, VIDEO_HD_URL, null, null)
+                .setVideoSource(null, VIDEO_URL, null, null, null)
                 .setMediaQuality(IjkPlayerView.MEDIA_QUALITY_HIGH);
 
 
