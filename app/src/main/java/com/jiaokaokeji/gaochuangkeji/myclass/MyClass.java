@@ -91,27 +91,14 @@ public class MyClass extends Fragment implements View.OnClickListener{
         super.onResume();
         progressBarChange(progressNum);
     }
-//
-//    @Override
-//    public void onHiddenChanged(boolean hidden) {
-//        super.onHiddenChanged(hidden);
-//        System.out.println("123"+hidden);
-//        if (!hidden) {
-//            progressBarChange(progressNum);
-//        }
-//    }
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
-//
-//    @OnClick(R.id.saoma)
-//    public void onClick(View view) {
-//        Intent intent = new Intent(getActivity(), CaptureActivity.class);
-//        startActivity(intent);
-//    }
+
 
     private void progressBarChange(final float progressNum) {
         //开启一个线程
