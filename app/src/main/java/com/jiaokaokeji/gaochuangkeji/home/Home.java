@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,12 +20,14 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.jiaokaokeji.gaochuangkeji.application.ListViewForScrollView;
 import com.jiaokaokeji.gaochuangkeji.application.ObservableScrollView;
 import com.jiaokaokeji.gaochuangkeji.home.Activity.ApplyActivity;
+import com.jiaokaokeji.gaochuangkeji.home.Activity.MessageActivity;
 import com.jiaokaokeji.gaochuangkeji.home.Activity.ProblemActivity;
 import com.jiaokaokeji.gaochuangkeji.home.Activity.ProcessActivity;
 import com.jiaokaokeji.gaochuangkeji.home.pojo.Student;
@@ -58,6 +61,7 @@ public class Home extends Fragment implements View.OnClickListener {
     private  List<Student> stuList;
     private TextView title_tv;
     private ObservableScrollView sv_main;
+    private String url;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -143,7 +147,7 @@ public class Home extends Fragment implements View.OnClickListener {
         stuList.add(stu6);
 
 
-
+    
 
     }
 
@@ -188,7 +192,25 @@ public class Home extends Fragment implements View.OnClickListener {
         //banner设置方法全部调用完毕时最后调用
         banner.start();
 
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(), position+"", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getContext(), MessageActivity.class);
+                switch (position){
+                    case 0:
+                        url="file:///android_asset/jianjie.html";
+                        intent.putExtra("url",url);
+                        startActivity(intent);
+                    case 1:
+                        url="file:///android_asset/tese.html";
+                        intent.putExtra("url",url);
+                        startActivity(intent);
 
+
+                }
+            }
+        });
     }
 
     @Override

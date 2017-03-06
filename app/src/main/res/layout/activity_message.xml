@@ -7,5 +7,35 @@
     android:fitsSystemWindows="true"
     android:clipToPadding="false"
     tools:context="com.jiaokaokeji.gaochuangkeji.home.Activity.MessageActivity">
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@color/main_style">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/back"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"/>
 
+        <TextView
+            android:id="@+id/bar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="学车流程"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/web"
+        android:layout_below="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </WebView>
 </RelativeLayout>

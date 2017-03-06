@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.jiaokaokeji.gaochuangkeji"
@@ -41,4 +41,5 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.Rukey7:IjkPlayerView:v1.0.3'
     compile files('libs/gson-2.7.jar')
+    compile 'com.jakewharton:butterknife:5.1.1'
 }
