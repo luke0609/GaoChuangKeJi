@@ -167,7 +167,7 @@ public class Home extends Fragment implements View.OnClickListener {
         adapter=new MyAdapter(stuList,getContext());
         lv.setAdapter(adapter);
         images=new ArrayList();
-        images.add(R.drawable.banner1);
+        images.add(R.drawable.banner2);
         images.add(R.drawable.car4);
         titles=new ArrayList();
         titles.add("二手车买卖");
@@ -214,6 +214,35 @@ public class Home extends Fragment implements View.OnClickListener {
                         intent.putExtra("title",title);
                         startActivity(intent);
                         break;
+                    case 2:
+                        url="file:///android_asset/tese.html";
+                        title="收费标准";
+                        intent.putExtra("url",url);
+                        intent.putExtra("title",title);
+                        startActivity(intent);
+                        break;
+                    case 3:
+                        url="file:///android_asset/tese.html";
+                        title="分校地图";
+                        intent.putExtra("url",url);
+                        intent.putExtra("title",title);
+                        startActivity(intent);
+                        break;
+                    case 4:
+                        url="file:///android_asset/tese.html";
+                        title="班车路线";
+                        intent.putExtra("url",url);
+                        intent.putExtra("title",title);
+                        startActivity(intent);
+                        break;
+                    case 5:
+                        url="file:///android_asset/tese.html";
+                        title="车友联盟";
+                        intent.putExtra("url",url);
+                        intent.putExtra("title",title);
+                        startActivity(intent);
+                        break;
+
 
                 }
             }
