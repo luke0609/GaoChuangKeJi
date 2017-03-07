@@ -31,6 +31,7 @@ import com.jiaokaokeji.gaochuangkeji.home.Activity.MessageActivity;
 import com.jiaokaokeji.gaochuangkeji.home.Activity.ProblemActivity;
 import com.jiaokaokeji.gaochuangkeji.home.Activity.ProcessActivity;
 import com.jiaokaokeji.gaochuangkeji.home.pojo.Student;
+import com.jiaokaokeji.gaochuangkeji.myclass.signview.StringUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -62,6 +63,7 @@ public class Home extends Fragment implements View.OnClickListener {
     private TextView title_tv;
     private ObservableScrollView sv_main;
     private String url;
+    private String title;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -123,7 +125,7 @@ public class Home extends Fragment implements View.OnClickListener {
         stuList.add(stu2);
 
         Student stu3=new Student();
-        stu3.setName("驾考大纲");
+        stu3.setName("班车路线");
         stu3.setAge("南京天保驾校始建于1990年，有着二十多年的办学历史和经验，是全市一流的汽车、摩托车驾驶员培训专业学校，年培训规模达2万余人。");
         stu3.setPhoto(R.drawable.l3);
         stuList.add(stu3);
@@ -165,10 +167,10 @@ public class Home extends Fragment implements View.OnClickListener {
         adapter=new MyAdapter(stuList,getContext());
         lv.setAdapter(adapter);
         images=new ArrayList();
-        images.add(R.drawable.car2);
+        images.add(R.drawable.banner1);
         images.add(R.drawable.car4);
         titles=new ArrayList();
-        titles.add("学车指南");
+        titles.add("二手车买卖");
         titles.add("驾考新规");
       //  images.add("http://pic.58pic.com/58pic/16/13/75/70658PICpiZ_1024.jpg");
 
@@ -195,18 +197,23 @@ public class Home extends Fragment implements View.OnClickListener {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), position+"", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), position+"", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(getContext(), MessageActivity.class);
                 switch (position){
                     case 0:
                         url="file:///android_asset/jianjie.html";
+                        title="驾校简介";
                         intent.putExtra("url",url);
+                        intent.putExtra("title",title);
                         startActivity(intent);
+                        break;
                     case 1:
                         url="file:///android_asset/tese.html";
+                        title="驾校特色";
                         intent.putExtra("url",url);
+                        intent.putExtra("title",title);
                         startActivity(intent);
-
+                        break;
 
                 }
             }
