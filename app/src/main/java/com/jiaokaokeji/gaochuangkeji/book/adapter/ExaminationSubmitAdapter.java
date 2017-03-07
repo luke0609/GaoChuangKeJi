@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.jiaokaokeji.gaochuangkeji.MainActivity;
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.jiaokaokeji.gaochuangkeji.book.Activity.MymistakesActivity;
@@ -92,6 +93,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 		holder.previousBtn = (LinearLayout) convertView.findViewById(R.id.activity_prepare_test_upLayout);
 		holder.nextBtn = (LinearLayout) convertView.findViewById(R.id.activity_prepare_test_nextLayout);
 		holder.nextText = (TextView) convertView.findViewById(R.id.menu_bottom_nextTV);
+		holder.iv = ((ImageView) convertView.findViewById(R.id.iv));
 		holder.errorBtn =(LinearLayout) convertView.findViewById(R.id.activity_prepare_test_errorLayout);
 		holder.totalText = (TextView) convertView.findViewById(R.id.activity_prepare_test_totalTv);
 		holder.nextImage = (ImageView) convertView.findViewById(R.id.menu_bottom_nextIV);
@@ -161,18 +163,22 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 		//判断题型
 		if(dataItems.get(position).getQuestionType().equals("0")){
 			//单选题
-			
+
 			holder.question.setText("(单选题)"+dataItems.get(position).getQuestionName());
-			
+			if (dataItems.get(position).getUrl()!=null){
+				Glide.with(mContext).load(dataItems.get(position).getUrl()).into(holder.iv);
+			}else {
+				holder.iv.setVisibility(View.GONE);
+			}
 			holder.layoutA.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View arg0) {
 					if(map.containsKey(position)){
 						return;
 					}
 					map.put(position, true);
-					
+
 					if(dataItems.get(position).getCorrectAnswer().contains("A")){
 						mContext.setCurrentView(position+1);
 						holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
@@ -185,6 +191,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 						ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
 						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
 						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
+						errorQuestionInfo.setQuestionType("0");
 						errorQuestionInfo.setIsRight(isCorrect);
 						errorQuestionInfo.setQuestionSelect("A");
 						errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
@@ -193,22 +200,25 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
 							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
 							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
+							errorQuestionInfo.setUrl(dataItems.get(position).getAnalysis());
+							errorQuestionInfo.setOptionType("0");
 						}else{
 							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("")?"":imgServerUrl+dataItems.get(position).getOptionA());
 							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("")?"":imgServerUrl+dataItems.get(position).getOptionB());
 							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("")?"":imgServerUrl+dataItems.get(position).getOptionC());
 							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("")?"":imgServerUrl+dataItems.get(position).getOptionD());
+							errorQuestionInfo.setOptionType("1");
 						}
-						
+
 						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
 						System.out.println("666666666"+errorQuestionInfo.toString());
-						
+
 						if(colunm == -1)
 						{
 							Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
 							System.out.println("666666666"+errorQuestionInfo.toString());
 						}
-						
+
 						holder.ivA.setImageResource(R.drawable.ic_practice_test_wrong);
 						holder.tvA.setTextColor(Color.parseColor("#d53235"));
 						//提示
@@ -242,7 +252,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 				}
 			});
 			holder.layoutB.setOnClickListener(new OnClickListener() {
-							
+
 							@Override
 							public void onClick(View arg0) {
 								if(map.containsKey(position)){
@@ -251,8 +261,8 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 								map.put(position, true);
 								if(dataItems.get(position).getCorrectAnswer().contains("B")){
 									mContext.setCurrentView(position+1);
-									holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
-									holder.tvB.setTextColor(Color.parseColor("#61bc31"));
+									holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
+									holder.tvA.setTextColor(Color.parseColor("#61bc31"));
 									isCorrect=ConstantUtil.isCorrect;
 								}else{
 									isCorrect=ConstantUtil.isError;
@@ -261,29 +271,31 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 									ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
 									errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
 									errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
+									errorQuestionInfo.setQuestionType("0");
 									errorQuestionInfo.setIsRight(isCorrect);
-									errorQuestionInfo.setQuestionSelect("B");
+									errorQuestionInfo.setQuestionSelect("A");
 									errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
 									if(dataItems.get(position).getOption_type().equals("0")){
 										errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
 										errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
 										errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
 										errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
-										//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE());
+										errorQuestionInfo.setUrl(dataItems.get(position).getAnalysis());
+										errorQuestionInfo.setOptionType("0");
 									}else{
 										errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("")?"":imgServerUrl+dataItems.get(position).getOptionA());
 										errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("")?"":imgServerUrl+dataItems.get(position).getOptionB());
 										errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("")?"":imgServerUrl+dataItems.get(position).getOptionC());
 										errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("")?"":imgServerUrl+dataItems.get(position).getOptionD());
-										//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
+										errorQuestionInfo.setOptionType("1");
 									}
 									long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-									
+
 									if(colunm == -1)
 									{
 										Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
 									}
-									
+
 									holder.ivB.setImageResource(R.drawable.ic_practice_test_wrong);
 									holder.tvB.setTextColor(Color.parseColor("#d53235"));
 									//提示
@@ -319,7 +331,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 							}
 						});
 			holder.layoutC.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View arg0) {
 					if(map.containsKey(position)){
@@ -328,8 +340,8 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 					map.put(position, true);
 					if(dataItems.get(position).getCorrectAnswer().contains("C")){
 						mContext.setCurrentView(position+1);
-						holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
-						holder.tvC.setTextColor(Color.parseColor("#61bc31"));
+						holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvA.setTextColor(Color.parseColor("#61bc31"));
 						isCorrect=ConstantUtil.isCorrect;
 					}else{
 						isCorrect=ConstantUtil.isError;
@@ -337,33 +349,33 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 						//自动添加错误题目
 						ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
 						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
-						//errorQuestionInfo.setQuestionType(dataItems.get(position).getQuestionType());
 						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
+						errorQuestionInfo.setQuestionType("0");
 						errorQuestionInfo.setIsRight(isCorrect);
-						errorQuestionInfo.setQuestionSelect("C");
+						errorQuestionInfo.setQuestionSelect("A");
 						errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
-						//errorQuestionInfo.setOptionType(dataItems.get(position).getOption_type());
 						if(dataItems.get(position).getOption_type().equals("0")){
 							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
 							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
 							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
 							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
-							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE());
-						}else{
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("")?"":imgServerUrl+dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("")?"":imgServerUrl+dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("")?"":imgServerUrl+dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("")?"":imgServerUrl+dataItems.get(position).getOptionD());
-							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
+							errorQuestionInfo.setUrl(dataItems.get(position).getAnalysis());
+							errorQuestionInfo.setOptionType("0");
+						}else {
+							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionA());
+							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionB());
+							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionC());
+							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionD());
+							errorQuestionInfo.setOptionType("1");
 						}
 						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
 						System.out.println();
-						
+
 						if(colunm == -1)
 						{
 							Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
 						}
-						
+
 						holder.ivC.setImageResource(R.drawable.ic_practice_test_wrong);
 						holder.tvC.setTextColor(Color.parseColor("#d53235"));
 						//提示
@@ -399,7 +411,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 				}
 			});
 			holder.layoutD.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View arg0) {
 					if(map.containsKey(position)){
@@ -408,8 +420,8 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 					map.put(position, true);
 					if(dataItems.get(position).getCorrectAnswer().contains("D")){
 						mContext.setCurrentView(position+1);
-						holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
-						holder.tvD.setTextColor(Color.parseColor("#61bc31"));
+						holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvA.setTextColor(Color.parseColor("#61bc31"));
 						isCorrect=ConstantUtil.isCorrect;
 					}else{
 						isCorrect=ConstantUtil.isError;
@@ -417,53 +429,24 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 						//自动添加错误题目
 						ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
 						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
-						//errorQuestionInfo.setQuestionType(dataItems.get(position).getQuestionType());
 						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
+						errorQuestionInfo.setQuestionType("0");
 						errorQuestionInfo.setIsRight(isCorrect);
-						errorQuestionInfo.setQuestionSelect("D");
+						errorQuestionInfo.setQuestionSelect("A");
 						errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
-						//errorQuestionInfo.setOptionType(dataItems.get(position).getOption_type());
 						if(dataItems.get(position).getOption_type().equals("0")){
 							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
 							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
 							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
 							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
-							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE());
-						}else{
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("")?"":imgServerUrl+dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("")?"":imgServerUrl+dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("")?"":imgServerUrl+dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("")?"":imgServerUrl+dataItems.get(position).getOptionD());
-							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
-						}
-						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-						
-						if(colunm == -1)
-						{
-							Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
-						}
-						
-						holder.ivD.setImageResource(R.drawable.ic_practice_test_wrong);
-						holder.tvD.setTextColor(Color.parseColor("#d53235"));
-						//提示
-						holder.wrongLayout.setVisibility(View.VISIBLE);
-						holder.explaindetailTv.setText(""+dataItems.get(position).getAnalysis());
-						//显示正确选项
-						if(dataItems.get(position).getCorrectAnswer().contains("A")){
-							holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("B")){
-							holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvB.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("C")){
-							holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvC.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("D")){
-							holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvD.setTextColor(Color.parseColor("#61bc31"));
-//						}else if(dataItems.get(position).getCorrectAnswer().contains("E")){
-//							holder.ivE.setImageResource(R.drawable.ic_practice_test_right);
-//							holder.tvE.setTextColor(Color.parseColor("#61bc31"));
+							errorQuestionInfo.setUrl(dataItems.get(position).getAnalysis());
+							errorQuestionInfo.setOptionType("0");
+						}else {
+							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionA());
+							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionB());
+							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionC());
+							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionD());
+							errorQuestionInfo.setOptionType("1");
 						}
 					}
 					//保存数据
@@ -480,9 +463,13 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 		}else if(dataItems.get(position).getQuestionType().equals("1")){
 			//多选题
 			holder.question.setText("(多选题)"+dataItems.get(position).getQuestionName());
-			
+			if (dataItems.get(position).getUrl()!=null){
+				Glide.with(mContext).load(dataItems.get(position).getUrl()).into(holder.iv);
+			}else {
+				holder.iv.setVisibility(View.GONE);
+			}
 			holder.layoutA.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View arg0) {
 					mapClick.put(position, true);
@@ -505,18 +492,18 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 						//自动添加错误题目
 						ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
 						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
-						//errorQuestionInfo.setQuestionType(dataItems.get(position).getQuestionType());
+						errorQuestionInfo.setQuestionType("1");
 						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
 						errorQuestionInfo.setIsRight(isCorrect);
 						errorQuestionInfo.setQuestionSelect("A");
 						errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
-						//errorQuestionInfo.setOptionType(dataItems.get(position).getOption_type());
+						errorQuestionInfo.setOptionType("0");
 						if(dataItems.get(position).getOption_type().equals("0")){
 							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
 							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
 							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
 							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
-							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE());
+							errorQuestionInfo.setUrl(dataItems.get(position).getUrl());
 						}else{
 							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("")?"":imgServerUrl+dataItems.get(position).getOptionA());
 							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("")?"":imgServerUrl+dataItems.get(position).getOptionB());
@@ -525,12 +512,12 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
 						}
 						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-						
+
 						if(colunm == -1)
 						{
 							Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
 						}
-						
+
 						map.put(position, true);
 						holder.ivA.setImageResource(R.drawable.ic_practice_test_wrong);
 						holder.tvA.setTextColor(Color.parseColor("#d53235"));
@@ -554,7 +541,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 //							holder.ivE.setImageResource(R.drawable.ic_practice_test_right);
 //							holder.tvE.setTextColor(Color.parseColor("#61bc31"));
 						}
-						
+
 						//保存数据
 						SaveQuestionInfo questionInfo=new SaveQuestionInfo();
 						questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
@@ -569,7 +556,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 				}
 			});
 			holder.layoutB.setOnClickListener(new OnClickListener() {
-							
+
 							@Override
 							public void onClick(View arg0) {
 								mapClick.put(position, true);
@@ -612,12 +599,12 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 										//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
 									}
 									long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-									
+
 									if(colunm == -1)
 									{
 										Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
 									}
-									
+
 									map.put(position, true);
 									holder.ivB.setImageResource(R.drawable.ic_practice_test_wrong);
 									holder.tvB.setTextColor(Color.parseColor("#d53235"));
@@ -641,7 +628,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 //										holder.ivE.setImageResource(R.drawable.ic_practice_test_right);
 //										holder.tvE.setTextColor(Color.parseColor("#61bc31"));
 									}
-									
+
 									//保存数据
 									SaveQuestionInfo questionInfo=new SaveQuestionInfo();
 									questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
@@ -656,7 +643,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 							}
 						});
 			holder.layoutC.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View arg0) {
 					mapClick.put(position, true);
@@ -699,12 +686,12 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
 						}
 						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-						
+
 						if(colunm == -1)
 						{
 							Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
 						}
-						
+
 						map.put(position, true);
 						holder.ivC.setImageResource(R.drawable.ic_practice_test_wrong);
 						holder.tvC.setTextColor(Color.parseColor("#d53235"));
@@ -728,7 +715,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 //							holder.ivE.setImageResource(R.drawable.ic_practice_test_right);
 //							holder.tvE.setTextColor(Color.parseColor("#61bc31"));
 						}
-						
+
 						//保存数据
 						SaveQuestionInfo questionInfo=new SaveQuestionInfo();
 						questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
@@ -743,7 +730,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 				}
 			});
 			holder.layoutD.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View arg0) {
 					mapClick.put(position, true);
@@ -786,12 +773,12 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
 						}
 						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-						
+
 						if(colunm == -1)
 						{
 							Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
 						}
-						
+
 						map.put(position, true);
 						holder.ivD.setImageResource(R.drawable.ic_practice_test_wrong);
 						holder.tvD.setTextColor(Color.parseColor("#d53235"));
@@ -815,7 +802,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 //							holder.ivE.setImageResource(R.drawable.ic_practice_test_right);
 //							holder.tvE.setTextColor(Color.parseColor("#61bc31"));
 						}
-						
+
 						//保存数据
 						SaveQuestionInfo questionInfo=new SaveQuestionInfo();
 						questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
@@ -832,8 +819,13 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 		}else{
 			//判断题
 			holder.question.setText("(判断题)"+dataItems.get(position).getQuestionName());
+			if (dataItems.get(position).getUrl()!=null){
+				Glide.with(mContext).load(dataItems.get(position).getUrl()).into(holder.iv);
+			}else {
+				holder.iv.setVisibility(View.GONE);
+			}
 			holder.layoutA.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View arg0) {
 					if(map.containsKey(position)){
@@ -856,7 +848,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 						errorQuestionInfo.setIsRight(isCorrect);
 						errorQuestionInfo.setQuestionSelect("A");
 						errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
-						//errorQuestionInfo.setOptionType(dataItems.get(position).getOption_type());
+						errorQuestionInfo.setOptionType("0");
 						if(dataItems.get(position).getOption_type().equals("0")){
 							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
 							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
@@ -871,12 +863,12 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
 						}
 						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-						
+
 						if(colunm == -1)
 						{
 							Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
 						}
-						
+
 						holder.ivA.setImageResource(R.drawable.ic_practice_test_wrong);
 						holder.tvA.setTextColor(Color.parseColor("#d53235"));
 						//提示
@@ -912,7 +904,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 				}
 			});
 			holder.layoutB.setOnClickListener(new OnClickListener() {
-							
+
 							@Override
 							public void onClick(View arg0) {
 								if(map.containsKey(position)){
@@ -950,12 +942,12 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 										//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
 									}
 									long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-									
+
 									if(colunm == -1)
 									{
 										Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
 									}
-									
+
 									holder.ivB.setImageResource(R.drawable.ic_practice_test_wrong);
 									holder.tvB.setTextColor(Color.parseColor("#d53235"));
 									//提示
@@ -991,7 +983,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 							}
 						});
 			holder.layoutC.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View arg0) {
 					if(map.containsKey(position)){
@@ -1029,12 +1021,12 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
 						}
 						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-						
+
 						if(colunm == -1)
 						{
 							Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
 						}
-						
+
 						holder.ivC.setImageResource(R.drawable.ic_practice_test_wrong);
 						holder.tvC.setTextColor(Color.parseColor("#d53235"));
 						//提示
@@ -1070,7 +1062,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 				}
 			});
 			holder.layoutD.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View arg0) {
 					if(map.containsKey(position)){
@@ -1108,12 +1100,12 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
 						}
 						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-						
+
 						if(colunm == -1)
 						{
 							Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
 						}
-						
+
 						holder.ivD.setImageResource(R.drawable.ic_practice_test_wrong);
 						holder.tvD.setTextColor(Color.parseColor("#d53235"));
 						//提示
@@ -1162,7 +1154,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 			holder.nextImage.setImageResource(R.drawable.vote_submit_finish);
 		}
 		holder.previousBtn.setOnClickListener(new LinearOnClickListener(position - 1, false,position,holder));
-		holder.nextBtn.setOnClickListener(new LinearOnClickListener(position + 1, true,position,holder));
+		holder.nextBtn.setOnClickListener(new LinearOnClickListener(position + 1,true,position,holder));
 		container.addView(viewItems.get(position));
 		return viewItems.get(position);
 	}
@@ -1339,7 +1331,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 					}
 				} else {
 					if(mPosition ==-1){
-						Toast.makeText(mContext, "已经是第一页", Toast.LENGTH_SHORT).show();
+						Toast.makeText(mContext, "已经是第一题", Toast.LENGTH_SHORT).show();
 						return;
 					}else{
 						//单选
@@ -1542,6 +1534,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 		ImageView ivB_;
 		ImageView ivC_;
 		ImageView ivD_;
+		ImageView iv;
 		//ImageView ivE_;
 	}
 	
