@@ -10,6 +10,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<AnSwerInfo> infoArrayList = new ArrayList<>();
     int oldIndex;//用户看到的item
     int newIndex;//用户即将看到的item
+    String tag="1";
     RadioButton[] tabs;
     @InjectView(R.id.rb_rb1)
     RadioButton rbRb1;
@@ -217,44 +219,34 @@ public class MainActivity extends AppCompatActivity {
     public void getGonggao() {
 
         String[] gonggaoList = new String[]{"1", "这个标志是何含义?", "D", "小型车车道", "小型车专用车道",
-                "多乘员车辆专用车道", "机动车车道", "此为机动车车道,比多乘员车辆专用车道少俩人."};
-        String[] gonggaoList1 = new String[]{"2", "这个标志是何含义?", "D", "小型车车道", "小型车专用车道",
-                "多乘员车辆专用车道", "机动车车道", "此为机动车车道,比多乘员车辆专用车道少俩人."};
+                "多乘员车辆专用车道", "机动车车道", "此为机动车车道,比多乘员车辆专用车道少俩人.","http://images.juheapi.com/jztk/c1c2subject1/1.jpg"};
+        String[] gonggaoList1 = new String[]{"2", "这个标志是何含义?", "B", "分向行驶车道", "掉头和左转合用车道",
+                "禁止左转和掉头车道", "直行和左转合用车道", "左转和掉头合并在一个标志里,你应该能看到的.","http://images.juheapi.com/jztk/c1c2subject1/10.jpg"};
         for (int i = 0; i < gonggaoList.length; i++) {
             anSwerInfo1.setQuestionId(Integer.parseInt(gonggaoList[0]));
-            // anSwerInfo.setQuestionType(gonggaoList.get(i).questionType);
             anSwerInfo1.setCorrectAnswer(gonggaoList[2]);
-            //anSwerInfo.setIsSelect(gonggaoList.get(i).isSelect);
-            // anSwerInfo.setOption_type(gonggaoList.get(i).option_type);
             anSwerInfo1.setQuestionName(gonggaoList[1]);
             anSwerInfo1.setAnalysis(gonggaoList[7]);
             anSwerInfo1.setOptionA(gonggaoList[3]);
             anSwerInfo1.setOptionB(gonggaoList[4]);
             anSwerInfo1.setOptionC(gonggaoList[5]);
             anSwerInfo1.setOptionD(gonggaoList[6]);
-            anSwerInfo1.setUrl(null);
+            anSwerInfo1.setUrl(gonggaoList[8]);
         }
         infoArrayList.add(anSwerInfo1);
         for (int i = 0; i < gonggaoList.length; i++) {
             anSwerInfo.setQuestionId(Integer.parseInt(gonggaoList1[0]));
-            // anSwerInfo.setQuestionType(gonggaoList.get(i).questionType);
             anSwerInfo.setCorrectAnswer(gonggaoList1[2]);
-            //anSwerInfo.setIsSelect(gonggaoList.get(i).isSelect);
-            // anSwerInfo.setOption_type(gonggaoList.get(i).option_type);
             anSwerInfo.setQuestionName(gonggaoList1[1]);
             anSwerInfo.setAnalysis(gonggaoList1[7]);
             anSwerInfo.setOptionA(gonggaoList1[3]);
             anSwerInfo.setOptionB(gonggaoList1[4]);
             anSwerInfo.setOptionC(gonggaoList1[5]);
             anSwerInfo.setOptionD(gonggaoList1[6]);
-            anSwerInfo.setUrl(null);
+            anSwerInfo.setUrl(gonggaoList1[8]);
         }
         infoArrayList.add(anSwerInfo);
-        for(int i=0;i<infoArrayList.size();i++) {
-            System.out.println("^^^^^"+infoArrayList.get(i).questionId);
-            dbManager.insertQuestion(infoArrayList.get(i).questionId,infoArrayList.get(i).questionName
-            ,infoArrayList.get(i).correctAnswer,infoArrayList.get(i).analysis,infoArrayList.get(i).optionA
-            ,infoArrayList.get(i).optionB,infoArrayList.get(i).optionC,infoArrayList.get(i).optionD,infoArrayList.get(i).url);
-        }
+        dbManager.insertQuestion(infoArrayList);
     }
+
 }

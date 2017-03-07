@@ -33,7 +33,7 @@ public class DBHelper1 extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //创建题库基本数据表语句
         String sql="create table examination_question1(" +
-                "_question_id integer primary key autoincrement," +
+                "_question_id PRIMARY KEY," +
                 "_question_name varchar(200)," +
                 "_question_answer varchar(20)," +
                 "_question_analysis varchar(200)," +

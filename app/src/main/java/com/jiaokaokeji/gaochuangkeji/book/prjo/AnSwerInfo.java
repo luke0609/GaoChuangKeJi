@@ -94,4 +94,6 @@ public class AnSwerInfo {
 	public void setQuestionType(String questionType) {
 		this.questionType = questionType;
 	}
+
+
 }

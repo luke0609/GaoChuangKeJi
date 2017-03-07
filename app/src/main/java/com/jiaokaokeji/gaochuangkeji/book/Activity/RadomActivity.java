@@ -142,10 +142,10 @@ public class RadomActivity extends AppCompatActivity {
                 info.setOptionC(info1[i].optionC);// 试题选项C
                 info.setOptionD(info1[i].optionD);// 试题选项D
                 info.setOption_type("0");
+                info.setUrl(info1[i].url);
                 dataItems.add(info);
             }
         }
-
         for (int i = 0; i < dataItems.size(); i++) {
             viewItems.add(getLayoutInflater().inflate(
                     R.layout.vote_submit_viewpager_item, null));

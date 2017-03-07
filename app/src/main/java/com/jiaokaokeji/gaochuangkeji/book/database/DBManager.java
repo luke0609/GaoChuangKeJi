@@ -5,8 +5,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
+
+import com.jiaokaokeji.gaochuangkeji.MainActivity;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.AnSwerInfo;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.ErrorQuestionInfo;
+
+import java.util.ArrayList;
 
 /**
  * 数据库操作类
@@ -79,13 +84,23 @@ public class DBManager {
 				newValues);
 	}
 //	//添加题库
-	public void insertQuestion(int _question_id,String _question_name,String _question_answer
-	,String _question_analysis,String _question_option_a,String _question_option_b
-	,String _question_option_c,String _question_option_d,String _question_url) {
-		String sql="insert into examination_question1(_question_id,_question_name,_question_answer,_question_analysis,_question_option_a,_question_option_b,_question_option_c,_question_option_d,_question_url) values(?,?,?,?,?,?,?,?,?)";
-           database.execSQL(sql,new Object[]{_question_id,_question_name,_question_answer,_question_analysis,
-				   _question_option_a,_question_option_b,_question_option_c,_question_option_d,_question_url});
+public void insertQuestion(ArrayList<AnSwerInfo> infoArrayList) {
+	ContentValues newValues = new ContentValues();
+	for (int i=0;i<infoArrayList.size();i++) {
+		newValues.clear();
+		newValues.put("_question_id", infoArrayList.get(i).questionId);
+		newValues.put("_question_name", infoArrayList.get(i).questionName);
+		newValues.put("_question_answer", infoArrayList.get(i).correctAnswer);
+		newValues.put("_question_analysis", infoArrayList.get(i).analysis);
+		newValues.put("_question_option_a", infoArrayList.get(i).optionA);
+		newValues.put("_question_option_b",infoArrayList.get(i).optionB);
+		newValues.put("_question_option_c", infoArrayList.get(i).optionC);
+		newValues.put("_question_option_d", infoArrayList.get(i).optionD);
+		newValues.put("_question_url", infoArrayList.get(i).url);
+		database.insert("examination_question1", null,
+				newValues);
 	}
+}
 	/**
 	 * 删除我的错题所有数据
 	 * 
@@ -152,15 +167,14 @@ public class DBManager {
 	//所有题目
 	private AnSwerInfo[] ConvertToQuestion1(Cursor cursor) {
 		int resultCounts = cursor.getCount();
-		System.out.println("9999"+resultCounts);
+
 		if (resultCounts == 0 || !cursor.moveToFirst()) {
 			return null;
 		}
 		AnSwerInfo[] peoples = new AnSwerInfo[resultCounts];
 		for (int i = 0; i < resultCounts; i++) {
-
 			peoples[i] = new AnSwerInfo();
-			peoples[i].questionId =cursor.getInt(0);
+			peoples[i].questionId =cursor.getColumnIndex("_question_id");
 			peoples[i].questionType="0";
 			peoples[i].questionName =cursor.getString(cursor.getColumnIndex("_question_name"));
 			peoples[i].analysis = cursor.getString(cursor.getColumnIndex("_question_analysis"));
@@ -171,6 +185,7 @@ public class DBManager {
 			peoples[i].optionD =cursor.getString(cursor.getColumnIndex("_question_option_d"));
 			peoples[i].option_type ="0";
 			peoples[i].url=cursor.getString(cursor.getColumnIndex("_question_url"));
+			cursor.moveToNext();
 		}
 		return peoples;
 	}
