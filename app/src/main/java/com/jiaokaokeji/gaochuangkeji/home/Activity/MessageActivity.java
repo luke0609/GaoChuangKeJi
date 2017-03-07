@@ -1,6 +1,7 @@
 package com.jiaokaokeji.gaochuangkeji.home.Activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,8 @@ public class MessageActivity extends AppCompatActivity {
     ImageView ivBack;
     private WebView webview;
     private TextView Title;
-
+    private String url;
+    private String titleText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +40,10 @@ public class MessageActivity extends AppCompatActivity {
         wv_setttig.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         wv_setttig.setJavaScriptEnabled(true);
         wv_setttig.setTextSize(WebSettings.TextSize.NORMAL);
-
-        String url = "file:///android_asset/ww.html";
-        //    webview.setInitialScale(200);
+        Intent intent=getIntent();
+        url=intent.getStringExtra("url");
+        titleText=intent.getStringExtra("title");
+        Title.setText(titleText);
         webview.loadUrl(url);
     }
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -50,6 +53,7 @@ public class MessageActivity extends AppCompatActivity {
 
             if (webview.canGoBack())
                 webview.goBack();
+
             else
                 finish();
             return true;
