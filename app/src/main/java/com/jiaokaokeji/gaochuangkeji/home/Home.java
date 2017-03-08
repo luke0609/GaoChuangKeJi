@@ -120,31 +120,31 @@ public class Home extends Fragment implements View.OnClickListener {
 
         Student stu2=new Student();
         stu2.setName("教学特色");
-        stu2.setAge("南京天保驾校始建于1990年，有着二十多年的办学历史和经验，是全市一流的汽车、摩托车驾驶员培训专业学校，年培训规模达2万余人。");
+        stu2.setAge("天保驾校成立二十年来，培训质量始终居同行业领先水平，形成了鲜明的教学特色，受到了学员的一致认可。");
         stu2.setPhoto(R.drawable.l2);
         stuList.add(stu2);
 
         Student stu3=new Student();
-        stu3.setName("班车路线");
-        stu3.setAge("南京天保驾校始建于1990年，有着二十多年的办学历史和经验，是全市一流的汽车、摩托车驾驶员培训专业学校，年培训规模达2万余人。");
+        stu3.setName("收费标准");
+        stu3.setAge("收费合理公正、拒绝吃拿卡要，让学员学的安心放心。");
         stu3.setPhoto(R.drawable.l3);
         stuList.add(stu3);
 
         Student stu4=new Student();
-        stu4.setName("驾校简介");
-        stu4.setAge("南京天保驾校始建于1990年，有着二十多年的办学历史和经验，是全市一流的汽车、摩托车驾驶员培训专业学校，年培训规模达2万余人。");
+        stu4.setName("分校地图");
+        stu4.setAge("天保驾校规模大、场地覆盖广，为学员提供更加方便的学车场所。");
         stu4.setPhoto(R.drawable.l4);
         stuList.add(stu4);
 
         Student stu5=new Student();
-        stu5.setName("驾校简介");
-        stu5.setAge("南京天保驾校始建于1990年，有着二十多年的办学历史和经验，是全市一流的汽车、摩托车驾驶员培训专业学校，年培训规模达2万余人。");
+        stu5.setName("班车路线");
+        stu5.setAge("多条班车线路，定点定时接送，免除学员训练途中的奔波。");
         stu5.setPhoto(R.drawable.l5);
         stuList.add(stu5);
 
         Student stu6=new Student();
-        stu6.setName("驾校简介");
-        stu6.setAge("南京天保驾校始建于1990年，有着二十多年的办学历史和经验，是全市一流的汽车、摩托车驾驶员培训专业学校，年培训规模达2万余人。");
+        stu6.setName("车友联盟");
+        stu6.setAge("天保、石佛驾校车友联盟致力于做开车人的保姆，为您带来更好更全面的服务，凡自愿申请加入本车友联盟的，均可享受多重服务");
         stu6.setPhoto(R.drawable.l6);
         stuList.add(stu6);
 
@@ -215,28 +215,28 @@ public class Home extends Fragment implements View.OnClickListener {
                         startActivity(intent);
                         break;
                     case 2:
-                        url="file:///android_asset/tese.html";
+                        url="file:///android_asset/shoufeibiaozhun.html";
                         title="收费标准";
                         intent.putExtra("url",url);
                         intent.putExtra("title",title);
                         startActivity(intent);
                         break;
                     case 3:
-                        url="file:///android_asset/tese.html";
+                        url="file:///android_asset/ditu.html";
                         title="分校地图";
                         intent.putExtra("url",url);
                         intent.putExtra("title",title);
                         startActivity(intent);
                         break;
                     case 4:
-                        url="file:///android_asset/tese.html";
+                        url="file:///android_asset/bancheluxian.html";
                         title="班车路线";
                         intent.putExtra("url",url);
                         intent.putExtra("title",title);
                         startActivity(intent);
                         break;
                     case 5:
-                        url="file:///android_asset/tese.html";
+                        url="file:///android_asset/cheyoulianmeng.html";
                         title="车友联盟";
                         intent.putExtra("url",url);
                         intent.putExtra("title",title);

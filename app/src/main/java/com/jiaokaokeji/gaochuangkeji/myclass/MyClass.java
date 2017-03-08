@@ -37,7 +37,10 @@ public class MyClass extends Fragment implements View.OnClickListener{
     private static final int RESULT_OK = 123;
     private static final int  SCANNIN_GREQUEST_CODE = 13;
     private DashboardView dash_borad;
+
     private float progressNum=80;
+
+
     private ImageView iv_saoma;
     private ListView list_pop;
     private List<Map<String, Object>> list;
