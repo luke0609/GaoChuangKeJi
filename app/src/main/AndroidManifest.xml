@@ -7,13 +7,13 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- 振动 -->
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -157,8 +157,11 @@
         <activity
             android:name=".myclass.Activity.Simulation.Km2ExamActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".myclass.Activity.Simulation.Km3ExamActivity"
-            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".myclass.Activity.Simulation.Km3ExamActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".login.SplashActivity" />
+        <activity android:name=".login.RegisterActivity"></activity>
     </application>
 
 </manifest>
