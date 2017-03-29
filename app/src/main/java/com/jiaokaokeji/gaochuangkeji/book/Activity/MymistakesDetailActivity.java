@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.jiaokaokeji.gaochuangkeji.book.util.ConstantUtil;
 
@@ -47,7 +48,7 @@ public class MymistakesDetailActivity extends Activity {
 	private TextView explaindetailTv;
 	
 	private String questionName="";
-	private String questionType="";
+	private String option_type="";
 	private String questionAnswer="";
 	private String questionSelect="";
 	private String isRight="";
@@ -56,9 +57,9 @@ public class MymistakesDetailActivity extends Activity {
 	private String optionB="";
 	private String optionC="";
 	private String optionD="";
-	private String optionE="";
-	private String optionType="";
+	private String url="";
 	private ImageView iv;
+	private ImageView iv1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class MymistakesDetailActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.my_error_question_detail);
 		iv = ((ImageView) findViewById(R.id.iv));
+		iv1 = ((ImageView) findViewById(R.id.iv1));
 		iv.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -78,7 +80,7 @@ public class MymistakesDetailActivity extends Activity {
 	
 	private void initView(){
 		questionName=getIntent().getStringExtra("questionName");
-		questionType=getIntent().getStringExtra("questionType");
+		option_type=getIntent().getStringExtra("option_type");
 		questionAnswer=getIntent().getStringExtra("questionAnswer");
 		questionSelect=getIntent().getStringExtra("questionSelect");
 		isRight=getIntent().getStringExtra("isRight");
@@ -87,8 +89,7 @@ public class MymistakesDetailActivity extends Activity {
 		optionB=getIntent().getStringExtra("optionB");
 		optionC=getIntent().getStringExtra("optionC");
 		optionD=getIntent().getStringExtra("optionD");
-		//optionE=getIntent().getStringExtra("optionE");
-		optionType=getIntent().getStringExtra("optionType");
+		url=getIntent().getStringExtra("url");
 		questionTypeTV=(TextView) findViewById(R.id.activity_prepare_test_no);
 		questionNameTV=(TextView) findViewById(R.id.activity_prepare_test_question);
 		layoutA=(LinearLayout) findViewById(R.id.activity_prepare_test_layout_a);
@@ -144,126 +145,114 @@ public class MymistakesDetailActivity extends Activity {
 				tvC.setText("C." + optionC);
 				tvD.setText("D." + optionD);
 				//tvE.setText("E." + optionE);
-			
-			if(questionType.equals("0")){
-				questionTypeTV.setText("(单选题)");
-				//显示正确选项
-				if(questionAnswer.contains("A")){
-					ivA.setImageResource(R.drawable.ic_practice_test_right);
-					tvA.setTextColor(Color.parseColor("#61bc31"));
-				}else if(questionAnswer.contains("B")){
-					ivB.setImageResource(R.drawable.ic_practice_test_right);
-					tvB.setTextColor(Color.parseColor("#61bc31"));
-				}else if(questionAnswer.contains("C")){
-					ivC.setImageResource(R.drawable.ic_practice_test_right);
-					tvC.setTextColor(Color.parseColor("#61bc31"));
-				}else if(questionAnswer.contains("D")){
-					ivD.setImageResource(R.drawable.ic_practice_test_right);
-					tvD.setTextColor(Color.parseColor("#61bc31"));
-//				}else if(questionAnswer.contains("E")){
-//					ivE.setImageResource(R.drawable.ic_practice_test_right);
-//					tvE.setTextColor(Color.parseColor("#61bc31"));
-				}
-				
-				if(questionSelect.contains("A")){
-					ivA.setImageResource(R.drawable.ic_practice_test_wrong);
-					tvA.setTextColor(Color.parseColor("#d53235"));
-				}else if(questionSelect.contains("B")){
-					ivB.setImageResource(R.drawable.ic_practice_test_wrong);
-					tvB.setTextColor(Color.parseColor("#d53235"));
-				}else if(questionSelect.contains("C")){
-					ivC.setImageResource(R.drawable.ic_practice_test_wrong);
-					tvC.setTextColor(Color.parseColor("#d53235"));
-				}else if(questionSelect.contains("D")){
-					ivD.setImageResource(R.drawable.ic_practice_test_wrong);
-					tvD.setTextColor(Color.parseColor("#d53235"));
-//				}else if(questionSelect.contains("E")){
-//					ivE.setImageResource(R.drawable.ic_practice_test_wrong);
-//					tvE.setTextColor(Color.parseColor("#d53235"));
-				}
-				
-			}else if(questionType.equals("1")){
-				questionTypeTV.setText("(多选题)");
-				//显示正确选项
-				if(questionAnswer.contains("A")){
-					ivA.setImageResource(R.drawable.ic_practice_test_right);
-					tvA.setTextColor(Color.parseColor("#61bc31"));
-				}if(questionAnswer.contains("B")){
-					ivB.setImageResource(R.drawable.ic_practice_test_right);
-					tvB.setTextColor(Color.parseColor("#61bc31"));
-				}if(questionAnswer.contains("C")){
-					ivC.setImageResource(R.drawable.ic_practice_test_right);
-					tvC.setTextColor(Color.parseColor("#61bc31"));
-				}if(questionAnswer.contains("D")){
-					ivD.setImageResource(R.drawable.ic_practice_test_right);
-					tvD.setTextColor(Color.parseColor("#61bc31"));
-//				}if(questionAnswer.contains("E")){
-//					ivE.setImageResource(R.drawable.ic_practice_test_right);
-//					tvE.setTextColor(Color.parseColor("#61bc31"));
-				}
-				
-				if(questionSelect.contains("A")){
-					ivA.setImageResource(R.drawable.ic_practice_test_wrong);
-					tvA.setTextColor(Color.parseColor("#d53235"));
-				}if(questionSelect.contains("B")){
-					ivB.setImageResource(R.drawable.ic_practice_test_wrong);
-					tvB.setTextColor(Color.parseColor("#d53235"));
-				}if(questionSelect.contains("C")){
-					ivC.setImageResource(R.drawable.ic_practice_test_wrong);
-					tvC.setTextColor(Color.parseColor("#d53235"));
-				}if(questionSelect.contains("D")){
-					ivD.setImageResource(R.drawable.ic_practice_test_wrong);
-					tvD.setTextColor(Color.parseColor("#d53235"));
-//				}if(questionSelect.contains("E")){
-//					ivE.setImageResource(R.drawable.ic_practice_test_wrong);
-//					tvE.setTextColor(Color.parseColor("#d53235"));
-				}
-			}else if(questionType.equals("2")){
-				questionTypeTV.setText("(判断题)");
-				//显示正确选项
-				if(questionAnswer.contains("A")){
-					ivA.setImageResource(R.drawable.ic_practice_test_right);
-					tvA.setTextColor(Color.parseColor("#61bc31"));
-				}else if(questionAnswer.contains("B")){
-					ivB.setImageResource(R.drawable.ic_practice_test_right);
-					tvB.setTextColor(Color.parseColor("#61bc31"));
-				}else if(questionAnswer.contains("C")){
-					ivC.setImageResource(R.drawable.ic_practice_test_right);
-					tvC.setTextColor(Color.parseColor("#61bc31"));
-				}else if(questionAnswer.contains("D")){
-					ivD.setImageResource(R.drawable.ic_practice_test_right);
-					tvD.setTextColor(Color.parseColor("#61bc31"));
-//				}else if(questionAnswer.contains("E")){
-//					ivE.setImageResource(R.drawable.ic_practice_test_right);
-//					tvE.setTextColor(Color.parseColor("#61bc31"));
-				}
-				if(questionSelect.contains("A")){
-					ivA.setImageResource(R.drawable.ic_practice_test_wrong);
-					tvA.setTextColor(Color.parseColor("#d53235"));
-				}else if(questionSelect.contains("B")){
-					ivB.setImageResource(R.drawable.ic_practice_test_wrong);
-					tvB.setTextColor(Color.parseColor("#d53235"));
-				}else if(questionSelect.contains("C")){
-					ivC.setImageResource(R.drawable.ic_practice_test_wrong);
-					tvC.setTextColor(Color.parseColor("#d53235"));
-				}else if(questionSelect.contains("D")){
-					ivD.setImageResource(R.drawable.ic_practice_test_wrong);
-					tvD.setTextColor(Color.parseColor("#d53235"));
-//				}else if(questionSelect.contains("E")){
-//					ivE.setImageResource(R.drawable.ic_practice_test_wrong);
-//					tvE.setTextColor(Color.parseColor("#d53235"));
-				}
-				
-				layoutC.setVisibility(View.GONE);
-				layoutD.setVisibility(View.GONE);
-			}
-			
-			if(isRight.equals(ConstantUtil.isError)){
-				wrongLayout.setVisibility(View.VISIBLE);
-				explaindetailTv.setText(""+Analysis);
-			}else{
-				wrongLayout.setVisibility(View.GONE);
-			}
+		if(url!=null){
+			Glide.with(MymistakesDetailActivity.this).load(url).into(iv1);
+		}else {
+			iv1.setVisibility(View.GONE);
+		}
+		cuowu();
+	}
+public void cuowu(){
+	if(option_type.equals("0")){
+		questionTypeTV.setText("(单选题)");
+		//显示正确选项
+		if(questionAnswer.contains("A")){
+			ivA.setImageResource(R.drawable.ic_practice_test_right);
+			tvA.setTextColor(Color.parseColor("#61bc31"));
+		}else if(questionAnswer.contains("B")){
+			ivB.setImageResource(R.drawable.ic_practice_test_right);
+			tvB.setTextColor(Color.parseColor("#61bc31"));
+		}else if(questionAnswer.contains("C")){
+			ivC.setImageResource(R.drawable.ic_practice_test_right);
+			tvC.setTextColor(Color.parseColor("#61bc31"));
+		}else if(questionAnswer.contains("D")){
+			ivD.setImageResource(R.drawable.ic_practice_test_right);
+			tvD.setTextColor(Color.parseColor("#61bc31"));
+		}
+
+		if(questionSelect.contains("A")){
+			ivA.setImageResource(R.drawable.ic_practice_test_wrong);
+			tvA.setTextColor(Color.parseColor("#d53235"));
+		}else if(questionSelect.contains("B")){
+			ivB.setImageResource(R.drawable.ic_practice_test_wrong);
+			tvB.setTextColor(Color.parseColor("#d53235"));
+		}else if(questionSelect.contains("C")){
+			ivC.setImageResource(R.drawable.ic_practice_test_wrong);
+			tvC.setTextColor(Color.parseColor("#d53235"));
+		}else if(questionSelect.contains("D")){
+			ivD.setImageResource(R.drawable.ic_practice_test_wrong);
+			tvD.setTextColor(Color.parseColor("#d53235"));
+		}
+
+	}else if(option_type.equals("1")){
+		questionTypeTV.setText("(多选题)");
+		//显示正确选项
+		if(questionAnswer.contains("A")){
+			ivA.setImageResource(R.drawable.ic_practice_test_right);
+			tvA.setTextColor(Color.parseColor("#61bc31"));
+		}if(questionAnswer.contains("B")){
+			ivB.setImageResource(R.drawable.ic_practice_test_right);
+			tvB.setTextColor(Color.parseColor("#61bc31"));
+		}if(questionAnswer.contains("C")){
+			ivC.setImageResource(R.drawable.ic_practice_test_right);
+			tvC.setTextColor(Color.parseColor("#61bc31"));
+		}if(questionAnswer.contains("D")){
+			ivD.setImageResource(R.drawable.ic_practice_test_right);
+			tvD.setTextColor(Color.parseColor("#61bc31"));
+		}
+
+		if(questionSelect.contains("A")){
+			ivA.setImageResource(R.drawable.ic_practice_test_wrong);
+			tvA.setTextColor(Color.parseColor("#d53235"));
+		}if(questionSelect.contains("B")){
+			ivB.setImageResource(R.drawable.ic_practice_test_wrong);
+			tvB.setTextColor(Color.parseColor("#d53235"));
+		}if(questionSelect.contains("C")){
+			ivC.setImageResource(R.drawable.ic_practice_test_wrong);
+			tvC.setTextColor(Color.parseColor("#d53235"));
+		}if(questionSelect.contains("D")){
+			ivD.setImageResource(R.drawable.ic_practice_test_wrong);
+			tvD.setTextColor(Color.parseColor("#d53235"));
+		}
+	}else if(option_type.equals("2")){
+		questionTypeTV.setText("(判断题)");
+		//显示正确选项
+		if(questionAnswer.contains("A")){
+			ivA.setImageResource(R.drawable.ic_practice_test_right);
+			tvA.setTextColor(Color.parseColor("#61bc31"));
+		}else if(questionAnswer.contains("B")){
+			ivB.setImageResource(R.drawable.ic_practice_test_right);
+			tvB.setTextColor(Color.parseColor("#61bc31"));
+		}else if(questionAnswer.contains("C")){
+			ivC.setImageResource(R.drawable.ic_practice_test_right);
+			tvC.setTextColor(Color.parseColor("#61bc31"));
+		}else if(questionAnswer.contains("D")){
+			ivD.setImageResource(R.drawable.ic_practice_test_right);
+			tvD.setTextColor(Color.parseColor("#61bc31"));
+		}
+		if(questionSelect.contains("A")){
+			ivA.setImageResource(R.drawable.ic_practice_test_wrong);
+			tvA.setTextColor(Color.parseColor("#d53235"));
+		}else if(questionSelect.contains("B")){
+			ivB.setImageResource(R.drawable.ic_practice_test_wrong);
+			tvB.setTextColor(Color.parseColor("#d53235"));
+		}else if(questionSelect.contains("C")){
+			ivC.setImageResource(R.drawable.ic_practice_test_wrong);
+			tvC.setTextColor(Color.parseColor("#d53235"));
+		}else if(questionSelect.contains("D")){
+			ivD.setImageResource(R.drawable.ic_practice_test_wrong);
+			tvD.setTextColor(Color.parseColor("#d53235"));
+		}
+
+		layoutC.setVisibility(View.GONE);
+		layoutD.setVisibility(View.GONE);
 	}
 
+	if(isRight.equals(ConstantUtil.isError)){
+		wrongLayout.setVisibility(View.VISIBLE);
+		explaindetailTv.setText(""+Analysis);
+	}else{
+		wrongLayout.setVisibility(View.GONE);
+	}
+}
 }

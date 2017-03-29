@@ -8,7 +8,7 @@ import android.widget.Scroller;
 @SuppressLint("NewApi") 
 public class ViewPagerScroller extends Scroller {
 	
-	private int mScrollDuration = 1500;// 滑动速度
+	private int mScrollDuration = 1000;// 滑动速度
     public ViewPagerScroller(Context context) {
         super(context);
     }

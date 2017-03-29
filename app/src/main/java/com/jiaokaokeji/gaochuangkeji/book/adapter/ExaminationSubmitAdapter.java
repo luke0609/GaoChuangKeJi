@@ -38,7 +38,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 	// 每个item的页面view
 	View convertView;
 	// 传递过来的所有数据
-	List<AnSwerInfo> dataItems;
+	List<AnSwerInfo.DataBean> dataItems;
 	
 	String imgServerUrl="";
 
@@ -66,8 +66,8 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 	String resultD="";
 	String resultE="";
 
-	public ExaminationSubmitAdapter(RadomActivity context, List<View> viewItems, List<AnSwerInfo> dataItems,String imgServerUrl) {
-		mContext = context;
+	public ExaminationSubmitAdapter(RadomActivity context, List<View> viewItems, List<AnSwerInfo.DataBean> dataItems,String imgServerUrl) {
+		this.mContext = context;
 		this.viewItems = viewItems;
 		this.dataItems = dataItems;
 		this.imgServerUrl = imgServerUrl;
@@ -132,13 +132,13 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 			}
 		});
 		
-		if(dataItems.get(position).getOptionA().equals("")){
+		if(dataItems.get(position).getItem1().equals("")){
 			holder.layoutA.setVisibility(View.GONE);
-		}if(dataItems.get(position).getOptionB().equals("")){
+		}if(dataItems.get(position).getItem2().equals("")){
 			holder.layoutB.setVisibility(View.GONE);
-		}if(dataItems.get(position).getOptionC().equals("")){
+		}if(dataItems.get(position).getItem3().equals("")){
 			holder.layoutC.setVisibility(View.GONE);
-		}if(dataItems.get(position).getOptionD().equals("")){
+		}if(dataItems.get(position).getItem4().equals("")){
 			holder.layoutD.setVisibility(View.GONE);
 		}
 		
@@ -154,315 +154,29 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 			holder.tvC.setVisibility(View.VISIBLE);
 			holder.tvD.setVisibility(View.VISIBLE);
 			//holder.tvE.setVisibility(View.VISIBLE);
-			holder.tvA.setText("A." + dataItems.get(position).getOptionA());
-			holder.tvB.setText("B." + dataItems.get(position).getOptionB());
-			holder.tvC.setText("C." + dataItems.get(position).getOptionC());
-			holder.tvD.setText("D." + dataItems.get(position).getOptionD());
+			holder.tvA.setText("A." + dataItems.get(position).getItem1());
+			holder.tvB.setText("B." + dataItems.get(position).getItem2());
+			holder.tvC.setText("C." + dataItems.get(position).getItem3());
+			holder.tvD.setText("D." + dataItems.get(position).getItem4());
 
 			
 		//判断题型
-		if(dataItems.get(position).getQuestionType().equals("0")){
+		if((dataItems.get(position).getAnswer().equals("1")||dataItems.get(position).getAnswer().equals("2")||
+				dataItems.get(position).getAnswer().equals("3")||dataItems.get(position).getAnswer().equals("4")) &&
+				(dataItems.get(position).getItem3()!=null||dataItems.get(position).getItem4()!=null)){
 			//单选题
-
-			holder.question.setText("(单选题)"+dataItems.get(position).getQuestionName());
+			holder.question.setText("(单选题)"+dataItems.get(position).getQuestion());
 			if (dataItems.get(position).getUrl()!=null){
 				Glide.with(mContext).load(dataItems.get(position).getUrl()).into(holder.iv);
 			}else {
 				holder.iv.setVisibility(View.GONE);
 			}
-			holder.layoutA.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View arg0) {
-					if(map.containsKey(position)){
-						return;
-					}
-					map.put(position, true);
-
-					if(dataItems.get(position).getCorrectAnswer().contains("A")){
-						mContext.setCurrentView(position+1);
-						holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
-						holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-						isCorrect=ConstantUtil.isCorrect;
-					}else{
-						isCorrect=ConstantUtil.isError;
-						errortopicNum+=1;
-						//自动添加错误题目
-						ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
-						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
-						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
-						errorQuestionInfo.setQuestionType("0");
-						errorQuestionInfo.setIsRight(isCorrect);
-						errorQuestionInfo.setQuestionSelect("A");
-						errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
-						if(dataItems.get(position).getOption_type().equals("0")){
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
-							errorQuestionInfo.setUrl(dataItems.get(position).getAnalysis());
-							errorQuestionInfo.setOptionType("0");
-						}else{
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("")?"":imgServerUrl+dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("")?"":imgServerUrl+dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("")?"":imgServerUrl+dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("")?"":imgServerUrl+dataItems.get(position).getOptionD());
-							errorQuestionInfo.setOptionType("1");
-						}
-
-						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-						System.out.println("666666666"+errorQuestionInfo.toString());
-
-						if(colunm == -1)
-						{
-							Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
-							System.out.println("666666666"+errorQuestionInfo.toString());
-						}
-
-						holder.ivA.setImageResource(R.drawable.ic_practice_test_wrong);
-						holder.tvA.setTextColor(Color.parseColor("#d53235"));
-						//提示
-						holder.wrongLayout.setVisibility(View.VISIBLE);
-						holder.explaindetailTv.setText(""+dataItems.get(position).getAnalysis());
-						//显示正确选项
-						if(dataItems.get(position).getCorrectAnswer().contains("A")){
-							holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("B")){
-							holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvB.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("C")){
-							holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvC.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("D")){
-							holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvD.setTextColor(Color.parseColor("#61bc31"));
-//						}else if(dataItems.get(position).getCorrectAnswer().contains("E")){
-//							holder.ivE.setImageResource(R.drawable.ic_practice_test_right);
-//							holder.tvE.setTextColor(Color.parseColor("#61bc31"));
-						}
-					}
-					//保存数据
-					SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-					questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
-					questionInfo.setRealAnswer(dataItems.get(position).getCorrectAnswer());
-					questionInfo.setIs_correct(isCorrect);
-					mContext.questionInfos.add(questionInfo);
-					dataItems.get(position).setIsSelect("0");
-				}
-			});
-			holder.layoutB.setOnClickListener(new OnClickListener() {
-
-							@Override
-							public void onClick(View arg0) {
-								if(map.containsKey(position)){
-									return;
-								}
-								map.put(position, true);
-								if(dataItems.get(position).getCorrectAnswer().contains("B")){
-									mContext.setCurrentView(position+1);
-									holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
-									holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-									isCorrect=ConstantUtil.isCorrect;
-								}else{
-									isCorrect=ConstantUtil.isError;
-									errortopicNum+=1;
-									//自动添加错误题目
-									ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
-									errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
-									errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
-									errorQuestionInfo.setQuestionType("0");
-									errorQuestionInfo.setIsRight(isCorrect);
-									errorQuestionInfo.setQuestionSelect("A");
-									errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
-									if(dataItems.get(position).getOption_type().equals("0")){
-										errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
-										errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
-										errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
-										errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
-										errorQuestionInfo.setUrl(dataItems.get(position).getAnalysis());
-										errorQuestionInfo.setOptionType("0");
-									}else{
-										errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("")?"":imgServerUrl+dataItems.get(position).getOptionA());
-										errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("")?"":imgServerUrl+dataItems.get(position).getOptionB());
-										errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("")?"":imgServerUrl+dataItems.get(position).getOptionC());
-										errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("")?"":imgServerUrl+dataItems.get(position).getOptionD());
-										errorQuestionInfo.setOptionType("1");
-									}
-									long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-
-									if(colunm == -1)
-									{
-										Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
-									}
-
-									holder.ivB.setImageResource(R.drawable.ic_practice_test_wrong);
-									holder.tvB.setTextColor(Color.parseColor("#d53235"));
-									//提示
-									holder.wrongLayout.setVisibility(View.VISIBLE);
-									holder.explaindetailTv.setText(""+dataItems.get(position).getAnalysis());
-									//显示正确选项
-									if(dataItems.get(position).getCorrectAnswer().contains("A")){
-										holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
-										holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-									}else if(dataItems.get(position).getCorrectAnswer().contains("B")){
-										holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
-										holder.tvB.setTextColor(Color.parseColor("#61bc31"));
-									}else if(dataItems.get(position).getCorrectAnswer().contains("C")){
-										holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
-										holder.tvC.setTextColor(Color.parseColor("#61bc31"));
-									}else if(dataItems.get(position).getCorrectAnswer().contains("D")){
-										holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
-										holder.tvD.setTextColor(Color.parseColor("#61bc31"));
-//									}else if(dataItems.get(position).getCorrectAnswer().contains("E")){
-//										holder.ivE.setImageResource(R.drawable.ic_practice_test_right);
-//										holder.tvE.setTextColor(Color.parseColor("#61bc31"));
-									}
-								}
-								//保存数据
-								SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-								questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
-								//questionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-								questionInfo.setRealAnswer(dataItems.get(position).getCorrectAnswer());
-								//questionInfo.setScore(dataItems.get(position).getScore());
-								questionInfo.setIs_correct(isCorrect);
-								mContext.questionInfos.add(questionInfo);
-								dataItems.get(position).setIsSelect("0");
-							}
-						});
-			holder.layoutC.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View arg0) {
-					if(map.containsKey(position)){
-						return;
-					}
-					map.put(position, true);
-					if(dataItems.get(position).getCorrectAnswer().contains("C")){
-						mContext.setCurrentView(position+1);
-						holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
-						holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-						isCorrect=ConstantUtil.isCorrect;
-					}else{
-						isCorrect=ConstantUtil.isError;
-						errortopicNum+=1;
-						//自动添加错误题目
-						ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
-						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
-						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
-						errorQuestionInfo.setQuestionType("0");
-						errorQuestionInfo.setIsRight(isCorrect);
-						errorQuestionInfo.setQuestionSelect("A");
-						errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
-						if(dataItems.get(position).getOption_type().equals("0")){
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
-							errorQuestionInfo.setUrl(dataItems.get(position).getAnalysis());
-							errorQuestionInfo.setOptionType("0");
-						}else {
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionD());
-							errorQuestionInfo.setOptionType("1");
-						}
-						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-						System.out.println();
-
-						if(colunm == -1)
-						{
-							Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
-						}
-
-						holder.ivC.setImageResource(R.drawable.ic_practice_test_wrong);
-						holder.tvC.setTextColor(Color.parseColor("#d53235"));
-						//提示
-						holder.wrongLayout.setVisibility(View.VISIBLE);
-						holder.explaindetailTv.setText(""+dataItems.get(position).getAnalysis());
-						//显示正确选项
-						if(dataItems.get(position).getCorrectAnswer().contains("A")){
-							holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("B")){
-							holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvB.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("C")){
-							holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvC.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("D")){
-							holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvD.setTextColor(Color.parseColor("#61bc31"));
-//						}else if(dataItems.get(position).getCorrectAnswer().contains("E")){
-//							holder.ivE.setImageResource(R.drawable.ic_practice_test_right);
-//							holder.tvE.setTextColor(Color.parseColor("#61bc31"));
-						}
-					}
-					//保存数据
-					SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-					questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
-					//questionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-					questionInfo.setRealAnswer(dataItems.get(position).getCorrectAnswer());
-					//questionInfo.setScore(dataItems.get(position).getScore());
-					questionInfo.setIs_correct(isCorrect);
-					mContext.questionInfos.add(questionInfo);
-					dataItems.get(position).setIsSelect("0");
-				}
-			});
-			holder.layoutD.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View arg0) {
-					if(map.containsKey(position)){
-						return;
-					}
-					map.put(position, true);
-					if(dataItems.get(position).getCorrectAnswer().contains("D")){
-						mContext.setCurrentView(position+1);
-						holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
-						holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-						isCorrect=ConstantUtil.isCorrect;
-					}else{
-						isCorrect=ConstantUtil.isError;
-						errortopicNum+=1;
-						//自动添加错误题目
-						ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
-						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
-						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
-						errorQuestionInfo.setQuestionType("0");
-						errorQuestionInfo.setIsRight(isCorrect);
-						errorQuestionInfo.setQuestionSelect("A");
-						errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
-						if(dataItems.get(position).getOption_type().equals("0")){
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
-							errorQuestionInfo.setUrl(dataItems.get(position).getAnalysis());
-							errorQuestionInfo.setOptionType("0");
-						}else {
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("") ? "" : imgServerUrl + dataItems.get(position).getOptionD());
-							errorQuestionInfo.setOptionType("1");
-						}
-					}
-					//保存数据
-					SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-					questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
-					//questionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-					questionInfo.setRealAnswer(dataItems.get(position).getCorrectAnswer());
-					//questionInfo.setScore(dataItems.get(position).getScore());
-					questionInfo.setIs_correct(isCorrect);
-					mContext.questionInfos.add(questionInfo);
-					dataItems.get(position).setIsSelect("0");
-				}
-			});
-		}else if(dataItems.get(position).getQuestionType().equals("1")){
+			xuanxiang(holder,position);
+		}else if((!dataItems.get(position).getAnswer().equals("1")||!dataItems.get(position).getAnswer().equals("2")||
+				!dataItems.get(position).getAnswer().equals("3")||!dataItems.get(position).getAnswer().equals("4"))&&
+				(dataItems.get(position).getItem3()!=null&&dataItems.get(position).getItem4()!=null)){
 			//多选题
-			holder.question.setText("(多选题)"+dataItems.get(position).getQuestionName());
+			holder.question.setText("(多选题)"+dataItems.get(position).getQuestion());
 			if (dataItems.get(position).getUrl()!=null){
 				Glide.with(mContext).load(dataItems.get(position).getUrl()).into(holder.iv);
 			}else {
@@ -476,14 +190,14 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 					if(map.containsKey(position)){
 						return;
 					}
-					if(dataItems.get(position).getCorrectAnswer().contains("A")){
+					if(dataItems.get(position).getAnswer().contains("1")){
 						holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
 						holder.tvA.setTextColor(Color.parseColor("#61bc31"));
 						isCorrect=ConstantUtil.isCorrect;
 						if(position==viewItems.size()-1){
-							answerLast.append("A");
+							answerLast.append("1");
 						}else{
-							answer.append("A");
+							answer.append("1");
 						}
 					}else{
 						isCorrect=ConstantUtil.isError;
@@ -491,24 +205,24 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 						errortopicNum+=1;
 						//自动添加错误题目
 						ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
-						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
-						errorQuestionInfo.setQuestionType("1");
-						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
-						errorQuestionInfo.setIsRight(isCorrect);
-						errorQuestionInfo.setQuestionSelect("A");
-						errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
+						errorQuestionInfo.setQuestionId(dataItems.get(position).getId());
+						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestion());
 						errorQuestionInfo.setOptionType("0");
-						if(dataItems.get(position).getOption_type().equals("0")){
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
+						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getAnswer());
+						errorQuestionInfo.setIsRight(isCorrect);
+						errorQuestionInfo.setQuestionSelect("1");
+						errorQuestionInfo.setAnalysis(dataItems.get(position).getExplains());
+						if(dataItems.get(position).getUrl()!=null){
+							errorQuestionInfo.setOptionA(dataItems.get(position).getItem1());
+							errorQuestionInfo.setOptionB(dataItems.get(position).getItem2());
+							errorQuestionInfo.setOptionC(dataItems.get(position).getItem3());
+							errorQuestionInfo.setOptionD(dataItems.get(position).getItem4());
 							errorQuestionInfo.setUrl(dataItems.get(position).getUrl());
 						}else{
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("")?"":imgServerUrl+dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("")?"":imgServerUrl+dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("")?"":imgServerUrl+dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("")?"":imgServerUrl+dataItems.get(position).getOptionD());
+							errorQuestionInfo.setOptionA(dataItems.get(position).getItem1().equals("")?"":imgServerUrl+dataItems.get(position).getItem1());
+							errorQuestionInfo.setOptionB(dataItems.get(position).getItem2().equals("")?"":imgServerUrl+dataItems.get(position).getItem2());
+							errorQuestionInfo.setOptionC(dataItems.get(position).getItem3().equals("")?"":imgServerUrl+dataItems.get(position).getItem3());
+							errorQuestionInfo.setOptionD(dataItems.get(position).getItem4().equals("")?"":imgServerUrl+dataItems.get(position).getItem4());
 							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
 						}
 						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
@@ -523,18 +237,18 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 						holder.tvA.setTextColor(Color.parseColor("#d53235"));
 						//提示
 						holder.wrongLayout.setVisibility(View.VISIBLE);
-						holder.explaindetailTv.setText(""+dataItems.get(position).getAnalysis());
+						holder.explaindetailTv.setText(""+dataItems.get(position).getExplains());
 						//显示正确选项
-						if(dataItems.get(position).getCorrectAnswer().contains("A")){
+						if(dataItems.get(position).getAnswer().contains("1")){
 							holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-						}if(dataItems.get(position).getCorrectAnswer().contains("B")){
+						}if(dataItems.get(position).getAnswer().contains("2")){
 							holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvB.setTextColor(Color.parseColor("#61bc31"));
-						}if(dataItems.get(position).getCorrectAnswer().contains("C")){
+						}if(dataItems.get(position).getAnswer().contains("3")){
 							holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvC.setTextColor(Color.parseColor("#61bc31"));
-						}if(dataItems.get(position).getCorrectAnswer().contains("D")){
+						}if(dataItems.get(position).getAnswer().contains("4")){
 							holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvD.setTextColor(Color.parseColor("#61bc31"));
 //						}if(dataItems.get(position).getCorrectAnswer().contains("E")){
@@ -544,13 +258,12 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 
 						//保存数据
 						SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-						questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
+						questionInfo.setQuestionId(dataItems.get(position).getId());
 						//questionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-						questionInfo.setRealAnswer(dataItems.get(position).getCorrectAnswer());
+						questionInfo.setRealAnswer(dataItems.get(position).getAnswer());
 						//questionInfo.setScore(dataItems.get(position).getScore());
 						questionInfo.setIs_correct(isCorrect);
 						mContext.questionInfos.add(questionInfo);
-						dataItems.get(position).setIsSelect("0");
 					}
 					resultA="A";
 				}
@@ -563,14 +276,14 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 								if(map.containsKey(position)){
 									return;
 								}
-								if(dataItems.get(position).getCorrectAnswer().contains("B")){
+								if(dataItems.get(position).getAnswer().contains("2")){
 									holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
 									holder.tvB.setTextColor(Color.parseColor("#61bc31"));
 									isCorrect=ConstantUtil.isCorrect;
 									if(position==viewItems.size()-1){
-										answerLast.append("B");
+										answerLast.append("2");
 									}else{
-										answer.append("B");
+										answer.append("2");
 									}
 								}else{
 									isCorrect=ConstantUtil.isError;
@@ -578,24 +291,24 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 									errortopicNum+=1;
 									//自动添加错误题目
 									ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
-									errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
-									//errorQuestionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-									errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
+									errorQuestionInfo.setQuestionId(dataItems.get(position).getId());
+									errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestion());
+									errorQuestionInfo.setOptionType("0");
+									errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getAnswer());
 									errorQuestionInfo.setIsRight(isCorrect);
-									errorQuestionInfo.setQuestionSelect("B");
-									errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
-									//errorQuestionInfo.setOptionType(dataItems.get(position).getOption_type());
-									if(dataItems.get(position).getOption_type().equals("0")){
-										errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
-										errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
-										errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
-										errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
-										//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE());
+									errorQuestionInfo.setQuestionSelect("2");
+									errorQuestionInfo.setAnalysis(dataItems.get(position).getExplains());
+									if(dataItems.get(position).getUrl()!=null){
+										errorQuestionInfo.setOptionA(dataItems.get(position).getItem1());
+										errorQuestionInfo.setOptionB(dataItems.get(position).getItem2());
+										errorQuestionInfo.setOptionC(dataItems.get(position).getItem3());
+										errorQuestionInfo.setOptionD(dataItems.get(position).getItem4());
+										errorQuestionInfo.setUrl(dataItems.get(position).getUrl());
 									}else{
-										errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("")?"":imgServerUrl+dataItems.get(position).getOptionA());
-										errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("")?"":imgServerUrl+dataItems.get(position).getOptionB());
-										errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("")?"":imgServerUrl+dataItems.get(position).getOptionC());
-										errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("")?"":imgServerUrl+dataItems.get(position).getOptionD());
+										errorQuestionInfo.setOptionA(dataItems.get(position).getItem1().equals("")?"":imgServerUrl+dataItems.get(position).getItem1());
+										errorQuestionInfo.setOptionB(dataItems.get(position).getItem2().equals("")?"":imgServerUrl+dataItems.get(position).getItem2());
+										errorQuestionInfo.setOptionC(dataItems.get(position).getItem3().equals("")?"":imgServerUrl+dataItems.get(position).getItem3());
+										errorQuestionInfo.setOptionD(dataItems.get(position).getItem4().equals("")?"":imgServerUrl+dataItems.get(position).getItem4());
 										//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
 									}
 									long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
@@ -610,18 +323,18 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 									holder.tvB.setTextColor(Color.parseColor("#d53235"));
 									//提示
 									holder.wrongLayout.setVisibility(View.VISIBLE);
-									holder.explaindetailTv.setText(""+dataItems.get(position).getAnalysis());
+									holder.explaindetailTv.setText(""+dataItems.get(position).getExplains());
 									//显示正确选项
-									if(dataItems.get(position).getCorrectAnswer().contains("A")){
+									if(dataItems.get(position).getAnswer().contains("1")){
 										holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
 										holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-									}if(dataItems.get(position).getCorrectAnswer().contains("B")){
+									}if(dataItems.get(position).getAnswer().contains("2")){
 										holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
 										holder.tvB.setTextColor(Color.parseColor("#61bc31"));
-									}if(dataItems.get(position).getCorrectAnswer().contains("C")){
+									}if(dataItems.get(position).getAnswer().contains("3")){
 										holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
 										holder.tvC.setTextColor(Color.parseColor("#61bc31"));
-									}if(dataItems.get(position).getCorrectAnswer().contains("D")){
+									}if(dataItems.get(position).getAnswer().contains("4")){
 										holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
 										holder.tvD.setTextColor(Color.parseColor("#61bc31"));
 //									}if(dataItems.get(position).getCorrectAnswer().contains("E")){
@@ -631,15 +344,14 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 
 									//保存数据
 									SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-									questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
+									questionInfo.setQuestionId(dataItems.get(position).getId());
 									//questionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-									questionInfo.setRealAnswer(dataItems.get(position).getCorrectAnswer());
+									questionInfo.setRealAnswer(dataItems.get(position).getAnswer());
 									//questionInfo.setScore(dataItems.get(position).getScore());
 									questionInfo.setIs_correct(isCorrect);
 									mContext.questionInfos.add(questionInfo);
-									dataItems.get(position).setIsSelect("0");
 								}
-								resultB="B";
+								resultB="2";
 							}
 						});
 			holder.layoutC.setOnClickListener(new OnClickListener() {
@@ -650,14 +362,14 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 					if(map.containsKey(position)){
 						return;
 					}
-					if(dataItems.get(position).getCorrectAnswer().contains("C")){
+					if(dataItems.get(position).getAnswer().contains("3")){
 						holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
 						holder.tvC.setTextColor(Color.parseColor("#61bc31"));
 						isCorrect=ConstantUtil.isCorrect;
 						if(position==viewItems.size()-1){
-							answerLast.append("C");
+							answerLast.append("3");
 						}else{
-							answer.append("C");
+							answer.append("3");
 						}
 					}else{
 						isCorrect=ConstantUtil.isError;
@@ -665,24 +377,24 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 						errortopicNum+=1;
 						//自动添加错误题目
 						ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
-						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
-						//errorQuestionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
+						errorQuestionInfo.setQuestionId(dataItems.get(position).getId());
+						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestion());
+						errorQuestionInfo.setOptionType("0");
+						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getAnswer());
 						errorQuestionInfo.setIsRight(isCorrect);
-						errorQuestionInfo.setQuestionSelect("C");
-						errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
-						//errorQuestionInfo.setOptionType(dataItems.get(position).getOption_type());
-						if(dataItems.get(position).getOption_type().equals("0")){
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
-							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE());
+						errorQuestionInfo.setQuestionSelect("3");
+						errorQuestionInfo.setAnalysis(dataItems.get(position).getExplains());
+						if(dataItems.get(position).getUrl()!=null){
+							errorQuestionInfo.setOptionA(dataItems.get(position).getItem1());
+							errorQuestionInfo.setOptionB(dataItems.get(position).getItem2());
+							errorQuestionInfo.setOptionC(dataItems.get(position).getItem3());
+							errorQuestionInfo.setOptionD(dataItems.get(position).getItem4());
+							errorQuestionInfo.setUrl(dataItems.get(position).getUrl());
 						}else{
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("")?"":imgServerUrl+dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("")?"":imgServerUrl+dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("")?"":imgServerUrl+dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("")?"":imgServerUrl+dataItems.get(position).getOptionD());
+							errorQuestionInfo.setOptionA(dataItems.get(position).getItem1().equals("")?"":imgServerUrl+dataItems.get(position).getItem1());
+							errorQuestionInfo.setOptionB(dataItems.get(position).getItem2().equals("")?"":imgServerUrl+dataItems.get(position).getItem2());
+							errorQuestionInfo.setOptionC(dataItems.get(position).getItem3().equals("")?"":imgServerUrl+dataItems.get(position).getItem3());
+							errorQuestionInfo.setOptionD(dataItems.get(position).getItem4().equals("")?"":imgServerUrl+dataItems.get(position).getItem4());
 							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
 						}
 						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
@@ -697,18 +409,18 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 						holder.tvC.setTextColor(Color.parseColor("#d53235"));
 						//提示
 						holder.wrongLayout.setVisibility(View.VISIBLE);
-						holder.explaindetailTv.setText(""+dataItems.get(position).getAnalysis());
+						holder.explaindetailTv.setText(""+dataItems.get(position).getExplains());
 						//显示正确选项
-						if(dataItems.get(position).getCorrectAnswer().contains("A")){
+						if(dataItems.get(position).getAnswer().contains("1")){
 							holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-						}if(dataItems.get(position).getCorrectAnswer().contains("B")){
+						}if(dataItems.get(position).getAnswer().contains("2")){
 							holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvB.setTextColor(Color.parseColor("#61bc31"));
-						}if(dataItems.get(position).getCorrectAnswer().contains("C")){
+						}if(dataItems.get(position).getAnswer().contains("3")){
 							holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvC.setTextColor(Color.parseColor("#61bc31"));
-						}if(dataItems.get(position).getCorrectAnswer().contains("D")){
+						}if(dataItems.get(position).getAnswer().contains("4")){
 							holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvD.setTextColor(Color.parseColor("#61bc31"));
 //						}if(dataItems.get(position).getCorrectAnswer().contains("E")){
@@ -718,15 +430,14 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 
 						//保存数据
 						SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-						questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
+						questionInfo.setQuestionId(dataItems.get(position).getId());
 						//questionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-						questionInfo.setRealAnswer(dataItems.get(position).getCorrectAnswer());
+						questionInfo.setRealAnswer(dataItems.get(position).getAnswer());
 						//questionInfo.setScore(dataItems.get(position).getScore());
 						questionInfo.setIs_correct(isCorrect);
 						mContext.questionInfos.add(questionInfo);
-						dataItems.get(position).setIsSelect("0");
 					}
-					resultC="C";
+					resultC="3";
 				}
 			});
 			holder.layoutD.setOnClickListener(new OnClickListener() {
@@ -737,14 +448,14 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 					if(map.containsKey(position)){
 						return;
 					}
-					if(dataItems.get(position).getCorrectAnswer().contains("D")){
+					if(dataItems.get(position).getAnswer().contains("4")){
 						holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
 						holder.tvD.setTextColor(Color.parseColor("#61bc31"));
 						isCorrect=ConstantUtil.isCorrect;
 						if(position==viewItems.size()-1){
-							answerLast.append("D");
+							answerLast.append("4");
 						}else{
-							answer.append("D");
+							answer.append("4");
 						}
 					}else{
 						isCorrect=ConstantUtil.isError;
@@ -752,24 +463,24 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 						errortopicNum+=1;
 						//自动添加错误题目
 						ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
-						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
-						//errorQuestionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
+						errorQuestionInfo.setQuestionId(dataItems.get(position).getId());
+						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestion());
+						errorQuestionInfo.setOptionType("0");
+						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getAnswer());
 						errorQuestionInfo.setIsRight(isCorrect);
-						errorQuestionInfo.setQuestionSelect("D");
-						errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
-						//errorQuestionInfo.setOptionType(dataItems.get(position).getOption_type());
-						if(dataItems.get(position).getOption_type().equals("0")){
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
-							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE());
+						errorQuestionInfo.setQuestionSelect("4");
+						errorQuestionInfo.setAnalysis(dataItems.get(position).getExplains());
+						if(dataItems.get(position).getUrl()!=null){
+							errorQuestionInfo.setOptionA(dataItems.get(position).getItem1());
+							errorQuestionInfo.setOptionB(dataItems.get(position).getItem2());
+							errorQuestionInfo.setOptionC(dataItems.get(position).getItem3());
+							errorQuestionInfo.setOptionD(dataItems.get(position).getItem4());
+							errorQuestionInfo.setUrl(dataItems.get(position).getUrl());
 						}else{
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("")?"":imgServerUrl+dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("")?"":imgServerUrl+dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("")?"":imgServerUrl+dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("")?"":imgServerUrl+dataItems.get(position).getOptionD());
+							errorQuestionInfo.setOptionA(dataItems.get(position).getItem1().equals("")?"":imgServerUrl+dataItems.get(position).getItem1());
+							errorQuestionInfo.setOptionB(dataItems.get(position).getItem2().equals("")?"":imgServerUrl+dataItems.get(position).getItem2());
+							errorQuestionInfo.setOptionC(dataItems.get(position).getItem3().equals("")?"":imgServerUrl+dataItems.get(position).getItem3());
+							errorQuestionInfo.setOptionD(dataItems.get(position).getItem4().equals("")?"":imgServerUrl+dataItems.get(position).getItem4());
 							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
 						}
 						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
@@ -784,18 +495,18 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 						holder.tvD.setTextColor(Color.parseColor("#d53235"));
 						//提示
 						holder.wrongLayout.setVisibility(View.VISIBLE);
-						holder.explaindetailTv.setText(""+dataItems.get(position).getAnalysis());
+						holder.explaindetailTv.setText(""+dataItems.get(position).getExplains());
 						//显示正确选项
-						if(dataItems.get(position).getCorrectAnswer().contains("A")){
+						if(dataItems.get(position).getAnswer().contains("1")){
 							holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-						}if(dataItems.get(position).getCorrectAnswer().contains("B")){
+						}if(dataItems.get(position).getAnswer().contains("2")){
 							holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvB.setTextColor(Color.parseColor("#61bc31"));
-						}if(dataItems.get(position).getCorrectAnswer().contains("C")){
+						}if(dataItems.get(position).getAnswer().contains("3")){
 							holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvC.setTextColor(Color.parseColor("#61bc31"));
-						}if(dataItems.get(position).getCorrectAnswer().contains("D")){
+						}if(dataItems.get(position).getAnswer().contains("4")){
 							holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvD.setTextColor(Color.parseColor("#61bc31"));
 //						}if(dataItems.get(position).getCorrectAnswer().contains("E")){
@@ -805,20 +516,17 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 
 						//保存数据
 						SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-						questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
-						//questionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-						questionInfo.setRealAnswer(dataItems.get(position).getCorrectAnswer());
-						//questionInfo.setScore(dataItems.get(position).getScore());
+						questionInfo.setQuestionId(dataItems.get(position).getId());
+						questionInfo.setRealAnswer(dataItems.get(position).getAnswer());
 						questionInfo.setIs_correct(isCorrect);
 						mContext.questionInfos.add(questionInfo);
-						dataItems.get(position).setIsSelect("0");
 					}
-					resultD="D";
+					resultD="4";
 				}
 			});
-		}else{
+		}else if(dataItems.get(position).getItem3()==null&&dataItems.get(position).getItem4()==null){
 			//判断题
-			holder.question.setText("(判断题)"+dataItems.get(position).getQuestionName());
+			holder.question.setText("(判断题)"+dataItems.get(position).getQuestion());
 			if (dataItems.get(position).getUrl()!=null){
 				Glide.with(mContext).load(dataItems.get(position).getUrl()).into(holder.iv);
 			}else {
@@ -832,7 +540,7 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 						return;
 					}
 					map.put(position, true);
-					if(dataItems.get(position).getCorrectAnswer().contains("A")){
+					if(dataItems.get(position).getAnswer().contains("1")){
 						mContext.setCurrentView(position+1);
 						holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
 						holder.tvA.setTextColor(Color.parseColor("#61bc31"));
@@ -842,49 +550,49 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 						errortopicNum+=1;
 						//自动添加错误题目
 						ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
-						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
-						//errorQuestionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
-						errorQuestionInfo.setIsRight(isCorrect);
-						errorQuestionInfo.setQuestionSelect("A");
-						errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
+						errorQuestionInfo.setQuestionId(dataItems.get(position).getId());
+						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestion());
 						errorQuestionInfo.setOptionType("0");
-						if(dataItems.get(position).getOption_type().equals("0")){
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
-							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE());
+						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getAnswer());
+						errorQuestionInfo.setIsRight(isCorrect);
+						errorQuestionInfo.setQuestionSelect("1");
+						errorQuestionInfo.setAnalysis(dataItems.get(position).getExplains());
+						if(dataItems.get(position).getUrl()!=null){
+							errorQuestionInfo.setOptionA(dataItems.get(position).getItem1());
+							errorQuestionInfo.setOptionB(dataItems.get(position).getItem2());
+							errorQuestionInfo.setOptionC(dataItems.get(position).getItem3());
+							errorQuestionInfo.setOptionD(dataItems.get(position).getItem4());
+							errorQuestionInfo.setUrl(dataItems.get(position).getUrl());
 						}else{
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("")?"":imgServerUrl+dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("")?"":imgServerUrl+dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("")?"":imgServerUrl+dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("")?"":imgServerUrl+dataItems.get(position).getOptionD());
+							errorQuestionInfo.setOptionA(dataItems.get(position).getItem1().equals("")?"":imgServerUrl+dataItems.get(position).getItem1());
+							errorQuestionInfo.setOptionB(dataItems.get(position).getItem2().equals("")?"":imgServerUrl+dataItems.get(position).getItem2());
+							errorQuestionInfo.setOptionC(dataItems.get(position).getItem3().equals("")?"":imgServerUrl+dataItems.get(position).getItem3());
+							errorQuestionInfo.setOptionD(dataItems.get(position).getItem4().equals("")?"":imgServerUrl+dataItems.get(position).getItem4());
 							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
 						}
 						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-
 						if(colunm == -1)
 						{
 							Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
+							System.out.println("666666666"+errorQuestionInfo.toString());
 						}
 
 						holder.ivA.setImageResource(R.drawable.ic_practice_test_wrong);
 						holder.tvA.setTextColor(Color.parseColor("#d53235"));
 						//提示
 						holder.wrongLayout.setVisibility(View.VISIBLE);
-						holder.explaindetailTv.setText(""+dataItems.get(position).getAnalysis());
+						holder.explaindetailTv.setText(""+dataItems.get(position).getExplains());
 						//显示正确选项
-						if(dataItems.get(position).getCorrectAnswer().contains("A")){
+						if(dataItems.get(position).getAnswer().contains("1")){
 							holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("B")){
+						}else if(dataItems.get(position).getAnswer().contains("2")){
 							holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvB.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("C")){
+						}else if(dataItems.get(position).getAnswer().contains("3")){
 							holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvC.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("D")){
+						}else if(dataItems.get(position).getAnswer().contains("4")){
 							holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvD.setTextColor(Color.parseColor("#61bc31"));
 //						}else if(dataItems.get(position).getCorrectAnswer().contains("E")){
@@ -894,130 +602,48 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 					}
 					//保存数据
 					SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-					questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
-					//questionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-					questionInfo.setRealAnswer(dataItems.get(position).getCorrectAnswer());
-					//questionInfo.setScore(dataItems.get(position).getScore());
+					questionInfo.setQuestionId(dataItems.get(position).getId());
+					questionInfo.setRealAnswer(dataItems.get(position).getAnswer());
 					questionInfo.setIs_correct(isCorrect);
 					mContext.questionInfos.add(questionInfo);
-					dataItems.get(position).setIsSelect("0");
 				}
 			});
 			holder.layoutB.setOnClickListener(new OnClickListener() {
 
-							@Override
-							public void onClick(View arg0) {
-								if(map.containsKey(position)){
-									return;
-								}
-								map.put(position, true);
-								if(dataItems.get(position).getCorrectAnswer().contains("B")){
-									mContext.setCurrentView(position+1);
-									holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
-									holder.tvB.setTextColor(Color.parseColor("#61bc31"));
-									isCorrect=ConstantUtil.isCorrect;
-								}else{
-									isCorrect=ConstantUtil.isError;
-									errortopicNum+=1;
-									//自动添加错误题目
-									ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
-									errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
-									//errorQuestionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-									errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
-									errorQuestionInfo.setIsRight(isCorrect);
-									errorQuestionInfo.setQuestionSelect("B");
-									errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
-									//errorQuestionInfo.setOptionType(dataItems.get(position).getOption_type());
-									if(dataItems.get(position).getOption_type().equals("0")){
-										errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
-										errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
-										errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
-										errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
-										//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE());
-									}else{
-										errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("")?"":imgServerUrl+dataItems.get(position).getOptionA());
-										errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("")?"":imgServerUrl+dataItems.get(position).getOptionB());
-										errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("")?"":imgServerUrl+dataItems.get(position).getOptionC());
-										errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("")?"":imgServerUrl+dataItems.get(position).getOptionD());
-										//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
-									}
-									long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-
-									if(colunm == -1)
-									{
-										Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
-									}
-
-									holder.ivB.setImageResource(R.drawable.ic_practice_test_wrong);
-									holder.tvB.setTextColor(Color.parseColor("#d53235"));
-									//提示
-									holder.wrongLayout.setVisibility(View.VISIBLE);
-									holder.explaindetailTv.setText(""+dataItems.get(position).getAnalysis());
-									//显示正确选项
-									if(dataItems.get(position).getCorrectAnswer().contains("A")){
-										holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
-										holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-									}else if(dataItems.get(position).getCorrectAnswer().contains("B")){
-										holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
-										holder.tvB.setTextColor(Color.parseColor("#61bc31"));
-									}else if(dataItems.get(position).getCorrectAnswer().contains("C")){
-										holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
-										holder.tvC.setTextColor(Color.parseColor("#61bc31"));
-									}else if(dataItems.get(position).getCorrectAnswer().contains("D")){
-										holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
-										holder.tvD.setTextColor(Color.parseColor("#61bc31"));
-//									}else if(dataItems.get(position).getCorrectAnswer().contains("E")){
-//										holder.ivE.setImageResource(R.drawable.ic_practice_test_right);
-//										holder.tvE.setTextColor(Color.parseColor("#61bc31"));
-									}
-								}
-								//保存数据
-								SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-								questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
-								//questionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-								questionInfo.setRealAnswer(dataItems.get(position).getCorrectAnswer());
-								//questionInfo.setScore(dataItems.get(position).getScore());
-								questionInfo.setIs_correct(isCorrect);
-								mContext.questionInfos.add(questionInfo);
-								dataItems.get(position).setIsSelect("0");
-							}
-						});
-			holder.layoutC.setOnClickListener(new OnClickListener() {
-
 				@Override
 				public void onClick(View arg0) {
 					if(map.containsKey(position)){
 						return;
 					}
 					map.put(position, true);
-					if(dataItems.get(position).getCorrectAnswer().contains("C")){
+					if(dataItems.get(position).getAnswer().contains("2")){
 						mContext.setCurrentView(position+1);
-						holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
-						holder.tvC.setTextColor(Color.parseColor("#61bc31"));
+						holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvB.setTextColor(Color.parseColor("#61bc31"));
 						isCorrect=ConstantUtil.isCorrect;
 					}else{
 						isCorrect=ConstantUtil.isError;
 						errortopicNum+=1;
 						//自动添加错误题目
 						ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
-						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
-						//errorQuestionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
+						errorQuestionInfo.setQuestionId(dataItems.get(position).getId());
+						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestion());
+						errorQuestionInfo.setOptionType("0");
+						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getAnswer());
 						errorQuestionInfo.setIsRight(isCorrect);
-						errorQuestionInfo.setQuestionSelect("C");
-						errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
-						//errorQuestionInfo.setOptionType(dataItems.get(position).getOption_type());
-						if(dataItems.get(position).getOption_type().equals("0")){
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
-							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE());
+						errorQuestionInfo.setQuestionSelect("2");
+						errorQuestionInfo.setAnalysis(dataItems.get(position).getExplains());
+						if(dataItems.get(position).getUrl()!=null){
+							errorQuestionInfo.setOptionA(dataItems.get(position).getItem1());
+							errorQuestionInfo.setOptionB(dataItems.get(position).getItem2());
+							errorQuestionInfo.setOptionC(dataItems.get(position).getItem3());
+							errorQuestionInfo.setOptionD(dataItems.get(position).getItem4());
+							errorQuestionInfo.setUrl(dataItems.get(position).getUrl());
 						}else{
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("")?"":imgServerUrl+dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("")?"":imgServerUrl+dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("")?"":imgServerUrl+dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("")?"":imgServerUrl+dataItems.get(position).getOptionD());
+							errorQuestionInfo.setOptionA(dataItems.get(position).getItem1().equals("")?"":imgServerUrl+dataItems.get(position).getItem1());
+							errorQuestionInfo.setOptionB(dataItems.get(position).getItem2().equals("")?"":imgServerUrl+dataItems.get(position).getItem2());
+							errorQuestionInfo.setOptionC(dataItems.get(position).getItem3().equals("")?"":imgServerUrl+dataItems.get(position).getItem3());
+							errorQuestionInfo.setOptionD(dataItems.get(position).getItem4().equals("")?"":imgServerUrl+dataItems.get(position).getItem4());
 							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
 						}
 						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
@@ -1027,117 +653,34 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 							Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
 						}
 
-						holder.ivC.setImageResource(R.drawable.ic_practice_test_wrong);
-						holder.tvC.setTextColor(Color.parseColor("#d53235"));
+						holder.ivB.setImageResource(R.drawable.ic_practice_test_wrong);
+						holder.tvB.setTextColor(Color.parseColor("#d53235"));
 						//提示
 						holder.wrongLayout.setVisibility(View.VISIBLE);
-						holder.explaindetailTv.setText(""+dataItems.get(position).getAnalysis());
+						holder.explaindetailTv.setText(""+dataItems.get(position).getExplains());
 						//显示正确选项
-						if(dataItems.get(position).getCorrectAnswer().contains("A")){
+						if(dataItems.get(position).getAnswer().contains("1")){
 							holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("B")){
+						}else if(dataItems.get(position).getAnswer().contains("2")){
 							holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvB.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("C")){
+						}else if(dataItems.get(position).getAnswer().contains("3")){
 							holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvC.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("D")){
+						}else if(dataItems.get(position).getAnswer().contains("4")){
 							holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
 							holder.tvD.setTextColor(Color.parseColor("#61bc31"));
-//						}else if(dataItems.get(position).getCorrectAnswer().contains("E")){
-//							holder.ivE.setImageResource(R.drawable.ic_practice_test_right);
-//							holder.tvE.setTextColor(Color.parseColor("#61bc31"));
 						}
 					}
 					//保存数据
 					SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-					questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
+					questionInfo.setQuestionId(dataItems.get(position).getId());
 					//questionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-					questionInfo.setRealAnswer(dataItems.get(position).getCorrectAnswer());
+					questionInfo.setRealAnswer(dataItems.get(position).getAnswer());
 					//questionInfo.setScore(dataItems.get(position).getScore());
 					questionInfo.setIs_correct(isCorrect);
 					mContext.questionInfos.add(questionInfo);
-					dataItems.get(position).setIsSelect("0");
-				}
-			});
-			holder.layoutD.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View arg0) {
-					if(map.containsKey(position)){
-						return;
-					}
-					map.put(position, true);
-					if(dataItems.get(position).getCorrectAnswer().contains("D")){
-						mContext.setCurrentView(position+1);
-						holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
-						holder.tvD.setTextColor(Color.parseColor("#61bc31"));
-						isCorrect=ConstantUtil.isCorrect;
-					}else{
-						isCorrect=ConstantUtil.isError;
-						errortopicNum+=1;
-						//自动添加错误题目
-						ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
-						errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestionName());
-						//errorQuestionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-						errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getCorrectAnswer());
-						errorQuestionInfo.setIsRight(isCorrect);
-						errorQuestionInfo.setQuestionSelect("D");
-						errorQuestionInfo.setAnalysis(dataItems.get(position).getAnalysis());
-						//errorQuestionInfo.setOptionType(dataItems.get(position).getOption_type());
-						if(dataItems.get(position).getOption_type().equals("0")){
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD());
-							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE());
-						}else{
-							errorQuestionInfo.setOptionA(dataItems.get(position).getOptionA().equals("")?"":imgServerUrl+dataItems.get(position).getOptionA());
-							errorQuestionInfo.setOptionB(dataItems.get(position).getOptionB().equals("")?"":imgServerUrl+dataItems.get(position).getOptionB());
-							errorQuestionInfo.setOptionC(dataItems.get(position).getOptionC().equals("")?"":imgServerUrl+dataItems.get(position).getOptionC());
-							errorQuestionInfo.setOptionD(dataItems.get(position).getOptionD().equals("")?"":imgServerUrl+dataItems.get(position).getOptionD());
-							//errorQuestionInfo.setOptionE(dataItems.get(position).getOptionE().equals("")?"":imgServerUrl+dataItems.get(position).getOptionE());
-						}
-						long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
-
-						if(colunm == -1)
-						{
-							Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
-						}
-
-						holder.ivD.setImageResource(R.drawable.ic_practice_test_wrong);
-						holder.tvD.setTextColor(Color.parseColor("#d53235"));
-						//提示
-						holder.wrongLayout.setVisibility(View.VISIBLE);
-						holder.explaindetailTv.setText(""+dataItems.get(position).getAnalysis());
-						//显示正确选项
-						if(dataItems.get(position).getCorrectAnswer().contains("A")){
-							holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvA.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("B")){
-							holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvB.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("C")){
-							holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvC.setTextColor(Color.parseColor("#61bc31"));
-						}else if(dataItems.get(position).getCorrectAnswer().contains("D")){
-							holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
-							holder.tvD.setTextColor(Color.parseColor("#61bc31"));
-//						}else if(dataItems.get(position).getCorrectAnswer().contains("E")){
-//							holder.ivE.setImageResource(R.drawable.ic_practice_test_right);
-//							holder.tvE.setTextColor(Color.parseColor("#61bc31"));
-						}
-					}
-					//保存数据
-					SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-					questionInfo.setQuestionId(dataItems.get(position).getQuestionId());
-					//questionInfo.setQuestionType(dataItems.get(position).getQuestionType());
-					questionInfo.setRealAnswer(dataItems.get(position).getCorrectAnswer());
-					//questionInfo.setScore(dataItems.get(position).getScore());
-					questionInfo.setIs_correct(isCorrect);
-					mContext.questionInfos.add(questionInfo);
-					dataItems.get(position).setIsSelect("0");
 				}
 			});
 		}
@@ -1181,13 +724,16 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 		public void onClick(View v) {
 				if (mPosition == viewItems.size()) {
 					//单选
-					if(dataItems.get(mPosition1).getQuestionType().equals("0")){
+					if(dataItems.get(mPosition).getAnswer().equals("1")||dataItems.get(mPosition).getAnswer().equals("2")||
+							dataItems.get(mPosition).getAnswer().equals("3")||dataItems.get(mPosition).getAnswer().equals("4")){
 						if(!map.containsKey(mPosition1)){
 							Toast.makeText(mContext, "请选择选项", Toast.LENGTH_SHORT).show();
 							return;
 						}
 						//mContext.uploadExamination(errortopicNum);
-					}else if(dataItems.get(mPosition1).getQuestionType().equals("1")){
+					}else if((!dataItems.get(mPosition).getAnswer().equals("1")||!dataItems.get(mPosition).getAnswer().equals("2")||
+							!dataItems.get(mPosition).getAnswer().equals("3")||!dataItems.get(mPosition).getAnswer().equals("4"))&&
+							(dataItems.get(mPosition).getAnswer()!=null&&dataItems.get(mPosition).getAnswer()!=null)){
 						//判断多选时的点击
 						if(!map.containsKey(mPosition1)){
 							if(!mapClick.containsKey(mPosition1)){
@@ -1201,31 +747,31 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 							//提交答题
 							//mContext.uploadExamination(errortopicNum);
 						}else{
-							String ssStr=dataItems.get(mPosition1).getCorrectAnswer();
+							String ssStr=dataItems.get(mPosition1).getAnswer();
 							ssStr=ssStr.replace("|", "");
 							
 							if(mPosition == viewItems.size()){
-								if(answerLast.toString().contains("A")){
-									answer1.append("A");
-								}if(answerLast.toString().contains("B")){
-									answer1.append("B");
-								}if(answerLast.toString().contains("C")){
-									answer1.append("C");
-								}if(answerLast.toString().contains("D")){
-									answer1.append("D");
+								if(answerLast.toString().contains("1")){
+									answer1.append("1");
+								}if(answerLast.toString().contains("2")){
+									answer1.append("2");
+								}if(answerLast.toString().contains("3")){
+									answer1.append("3");
+								}if(answerLast.toString().contains("4")){
+									answer1.append("4");
 //								}if(answerLast.toString().contains("E")){
 //									answer1.append("E");
 								}
 								
 							}else{
-								if(answer.toString().contains("A")){
-									answer1.append("A");
-								}if(answer.toString().contains("B")){
-									answer1.append("B");
-								}if(answer.toString().contains("C")){
-									answer1.append("C");
-								}if(answer.toString().contains("D")){
-									answer1.append("D");
+								if(answer.toString().contains("1")){
+									answer1.append("1");
+								}if(answer.toString().contains("2")){
+									answer1.append("2");
+								}if(answer.toString().contains("3")){
+									answer1.append("3");
+								}if(answer.toString().contains("4")){
+									answer1.append("4");
 //								}if(answer.toString().contains("E")){
 //									answer1.append("E");
 								}
@@ -1239,15 +785,12 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 								mapMultiSelect.put(mPosition1, ConstantUtil.isCorrect);
 								//保存数据
 								SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-								questionInfo.setQuestionId(dataItems.get(mPosition1).getQuestionId());
+								questionInfo.setQuestionId(dataItems.get(mPosition1).getId());
 								//questionInfo.setQuestionType(dataItems.get(mPosition1).getQuestionType());
-								questionInfo.setRealAnswer(dataItems.get(mPosition1).getCorrectAnswer());
+								questionInfo.setRealAnswer(dataItems.get(mPosition1).getAnswer());
 								//questionInfo.setScore(dataItems.get(mPosition1).getScore());
 								questionInfo.setIs_correct(isCorrect);
 								mContext.questionInfos.add(questionInfo);
-								dataItems.get(mPosition1).setIsSelect("0");
-								//提交答题
-								//mContext.uploadExamination(errortopicNum);
 							}else{
 								//清除答案
 								answer.delete(0, answer.length());
@@ -1256,24 +799,24 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 								isCorrect=ConstantUtil.isError;
 								//自动添加错误题目
 								ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
-								errorQuestionInfo.setQuestionName(dataItems.get(mPosition1).getQuestionName());
+								errorQuestionInfo.setQuestionName(dataItems.get(mPosition1).getQuestion());
 								//errorQuestionInfo.setQuestionType(dataItems.get(mPosition1).getQuestionType());
-								errorQuestionInfo.setQuestionAnswer(dataItems.get(mPosition1).getCorrectAnswer());
+								errorQuestionInfo.setQuestionAnswer(dataItems.get(mPosition1).getAnswer());
 								errorQuestionInfo.setIsRight(isCorrect);
 								errorQuestionInfo.setQuestionSelect(answer.toString());
-								errorQuestionInfo.setAnalysis(dataItems.get(mPosition1).getAnalysis());
+								errorQuestionInfo.setAnalysis(dataItems.get(mPosition1).getExplains());
 								//errorQuestionInfo.setOptionType(dataItems.get(mPosition1).getOption_type());
-								if(dataItems.get(mPosition1).getOption_type().equals("0")){
-									errorQuestionInfo.setOptionA(dataItems.get(mPosition1).getOptionA());
-									errorQuestionInfo.setOptionB(dataItems.get(mPosition1).getOptionB());
-									errorQuestionInfo.setOptionC(dataItems.get(mPosition1).getOptionC());
-									errorQuestionInfo.setOptionD(dataItems.get(mPosition1).getOptionD());
+								if(dataItems.get(mPosition1).getUrl()!=null){
+									errorQuestionInfo.setOptionA(dataItems.get(mPosition1).getItem1());
+									errorQuestionInfo.setOptionB(dataItems.get(mPosition1).getItem2());
+									errorQuestionInfo.setOptionC(dataItems.get(mPosition1).getItem3());
+									errorQuestionInfo.setOptionD(dataItems.get(mPosition1).getItem4());
 									//errorQuestionInfo.setOptionE(dataItems.get(mPosition1).getOptionE());
 								}else{
-									errorQuestionInfo.setOptionA(dataItems.get(mPosition1).getOptionA().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getOptionA());
-									errorQuestionInfo.setOptionB(dataItems.get(mPosition1).getOptionB().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getOptionB());
-									errorQuestionInfo.setOptionC(dataItems.get(mPosition1).getOptionC().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getOptionC());
-									errorQuestionInfo.setOptionD(dataItems.get(mPosition1).getOptionD().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getOptionD());
+									errorQuestionInfo.setOptionA(dataItems.get(mPosition1).getItem1().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getItem1());
+									errorQuestionInfo.setOptionB(dataItems.get(mPosition1).getItem2().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getItem2());
+									errorQuestionInfo.setOptionC(dataItems.get(mPosition1).getItem3().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getItem3());
+									errorQuestionInfo.setOptionD(dataItems.get(mPosition1).getItem4().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getItem4());
 									//errorQuestionInfo.setOptionE(dataItems.get(mPosition1).getOptionE().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getOptionE());
 								}
 								long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
@@ -1287,30 +830,29 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 								
 								//提示
 								viewHolder.wrongLayout.setVisibility(View.VISIBLE);
-								viewHolder.explaindetailTv.setText(""+dataItems.get(mPosition1).getAnalysis());
+								viewHolder.explaindetailTv.setText(""+dataItems.get(mPosition1).getExplains());
 								//保存数据
 								SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-								questionInfo.setQuestionId(dataItems.get(mPosition1).getQuestionId());
+								questionInfo.setQuestionId(dataItems.get(mPosition1).getId());
 								//questionInfo.setQuestionType(dataItems.get(mPosition1).getQuestionType());
-								questionInfo.setRealAnswer(dataItems.get(mPosition1).getCorrectAnswer());
+								questionInfo.setRealAnswer(dataItems.get(mPosition1).getAnswer());
 								//questionInfo.setScore(dataItems.get(mPosition1).getScore());
 								questionInfo.setIs_correct(isCorrect);
 								mContext.questionInfos.add(questionInfo);
-								dataItems.get(mPosition1).setIsSelect("0");
 								//显示正确选项
-								if(dataItems.get(mPosition1).getCorrectAnswer().contains("A")){
+								if(dataItems.get(mPosition1).getAnswer().contains("1")){
 									viewHolder.ivA.setImageResource(R.drawable.ic_practice_test_right);
 									viewHolder.tvA.setTextColor(Color.parseColor("#61bc31"));
 								}
-								if(dataItems.get(mPosition1).getCorrectAnswer().contains("B")){
+								if(dataItems.get(mPosition1).getAnswer().contains("2")){
 									viewHolder.ivB.setImageResource(R.drawable.ic_practice_test_right);
 									viewHolder.tvB.setTextColor(Color.parseColor("#61bc31"));
 								}
-								if(dataItems.get(mPosition1).getCorrectAnswer().contains("C")){
+								if(dataItems.get(mPosition1).getAnswer().contains("3")){
 									viewHolder.ivC.setImageResource(R.drawable.ic_practice_test_right);
 									viewHolder.tvC.setTextColor(Color.parseColor("#61bc31"));
 								}
-								if(dataItems.get(mPosition1).getCorrectAnswer().contains("D")){
+								if(dataItems.get(mPosition1).getAnswer().contains("4")){
 									viewHolder.ivD.setImageResource(R.drawable.ic_practice_test_right);
 									viewHolder.tvD.setTextColor(Color.parseColor("#61bc31"));
 								}
@@ -1335,7 +877,8 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 						return;
 					}else{
 						//单选
-						if(dataItems.get(mPosition1).getQuestionType().equals("0")){
+						if(dataItems.get(mPosition).getAnswer().equals("1")||dataItems.get(mPosition).getAnswer().equals("2")||
+								dataItems.get(mPosition).getAnswer().equals("3")||dataItems.get(mPosition).getAnswer().equals("4")){
 							if(mIsNext){
 								if(!map.containsKey(mPosition1)){
 									Toast.makeText(mContext, "请选择选项", Toast.LENGTH_SHORT).show();
@@ -1344,7 +887,9 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 							}
 							isNext = mIsNext;
 							mContext.setCurrentView(mPosition);
-						}else if(dataItems.get(mPosition1).getQuestionType().equals("1")){
+						}else if((!dataItems.get(mPosition).getAnswer().equals("1")||!dataItems.get(mPosition).getAnswer().equals("2")||
+								!dataItems.get(mPosition).getAnswer().equals("3")||!dataItems.get(mPosition).getAnswer().equals("4"))&&
+								(dataItems.get(mPosition).getAnswer()!=null&&dataItems.get(mPosition).getAnswer()!=null)){
 							if(mIsNext){
 								//判断多选时的点击
 								if(!map.containsKey(mPosition1)){
@@ -1362,16 +907,16 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 									isNext = mIsNext;
 									mContext.setCurrentView(mPosition);
 								}else{
-									String ssStr=dataItems.get(mPosition1).getCorrectAnswer();
+									String ssStr=dataItems.get(mPosition1).getAnswer();
 									ssStr=ssStr.replace("|", "");
-									if(answer.toString().contains("A")){
-										answer1.append("A");
-									}if(answer.toString().contains("B")){
-										answer1.append("B");
-									}if(answer.toString().contains("C")){
-										answer1.append("C");
-									}if(answer.toString().contains("D")){
-										answer1.append("D");
+									if(answer.toString().contains("1")){
+										answer1.append("1");
+									}if(answer.toString().contains("2")){
+										answer1.append("2");
+									}if(answer.toString().contains("3")){
+										answer1.append("3");
+									}if(answer.toString().contains("4")){
+										answer1.append("4");
 //									}if(answer.toString().contains("E")){
 //										answer1.append("E");
 									}
@@ -1383,13 +928,12 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 										mapMultiSelect.put(mPosition1, ConstantUtil.isCorrect);
 										//保存数据
 										SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-										questionInfo.setQuestionId(dataItems.get(mPosition1).getQuestionId());
+										questionInfo.setQuestionId(dataItems.get(mPosition1).getId());
 										//questionInfo.setQuestionType(dataItems.get(mPosition1).getQuestionType());
-										questionInfo.setRealAnswer(dataItems.get(mPosition1).getCorrectAnswer());
+										questionInfo.setRealAnswer(dataItems.get(mPosition1).getAnswer());
 										//questionInfo.setScore(dataItems.get(mPosition1).getScore());
 										questionInfo.setIs_correct(isCorrect);
 										mContext.questionInfos.add(questionInfo);
-										dataItems.get(mPosition1).setIsSelect("0");
 										isNext = mIsNext;
 										mContext.setCurrentView(mPosition);
 									}else{
@@ -1400,24 +944,24 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 										isCorrect=ConstantUtil.isError;
 										//自动添加错误题目
 										ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
-										errorQuestionInfo.setQuestionName(dataItems.get(mPosition1).getQuestionName());
+										errorQuestionInfo.setQuestionName(dataItems.get(mPosition1).getQuestion());
 										//errorQuestionInfo.setQuestionType(dataItems.get(mPosition1).getQuestionType());
-										errorQuestionInfo.setQuestionAnswer(dataItems.get(mPosition1).getCorrectAnswer());
+										errorQuestionInfo.setQuestionAnswer(dataItems.get(mPosition1).getAnswer());
 										errorQuestionInfo.setIsRight(isCorrect);
 										errorQuestionInfo.setQuestionSelect(answer.toString());
-										errorQuestionInfo.setAnalysis(dataItems.get(mPosition1).getAnalysis());
+										errorQuestionInfo.setAnalysis(dataItems.get(mPosition1).getExplains());
 										//errorQuestionInfo.setOptionType(dataItems.get(mPosition1).getOption_type());
-										if(dataItems.get(mPosition1).getOption_type().equals("0")){
-											errorQuestionInfo.setOptionA(dataItems.get(mPosition1).getOptionA());
-											errorQuestionInfo.setOptionB(dataItems.get(mPosition1).getOptionB());
-											errorQuestionInfo.setOptionC(dataItems.get(mPosition1).getOptionC());
-											errorQuestionInfo.setOptionD(dataItems.get(mPosition1).getOptionD());
+										if(dataItems.get(mPosition1).getUrl()!=null){
+											errorQuestionInfo.setOptionA(dataItems.get(mPosition1).getItem1());
+											errorQuestionInfo.setOptionB(dataItems.get(mPosition1).getItem2());
+											errorQuestionInfo.setOptionC(dataItems.get(mPosition1).getItem3());
+											errorQuestionInfo.setOptionD(dataItems.get(mPosition1).getItem4());
 											//errorQuestionInfo.setOptionE(dataItems.get(mPosition1).getOptionE());
 										}else{
-											errorQuestionInfo.setOptionA(dataItems.get(mPosition1).getOptionA().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getOptionA());
-											errorQuestionInfo.setOptionB(dataItems.get(mPosition1).getOptionB().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getOptionB());
-											errorQuestionInfo.setOptionC(dataItems.get(mPosition1).getOptionC().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getOptionC());
-											errorQuestionInfo.setOptionD(dataItems.get(mPosition1).getOptionD().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getOptionD());
+											errorQuestionInfo.setOptionA(dataItems.get(mPosition1).getItem1().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getItem1());
+											errorQuestionInfo.setOptionB(dataItems.get(mPosition1).getItem2().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getItem2());
+											errorQuestionInfo.setOptionC(dataItems.get(mPosition1).getItem3().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getItem3());
+											errorQuestionInfo.setOptionD(dataItems.get(mPosition1).getItem4().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getItem4());
 											//errorQuestionInfo.setOptionE(dataItems.get(mPosition1).getOptionE().equals("")?"":imgServerUrl+dataItems.get(mPosition1).getOptionE());
 										}
 										long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
@@ -1431,30 +975,29 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 										
 										//提示
 										viewHolder.wrongLayout.setVisibility(View.VISIBLE);
-										viewHolder.explaindetailTv.setText(""+dataItems.get(mPosition1).getAnalysis());
+										viewHolder.explaindetailTv.setText(""+dataItems.get(mPosition1).getExplains());
 										//保存数据
 										SaveQuestionInfo questionInfo=new SaveQuestionInfo();
-										questionInfo.setQuestionId(dataItems.get(mPosition1).getQuestionId());
+										questionInfo.setQuestionId(dataItems.get(mPosition1).getId());
 										//questionInfo.setQuestionType(dataItems.get(mPosition1).getQuestionType());
-										questionInfo.setRealAnswer(dataItems.get(mPosition1).getCorrectAnswer());
+										questionInfo.setRealAnswer(dataItems.get(mPosition1).getAnswer());
 										//questionInfo.setScore(dataItems.get(mPosition1).getScore());
 										questionInfo.setIs_correct(isCorrect);
 										mContext.questionInfos.add(questionInfo);
-										dataItems.get(mPosition1).setIsSelect("0");
 										//显示正确选项
-										if(dataItems.get(mPosition1).getCorrectAnswer().contains("A")){
+										if(dataItems.get(mPosition1).getAnswer().contains("1")){
 											viewHolder.ivA.setImageResource(R.drawable.ic_practice_test_right);
 											viewHolder.tvA.setTextColor(Color.parseColor("#61bc31"));
 										}
-										if(dataItems.get(mPosition1).getCorrectAnswer().contains("B")){
+										if(dataItems.get(mPosition1).getAnswer().contains("2")){
 											viewHolder.ivB.setImageResource(R.drawable.ic_practice_test_right);
 											viewHolder.tvB.setTextColor(Color.parseColor("#61bc31"));
 										}
-										if(dataItems.get(mPosition1).getCorrectAnswer().contains("C")){
+										if(dataItems.get(mPosition1).getAnswer().contains("3")){
 											viewHolder.ivC.setImageResource(R.drawable.ic_practice_test_right);
 											viewHolder.tvC.setTextColor(Color.parseColor("#61bc31"));
 										}
-										if(dataItems.get(mPosition1).getCorrectAnswer().contains("D")){
+										if(dataItems.get(mPosition1).getAnswer().contains("4")){
 											viewHolder.ivD.setImageResource(R.drawable.ic_practice_test_right);
 											viewHolder.tvD.setTextColor(Color.parseColor("#61bc31"));
 										}
@@ -1537,5 +1080,305 @@ public class ExaminationSubmitAdapter extends PagerAdapter {
 		ImageView iv;
 		//ImageView ivE_;
 	}
-	
+	public void xuanxiang(final ViewHolder holder, final int position){
+		holder.layoutA.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if(map.containsKey(position)){
+					return;
+				}
+				map.put(position, true);
+				if(dataItems.get(position).getAnswer().contains("1")){
+					mContext.setCurrentView(position+1);
+					holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
+					holder.tvA.setTextColor(Color.parseColor("#61bc31"));
+					isCorrect=ConstantUtil.isCorrect;
+				}else{
+					isCorrect=ConstantUtil.isError;
+					errortopicNum+=1;
+					//自动添加错误题目
+					ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
+					errorQuestionInfo.setQuestionId(dataItems.get(position).getId());
+					errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestion());
+					errorQuestionInfo.setOptionType("0");
+					errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getAnswer());
+					errorQuestionInfo.setIsRight(isCorrect);
+					errorQuestionInfo.setQuestionSelect("1");
+					errorQuestionInfo.setAnalysis(dataItems.get(position).getExplains());
+					if(dataItems.get(position).getUrl()!=null){
+						errorQuestionInfo.setOptionA(dataItems.get(position).getItem1());
+						errorQuestionInfo.setOptionB(dataItems.get(position).getItem2());
+						errorQuestionInfo.setOptionC(dataItems.get(position).getItem3());
+						errorQuestionInfo.setOptionD(dataItems.get(position).getItem4());
+						errorQuestionInfo.setUrl(dataItems.get(position).getUrl());
+					}else{
+						errorQuestionInfo.setOptionA(dataItems.get(position).getItem1().equals("")?"":imgServerUrl+dataItems.get(position).getItem1());
+						errorQuestionInfo.setOptionB(dataItems.get(position).getItem2().equals("")?"":imgServerUrl+dataItems.get(position).getItem2());
+						errorQuestionInfo.setOptionC(dataItems.get(position).getItem3().equals("")?"":imgServerUrl+dataItems.get(position).getItem3());
+						errorQuestionInfo.setOptionD(dataItems.get(position).getItem4().equals("")?"":imgServerUrl+dataItems.get(position).getItem4());
+					}
+					long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
+					if(colunm == -1)
+					{
+						Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
+						System.out.println("666666666"+errorQuestionInfo.toString());
+					}
+
+					holder.ivA.setImageResource(R.drawable.ic_practice_test_wrong);
+					holder.tvA.setTextColor(Color.parseColor("#d53235"));
+					//提示
+					holder.wrongLayout.setVisibility(View.VISIBLE);
+					holder.explaindetailTv.setText(""+dataItems.get(position).getExplains());
+					//显示正确选项
+					if(dataItems.get(position).getAnswer().contains("1")){
+						holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvA.setTextColor(Color.parseColor("#61bc31"));
+					}else if(dataItems.get(position).getAnswer().contains("2")){
+						holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvB.setTextColor(Color.parseColor("#61bc31"));
+					}else if(dataItems.get(position).getAnswer().contains("3")){
+						holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvC.setTextColor(Color.parseColor("#61bc31"));
+					}else if(dataItems.get(position).getAnswer().contains("4")){
+						holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvD.setTextColor(Color.parseColor("#61bc31"));
+//						}else if(dataItems.get(position).getCorrectAnswer().contains("E")){
+//							holder.ivE.setImageResource(R.drawable.ic_practice_test_right);
+//							holder.tvE.setTextColor(Color.parseColor("#61bc31"));
+					}
+				}
+				//保存数据
+				SaveQuestionInfo questionInfo=new SaveQuestionInfo();
+				questionInfo.setQuestionId(dataItems.get(position).getId());
+				questionInfo.setRealAnswer(dataItems.get(position).getAnswer());
+				questionInfo.setIs_correct(isCorrect);
+				mContext.questionInfos.add(questionInfo);
+			}
+		});
+		holder.layoutB.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				if(map.containsKey(position)){
+					return;
+				}
+				map.put(position, true);
+				if(dataItems.get(position).getAnswer().contains("2")){
+					mContext.setCurrentView(position+1);
+					holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
+					holder.tvB.setTextColor(Color.parseColor("#61bc31"));
+					isCorrect=ConstantUtil.isCorrect;
+				}else{
+					isCorrect=ConstantUtil.isError;
+					errortopicNum+=1;
+					//自动添加错误题目
+					ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
+					errorQuestionInfo.setQuestionId(dataItems.get(position).getId());
+					errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestion());
+					errorQuestionInfo.setOptionType("0");
+					errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getAnswer());
+					errorQuestionInfo.setIsRight(isCorrect);
+					errorQuestionInfo.setQuestionSelect("2");
+					errorQuestionInfo.setAnalysis(dataItems.get(position).getExplains());
+					if(dataItems.get(position).getUrl()!=null){
+						errorQuestionInfo.setOptionA(dataItems.get(position).getItem1());
+						errorQuestionInfo.setOptionB(dataItems.get(position).getItem2());
+						errorQuestionInfo.setOptionC(dataItems.get(position).getItem3());
+						errorQuestionInfo.setOptionD(dataItems.get(position).getItem4());
+						errorQuestionInfo.setUrl(dataItems.get(position).getUrl());
+					}else{
+						errorQuestionInfo.setOptionA(dataItems.get(position).getItem1().equals("")?"":imgServerUrl+dataItems.get(position).getItem1());
+						errorQuestionInfo.setOptionB(dataItems.get(position).getItem2().equals("")?"":imgServerUrl+dataItems.get(position).getItem2());
+						errorQuestionInfo.setOptionC(dataItems.get(position).getItem3().equals("")?"":imgServerUrl+dataItems.get(position).getItem3());
+						errorQuestionInfo.setOptionD(dataItems.get(position).getItem4().equals("")?"":imgServerUrl+dataItems.get(position).getItem4());
+					}
+					long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
+					if(colunm == -1)
+					{
+						Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
+						System.out.println("666666666"+errorQuestionInfo.toString());
+					}
+
+					holder.ivB.setImageResource(R.drawable.ic_practice_test_wrong);
+					holder.tvB.setTextColor(Color.parseColor("#d53235"));
+					//提示
+					holder.wrongLayout.setVisibility(View.VISIBLE);
+					holder.explaindetailTv.setText(""+dataItems.get(position).getExplains());
+					//显示正确选项
+					if(dataItems.get(position).getAnswer().contains("1")){
+						holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvA.setTextColor(Color.parseColor("#61bc31"));
+					}else if(dataItems.get(position).getAnswer().contains("2")){
+						holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvB.setTextColor(Color.parseColor("#61bc31"));
+					}else if(dataItems.get(position).getAnswer().contains("3")){
+						holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvC.setTextColor(Color.parseColor("#61bc31"));
+					}else if(dataItems.get(position).getAnswer().contains("4")){
+						holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvD.setTextColor(Color.parseColor("#61bc31"));
+//						}else if(dataItems.get(position).getCorrectAnswer().contains("E")){
+//							holder.ivE.setImageResource(R.drawable.ic_practice_test_right);
+//							holder.tvE.setTextColor(Color.parseColor("#61bc31"));
+					}
+				}
+				//保存数据
+				SaveQuestionInfo questionInfo=new SaveQuestionInfo();
+				questionInfo.setQuestionId(dataItems.get(position).getId());
+				questionInfo.setRealAnswer(dataItems.get(position).getAnswer());
+				questionInfo.setIs_correct(isCorrect);
+				mContext.questionInfos.add(questionInfo);
+			}
+		});
+		holder.layoutC.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				if(map.containsKey(position)){
+					return;
+				}
+				map.put(position, true);
+				if(dataItems.get(position).getAnswer().contains("3")){
+					mContext.setCurrentView(position+1);
+					holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
+					holder.tvC.setTextColor(Color.parseColor("#61bc31"));
+					isCorrect=ConstantUtil.isCorrect;
+				}else{
+					isCorrect=ConstantUtil.isError;
+					errortopicNum+=1;
+					//自动添加错误题目
+					ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
+					errorQuestionInfo.setQuestionId(dataItems.get(position).getId());
+					errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestion());
+					errorQuestionInfo.setOptionType("0");
+					errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getAnswer());
+					errorQuestionInfo.setIsRight(isCorrect);
+					errorQuestionInfo.setQuestionSelect("3");
+					errorQuestionInfo.setAnalysis(dataItems.get(position).getExplains());
+					if(dataItems.get(position).getUrl()!=null){
+						errorQuestionInfo.setOptionA(dataItems.get(position).getItem1());
+						errorQuestionInfo.setOptionB(dataItems.get(position).getItem2());
+						errorQuestionInfo.setOptionC(dataItems.get(position).getItem3());
+						errorQuestionInfo.setOptionD(dataItems.get(position).getItem4());
+						errorQuestionInfo.setUrl(dataItems.get(position).getUrl());
+					}else{
+						errorQuestionInfo.setOptionA(dataItems.get(position).getItem1().equals("")?"":imgServerUrl+dataItems.get(position).getItem1());
+						errorQuestionInfo.setOptionB(dataItems.get(position).getItem2().equals("")?"":imgServerUrl+dataItems.get(position).getItem2());
+						errorQuestionInfo.setOptionC(dataItems.get(position).getItem3().equals("")?"":imgServerUrl+dataItems.get(position).getItem3());
+						errorQuestionInfo.setOptionD(dataItems.get(position).getItem4().equals("")?"":imgServerUrl+dataItems.get(position).getItem4());
+					}
+					long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
+					if(colunm == -1)
+					{
+						Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
+						System.out.println("666666666"+errorQuestionInfo.toString());
+					}
+
+					holder.ivC.setImageResource(R.drawable.ic_practice_test_wrong);
+					holder.tvC.setTextColor(Color.parseColor("#d53235"));
+					//提示
+					holder.wrongLayout.setVisibility(View.VISIBLE);
+					holder.explaindetailTv.setText(""+dataItems.get(position).getExplains());
+					//显示正确选项
+					if(dataItems.get(position).getAnswer().contains("1")){
+						holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvA.setTextColor(Color.parseColor("#61bc31"));
+					}else if(dataItems.get(position).getAnswer().contains("2")){
+						holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvB.setTextColor(Color.parseColor("#61bc31"));
+					}else if(dataItems.get(position).getAnswer().contains("3")){
+						holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvC.setTextColor(Color.parseColor("#61bc31"));
+					}else if(dataItems.get(position).getAnswer().contains("4")){
+						holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvD.setTextColor(Color.parseColor("#61bc31"));
+//						}else if(dataItems.get(position).getCorrectAnswer().contains("E")){
+//							holder.ivE.setImageResource(R.drawable.ic_practice_test_right);
+//							holder.tvE.setTextColor(Color.parseColor("#61bc31"));
+					}
+				}
+				//保存数据
+				SaveQuestionInfo questionInfo=new SaveQuestionInfo();
+				questionInfo.setQuestionId(dataItems.get(position).getId());
+				questionInfo.setRealAnswer(dataItems.get(position).getAnswer());
+				questionInfo.setIs_correct(isCorrect);
+				mContext.questionInfos.add(questionInfo);
+			}
+		});
+		holder.layoutD.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				if(map.containsKey(position)){
+					return;
+				}
+				map.put(position, true);
+				if(dataItems.get(position).getAnswer().contains("4")){
+					mContext.setCurrentView(position+1);
+					holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
+					holder.tvD.setTextColor(Color.parseColor("#61bc31"));
+					isCorrect=ConstantUtil.isCorrect;
+				}else{
+					isCorrect=ConstantUtil.isError;
+					errortopicNum+=1;
+					//自动添加错误题目
+					ErrorQuestionInfo errorQuestionInfo=new ErrorQuestionInfo();
+					errorQuestionInfo.setQuestionId(dataItems.get(position).getId());
+					errorQuestionInfo.setQuestionName(dataItems.get(position).getQuestion());
+					errorQuestionInfo.setOptionType("0");
+					errorQuestionInfo.setQuestionAnswer(dataItems.get(position).getAnswer());
+					errorQuestionInfo.setIsRight(isCorrect);
+					errorQuestionInfo.setQuestionSelect("4");
+					errorQuestionInfo.setAnalysis(dataItems.get(position).getExplains());
+					if(dataItems.get(position).getUrl()!=null){
+						errorQuestionInfo.setOptionA(dataItems.get(position).getItem1());
+						errorQuestionInfo.setOptionB(dataItems.get(position).getItem2());
+						errorQuestionInfo.setOptionC(dataItems.get(position).getItem3());
+						errorQuestionInfo.setOptionD(dataItems.get(position).getItem4());
+						errorQuestionInfo.setUrl(dataItems.get(position).getUrl());
+					}else{
+						errorQuestionInfo.setOptionA(dataItems.get(position).getItem1().equals("")?"":imgServerUrl+dataItems.get(position).getItem1());
+						errorQuestionInfo.setOptionB(dataItems.get(position).getItem2().equals("")?"":imgServerUrl+dataItems.get(position).getItem2());
+						errorQuestionInfo.setOptionC(dataItems.get(position).getItem3().equals("")?"":imgServerUrl+dataItems.get(position).getItem3());
+						errorQuestionInfo.setOptionD(dataItems.get(position).getItem4().equals("")?"":imgServerUrl+dataItems.get(position).getItem4());
+					}
+					long colunm=dbManager.insertErrorQuestion(errorQuestionInfo);
+					if(colunm == -1)
+					{
+						Toast.makeText(mContext, "添加错误", Toast.LENGTH_SHORT).show();
+						System.out.println("666666666"+errorQuestionInfo.toString());
+					}
+
+					holder.ivD.setImageResource(R.drawable.ic_practice_test_wrong);
+					holder.tvD.setTextColor(Color.parseColor("#d53235"));
+					//提示
+					holder.wrongLayout.setVisibility(View.VISIBLE);
+					holder.explaindetailTv.setText(""+dataItems.get(position).getExplains());
+					//显示正确选项
+					if(dataItems.get(position).getAnswer().contains("1")){
+						holder.ivA.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvA.setTextColor(Color.parseColor("#61bc31"));
+					}else if(dataItems.get(position).getAnswer().contains("2")){
+						holder.ivB.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvB.setTextColor(Color.parseColor("#61bc31"));
+					}else if(dataItems.get(position).getAnswer().contains("3")){
+						holder.ivC.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvC.setTextColor(Color.parseColor("#61bc31"));
+					}else if(dataItems.get(position).getAnswer().contains("4")){
+						holder.ivD.setImageResource(R.drawable.ic_practice_test_right);
+						holder.tvD.setTextColor(Color.parseColor("#61bc31"));
+//						}else if(dataItems.get(position).getCorrectAnswer().contains("E")){
+//							holder.ivE.setImageResource(R.drawable.ic_practice_test_right);
+//							holder.tvE.setTextColor(Color.parseColor("#61bc31"));
+					}
+				}
+				//保存数据
+				SaveQuestionInfo questionInfo=new SaveQuestionInfo();
+				questionInfo.setQuestionId(dataItems.get(position).getId());
+				questionInfo.setRealAnswer(dataItems.get(position).getAnswer());
+				questionInfo.setIs_correct(isCorrect);
+				mContext.questionInfos.add(questionInfo);
+			}
+		});
+	}
 }

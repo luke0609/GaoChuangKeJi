@@ -89,7 +89,6 @@ public class MymistakesActivity extends AppCompatActivity {
                 ErrorQuestion errorQuestion = new ErrorQuestion();
                 map = new HashMap<String, Object>();
                 map.put("title", errorQuestionInfos[i].questionName);// 标题
-                map.put("type", errorQuestionInfos[i].questionType);// 标题
                 map.put("answer", errorQuestionInfos[i].questionAnswer);// 标题
                 map.put("isright", errorQuestionInfos[i].isRight);//
                 map.put("selected", errorQuestionInfos[i].questionSelect);//
@@ -97,7 +96,6 @@ public class MymistakesActivity extends AppCompatActivity {
                 data.add(map);
 
                 errorQuestion.setQuestionName(errorQuestionInfos[i].questionName);
-                errorQuestion.setQuestionType(errorQuestionInfos[i].questionType);
                 errorQuestion.setQuestionAnswer(errorQuestionInfos[i].questionAnswer);
                 errorQuestion.setQuestionSelect(errorQuestionInfos[i].questionSelect);
                 errorQuestion.setIsRight(errorQuestionInfos[i].isRight);
@@ -106,6 +104,7 @@ public class MymistakesActivity extends AppCompatActivity {
                 errorQuestion.setOptionB(errorQuestionInfos[i].optionB);
                 errorQuestion.setOptionC(errorQuestionInfos[i].optionC);
                 errorQuestion.setOptionD(errorQuestionInfos[i].optionD);
+                errorQuestion.setUrl(errorQuestionInfos[i].url);
                 //errorQuestion.setOptionE(errorQuestionInfos[i].optionE);
                 //errorQuestion.setOptionType(errorQuestionInfos[i].optionType);
                 list.add(errorQuestion);
@@ -130,7 +129,7 @@ public class MymistakesActivity extends AppCompatActivity {
                     Intent intent = new Intent(MymistakesActivity.this, MymistakesDetailActivity.class);
                     question = list.get(position);
                     intent.putExtra("questionName", question.getQuestionName());
-                    intent.putExtra("questionType", question.getQuestionType());
+                    intent.putExtra("option_type", question.getOptionType());
                     intent.putExtra("questionAnswer", question.getQuestionAnswer());
                     intent.putExtra("questionSelect", question.getQuestionSelect());
                     intent.putExtra("isRight", question.getIsRight());
@@ -139,6 +138,7 @@ public class MymistakesActivity extends AppCompatActivity {
                     intent.putExtra("optionB", question.getOptionB());
                     intent.putExtra("optionC", question.getOptionC());
                     intent.putExtra("optionD", question.getOptionD());
+                    intent.putExtra("url", question.getUrl());
                     //intent.putExtra("optionE", question.getOptionE());
                     //intent.putExtra("optionType", question.getOptionType());
                     startActivity(intent);

@@ -2,9 +2,8 @@ package com.jiaokaokeji.gaochuangkeji.book.prjo;
 
 public class ErrorQuestionInfo {
 	
-	public int questionId;
+	public String questionId;
 	public String questionName;
-	public String questionType;
 	public String questionAnswer;
 	public String questionSelect;
 	public String isRight;
@@ -24,18 +23,13 @@ public class ErrorQuestionInfo {
 		this.url = url;
 	}
 
-	public String getQuestionType() {
-		return questionType;
-	}
 
-	public void setQuestionType(String questionType) {
-		questionType = questionType;
-	}
 
-	public int getQuestionId() {
+
+	public String getQuestionId() {
 		return questionId;
 	}
-	public void setQuestionId(int questionId) {
+	public void setQuestionId(String questionId) {
 		this.questionId = questionId;
 	}
 	public String getQuestionName() {
@@ -106,7 +100,6 @@ public class ErrorQuestionInfo {
 		return "ErrorQuestionInfo{" +
 				"questionId=" + questionId +
 				", questionName='" + questionName + '\'' +
-				", questionType='" + questionType + '\'' +
 				", questionAnswer='" + questionAnswer + '\'' +
 				", questionSelect='" + questionSelect + '\'' +
 				", isRight='" + isRight + '\'' +

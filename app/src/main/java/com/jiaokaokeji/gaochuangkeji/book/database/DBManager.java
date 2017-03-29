@@ -51,7 +51,7 @@ public class DBManager {
 	}
 
 	//查询题库
-	public AnSwerInfo[] queryAllData1() {
+	public AnSwerInfo.DataBean[] queryAllData1() {
 		Cursor result = database.query("examination_question1",
 				null, null, null, null,
 				null, null);
@@ -65,38 +65,38 @@ public class DBManager {
 	 */
 	public long insertErrorQuestion(ErrorQuestionInfo info) {
 		ContentValues newValues = new ContentValues();
-
-		newValues.put(DBHelper.MY_ERROR_QUESTION_NAME, info.getQuestionName());
-		newValues.put(DBHelper.MY_ERROR_QUESTION_OPTION_TYPE, info.getOptionType());
-		newValues.put(DBHelper.MY_ERROR_QUESTION_ANSWER, info.getQuestionAnswer());
-		newValues.put(DBHelper.MY_ERROR_QUESTION_SELECTED, info.getQuestionSelect());
-		newValues.put(DBHelper.MY_ERROR_QUESTION_ISRIGHT, info.getIsRight());
-		newValues.put(DBHelper.MY_ERROR_QUESTION_ANALYSIS, info.getAnalysis());
-		newValues.put(DBHelper.MY_ERROR_QUESTION_OPTION_A, info.getOptionA());
-		newValues.put(DBHelper.MY_ERROR_QUESTION_OPTION_B, info.getOptionB());
-		newValues.put(DBHelper.MY_ERROR_QUESTION_OPTION_C, info.getOptionC());
-		newValues.put(DBHelper.MY_ERROR_QUESTION_OPTION_D, info.getOptionD());
-		newValues.put(DBHelper.MY_ERROR_QUESTION_URL, info.getUrl());
+        newValues.put("_question_id", info.getIsRight());
+		newValues.put("_question_name", info.getQuestionName());
+		newValues.put("_question_option_type", info.getOptionType());
+		newValues.put("_question_answer", info.getQuestionAnswer());
+		newValues.put("_question_selected", info.getQuestionSelect());
+		newValues.put("_question_isright", info.getIsRight());
+		newValues.put("_question_analysis", info.getAnalysis());
+		newValues.put("_question_option_a", info.getOptionA());
+		newValues.put("_question_option_b", info.getOptionB());
+		newValues.put("_question_option_c", info.getOptionC());
+		newValues.put("_question_option_d", info.getOptionD());
+		newValues.put("_question_url", info.getUrl());
 		//newValues.put(DBHelper.MY_ERROR_QUESTION_OPTION_E, info.getOptionE());
 		//newValues.put(DBHelper.MY_ERROR_QUESTION_OPTION_TYPE, info.getOptionType());
 
-		return database.insert(DBHelper.TABLE_NAME_MY_ERROR_QUESTION, null,
+		return database.insert("table_my_error_question", null,
 				newValues);
 	}
 //	//添加题库
-public void insertQuestion(ArrayList<AnSwerInfo> infoArrayList) {
+public void insertQuestion(ArrayList<AnSwerInfo.DataBean> infoArrayList) {
 	ContentValues newValues = new ContentValues();
 	for (int i=0;i<infoArrayList.size();i++) {
 		newValues.clear();
-		newValues.put("_question_id", infoArrayList.get(i).questionId);
-		newValues.put("_question_name", infoArrayList.get(i).questionName);
-		newValues.put("_question_answer", infoArrayList.get(i).correctAnswer);
-		newValues.put("_question_analysis", infoArrayList.get(i).analysis);
-		newValues.put("_question_option_a", infoArrayList.get(i).optionA);
-		newValues.put("_question_option_b",infoArrayList.get(i).optionB);
-		newValues.put("_question_option_c", infoArrayList.get(i).optionC);
-		newValues.put("_question_option_d", infoArrayList.get(i).optionD);
-		newValues.put("_question_url", infoArrayList.get(i).url);
+		newValues.put("_question_id", infoArrayList.get(i).getId());
+		newValues.put("_question_name", infoArrayList.get(i).getQuestion());
+		newValues.put("_question_answer", infoArrayList.get(i).getAnswer());
+		newValues.put("_question_analysis", infoArrayList.get(i).getExplains());
+		newValues.put("_question_option_a", infoArrayList.get(i).getItem1());
+		newValues.put("_question_option_b",infoArrayList.get(i).getItem2());
+		newValues.put("_question_option_c", infoArrayList.get(i).getItem3());
+		newValues.put("_question_option_d", infoArrayList.get(i).getItem4());
+		newValues.put("_question_url", infoArrayList.get(i).getUrl());
 		database.insert("examination_question1", null,
 				newValues);
 	}
@@ -117,7 +117,7 @@ public void insertQuestion(ArrayList<AnSwerInfo> infoArrayList) {
 	 * @return
 	 */
 	public ErrorQuestionInfo[] queryAllData() {
-		Cursor result = database.query(DBHelper.TABLE_NAME_MY_ERROR_QUESTION,
+		Cursor result = database.query("table_my_error_question",
 				null, null, null, null,
 				null, null);
 		return ConvertToQuestion(result);
@@ -134,57 +134,55 @@ public void insertQuestion(ArrayList<AnSwerInfo> infoArrayList) {
 		ErrorQuestionInfo[] peoples = new ErrorQuestionInfo[resultCounts];
 		for (int i = 0; i < resultCounts; i++) {
 			peoples[i] = new ErrorQuestionInfo();
-			peoples[i].questionId = cursor.getInt(0);
+			peoples[i].questionId = cursor.getString(cursor.getColumnIndex("_question_id"));
 			peoples[i].questionName = cursor.getString(cursor
-					.getColumnIndex(DBHelper.MY_ERROR_QUESTION_NAME));
-//			peoples[i].questionType = cursor.getString(cursor
-//					.getColumnIndex(DBHelper.MY_ERROR_QUESTION_TYPE));
+					.getColumnIndex("_question_name"));
 			peoples[i].questionAnswer = cursor.getString(cursor
-					.getColumnIndex(DBHelper.MY_ERROR_QUESTION_ANSWER));
+					.getColumnIndex("_question_answer"));
 			peoples[i].questionSelect = cursor.getString(cursor
-					.getColumnIndex(DBHelper.MY_ERROR_QUESTION_SELECTED));
+					.getColumnIndex("_question_selected"));
 			peoples[i].isRight = cursor.getString(cursor
-					.getColumnIndex(DBHelper.MY_ERROR_QUESTION_ISRIGHT));
+					.getColumnIndex("_question_isright"));
 			peoples[i].Analysis = cursor.getString(cursor
-					.getColumnIndex(DBHelper.MY_ERROR_QUESTION_ANALYSIS));
+					.getColumnIndex("_question_analysis"));
 			peoples[i].optionA = cursor.getString(cursor
-					.getColumnIndex(DBHelper.MY_ERROR_QUESTION_OPTION_A));
+					.getColumnIndex("_question_option_a"));
 			peoples[i].optionB = cursor.getString(cursor
-					.getColumnIndex(DBHelper.MY_ERROR_QUESTION_OPTION_B));
+					.getColumnIndex("_question_option_b"));
 			peoples[i].optionC = cursor.getString(cursor
-					.getColumnIndex(DBHelper.MY_ERROR_QUESTION_OPTION_C));
+					.getColumnIndex("_question_option_c"));
 			peoples[i].optionD = cursor.getString(cursor
-					.getColumnIndex(DBHelper.MY_ERROR_QUESTION_OPTION_D));
+					.getColumnIndex("_question_option_d"));
 //			peoples[i].optionE = cursor.getString(cursor
 //					.getColumnIndex(DBHelper.MY_ERROR_QUESTION_OPTION_E));
 			peoples[i].optionType = cursor.getString(cursor
-					.getColumnIndex(DBHelper.MY_ERROR_QUESTION_OPTION_TYPE));
+					.getColumnIndex("_question_option_type"));
+            peoples[i].url=cursor.getString(cursor
+                    .getColumnIndex("_question_url"));
 			cursor.moveToNext();
 		}
 		return peoples;
 	}
 
 	//所有题目
-	private AnSwerInfo[] ConvertToQuestion1(Cursor cursor) {
+	private AnSwerInfo.DataBean[] ConvertToQuestion1(Cursor cursor) {
 		int resultCounts = cursor.getCount();
 
 		if (resultCounts == 0 || !cursor.moveToFirst()) {
 			return null;
 		}
-		AnSwerInfo[] peoples = new AnSwerInfo[resultCounts];
+		AnSwerInfo.DataBean[] peoples = new AnSwerInfo.DataBean[resultCounts];
 		for (int i = 0; i < resultCounts; i++) {
-			peoples[i] = new AnSwerInfo();
-			peoples[i].questionId =cursor.getColumnIndex("_question_id");
-			peoples[i].questionType="0";
-			peoples[i].questionName =cursor.getString(cursor.getColumnIndex("_question_name"));
-			peoples[i].analysis = cursor.getString(cursor.getColumnIndex("_question_analysis"));
-			peoples[i].correctAnswer = cursor.getString(cursor.getColumnIndex("_question_answer"));
-			peoples[i].optionA =cursor.getString(cursor.getColumnIndex("_question_option_a"));
-			peoples[i].optionB = cursor.getString(cursor.getColumnIndex("_question_option_b"));
-			peoples[i].optionC =cursor.getString(cursor.getColumnIndex("_question_option_c"));
-			peoples[i].optionD =cursor.getString(cursor.getColumnIndex("_question_option_d"));
-			peoples[i].option_type ="0";
-			peoples[i].url=cursor.getString(cursor.getColumnIndex("_question_url"));
+			peoples[i] = new AnSwerInfo.DataBean();
+			peoples[i].setId(cursor.getString(cursor.getColumnIndex("_question_id")));
+			peoples[i].setQuestion(cursor.getString(cursor.getColumnIndex("_question_name")));
+			peoples[i].setExplains(cursor.getString(cursor.getColumnIndex("_question_analysis")));
+			peoples[i].setAnswer(cursor.getString(cursor.getColumnIndex("_question_answer")));
+			peoples[i].setItem1(cursor.getString(cursor.getColumnIndex("_question_option_a")));
+			peoples[i].setItem2(cursor.getString(cursor.getColumnIndex("_question_option_b")));
+			peoples[i].setItem3(cursor.getString(cursor.getColumnIndex("_question_option_c")));
+			peoples[i].setItem4(cursor.getString(cursor.getColumnIndex("_question_option_d")));
+			peoples[i].setUrl(cursor.getString(cursor.getColumnIndex("_question_url")));
 			cursor.moveToNext();
 		}
 		return peoples;

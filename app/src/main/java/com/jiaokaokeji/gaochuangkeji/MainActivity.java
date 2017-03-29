@@ -39,13 +39,14 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
+    ArrayList<AnSwerInfo.DataBean> dataBeanArrayList=new ArrayList<>();
     private long exitTime = 0;
     Fragment[] fragments;
     Home home;
     Book book;
     //ArrayList<AnSwerInfo> gonggaoList = new ArrayList<>();
-    AnSwerInfo anSwerInfo1 = new AnSwerInfo();
-    AnSwerInfo anSwerInfo = new AnSwerInfo();
+    //AnSwerInfo anSwerInfo1 = new AnSwerInfo();
+    //AnSwerInfo anSwerInfo = new AnSwerInfo();
     My my;
     DBManager dbManager = new DBManager(MainActivity.this);
     MyClass myClass;
@@ -217,36 +218,62 @@ public class MainActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
     public void getGonggao() {
+        RequestParams params = new RequestParams("http://192.168.191.2:8888/tianbao/tianbao.php");
+        x.http().get(params, new Callback.CommonCallback<String>() {
+                    @Override
+                    public void onSuccess(String result) {
+                        Gson gson = new Gson();
+                        AnSwerInfo dataBean=gson.fromJson(result,AnSwerInfo.class);
+                        dataBeanArrayList.addAll(dataBean.getData());
+                        dbManager.insertQuestion(dataBeanArrayList);
+                        Toast toast=Toast.makeText(MainActivity.this,"成功",Toast.LENGTH_LONG);
+                        toast.show();
+                    }
 
-        String[] gonggaoList = new String[]{"1", "这个标志是何含义?", "D", "小型车车道", "小型车专用车道",
-                "多乘员车辆专用车道", "机动车车道", "此为机动车车道,比多乘员车辆专用车道少俩人.","http://images.juheapi.com/jztk/c1c2subject1/1.jpg"};
-        String[] gonggaoList1 = new String[]{"2", "这个标志是何含义?", "B", "分向行驶车道", "掉头和左转合用车道",
-                "禁止左转和掉头车道", "直行和左转合用车道", "左转和掉头合并在一个标志里,你应该能看到的.","http://images.juheapi.com/jztk/c1c2subject1/10.jpg"};
-        for (int i = 0; i < gonggaoList.length; i++) {
-            anSwerInfo1.setQuestionId(Integer.parseInt(gonggaoList[0]));
-            anSwerInfo1.setCorrectAnswer(gonggaoList[2]);
-            anSwerInfo1.setQuestionName(gonggaoList[1]);
-            anSwerInfo1.setAnalysis(gonggaoList[7]);
-            anSwerInfo1.setOptionA(gonggaoList[3]);
-            anSwerInfo1.setOptionB(gonggaoList[4]);
-            anSwerInfo1.setOptionC(gonggaoList[5]);
-            anSwerInfo1.setOptionD(gonggaoList[6]);
-            anSwerInfo1.setUrl(gonggaoList[8]);
-        }
-        infoArrayList.add(anSwerInfo1);
-        for (int i = 0; i < gonggaoList.length; i++) {
-            anSwerInfo.setQuestionId(Integer.parseInt(gonggaoList1[0]));
-            anSwerInfo.setCorrectAnswer(gonggaoList1[2]);
-            anSwerInfo.setQuestionName(gonggaoList1[1]);
-            anSwerInfo.setAnalysis(gonggaoList1[7]);
-            anSwerInfo.setOptionA(gonggaoList1[3]);
-            anSwerInfo.setOptionB(gonggaoList1[4]);
-            anSwerInfo.setOptionC(gonggaoList1[5]);
-            anSwerInfo.setOptionD(gonggaoList1[6]);
-            anSwerInfo.setUrl(gonggaoList1[8]);
-        }
-        infoArrayList.add(anSwerInfo);
-        dbManager.insertQuestion(infoArrayList);
+                    @Override
+                    public void onError(Throwable ex, boolean isOnCallback) {
+                      Toast toast=Toast.makeText(MainActivity.this,"lianjie",Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+
+                    @Override
+                    public void onCancelled(CancelledException cex) {
+
+                    }
+
+                    @Override
+                    public void onFinished() {
+
+                    }
+                });
+//        String[] gonggaoList = new String[]{"1", "这个标志是何含义?", "D", "小型车车道", "小型车专用车道",
+//                "多乘员车辆专用车道", "机动车车道", "此为机动车车道,比多乘员车辆专用车道少俩人.","http://images.juheapi.com/jztk/c1c2subject1/1.jpg"};
+//        String[] gonggaoList1 = new String[]{"2", "这个标志是何含义?", "B", "分向行驶车道", "掉头和左转合用车道",
+//                "", "", "左转和掉头合并在一个标志里,你应该能看到的.","http://images.juheapi.com/jztk/c1c2subject1/10.jpg"};
+//        for (int i = 0; i < gonggaoList.length; i++) {
+//            anSwerInfo1.(Integer.parseInt(gonggaoList[0]));
+//            anSwerInfo1.setCorrectAnswer(gonggaoList[2]);
+//            anSwerInfo1.setQuestionName(gonggaoList[1]);
+//            anSwerInfo1.setAnalysis(gonggaoList[7]);
+//            anSwerInfo1.setOptionA(gonggaoList[3]);
+//            anSwerInfo1.setOptionB(gonggaoList[4]);
+//            anSwerInfo1.setOptionC(gonggaoList[5]);
+//            anSwerInfo1.setOptionD(gonggaoList[6]);
+//            anSwerInfo1.setUrl(gonggaoList[8]);
+//        }
+//        infoArrayList.add(anSwerInfo1);
+//        for (int i = 0; i < gonggaoList.length; i++) {
+//            anSwerInfo.setQuestionId(Integer.parseInt(gonggaoList1[0]));
+//            anSwerInfo.setCorrectAnswer(gonggaoList1[2]);
+//            anSwerInfo.setQuestionName(gonggaoList1[1]);
+//            anSwerInfo.setAnalysis(gonggaoList1[7]);
+//            anSwerInfo.setOptionA(gonggaoList1[3]);
+//            anSwerInfo.setOptionB(gonggaoList1[4]);
+//            anSwerInfo.setOptionC(gonggaoList1[5]);
+//            anSwerInfo.setOptionD(gonggaoList1[6]);
+//            anSwerInfo.setUrl(gonggaoList1[8]);
+//        }
+//        infoArrayList.add(anSwerInfo);
     }
 
 }

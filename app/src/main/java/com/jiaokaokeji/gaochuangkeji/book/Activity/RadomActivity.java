@@ -1,21 +1,15 @@
 package com.jiaokaokeji.gaochuangkeji.book.Activity;
 
 import android.annotation.TargetApi;
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +20,6 @@ import com.jiaokaokeji.gaochuangkeji.book.adapter.ExaminationSubmitAdapter;
 import com.jiaokaokeji.gaochuangkeji.book.database.DBManager;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.AnSwerInfo;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.SaveQuestionInfo;
-import com.jiaokaokeji.gaochuangkeji.book.util.ConstantUtil;
 import com.jiaokaokeji.gaochuangkeji.book.util.ViewPagerScroller;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -47,7 +40,7 @@ public class RadomActivity extends AppCompatActivity {
     VoteSubmitViewPager viewPager;
     ExaminationSubmitAdapter pagerAdapter;
     List<View> viewItems = new ArrayList<View>();
-    List<AnSwerInfo> dataItems = new ArrayList<AnSwerInfo>();
+    List<AnSwerInfo.DataBean> dataItems = new ArrayList<AnSwerInfo.DataBean>();
     private ProgressDialog progressDialog;
 
     private String pageCode;
@@ -125,24 +118,22 @@ public class RadomActivity extends AppCompatActivity {
     private void loadData() {
         DBManager dbManager = new DBManager(RadomActivity.this);
         dbManager.openDB1();
-        AnSwerInfo[] info1 = dbManager.queryAllData1();
+        AnSwerInfo.DataBean[] info1 = dbManager.queryAllData1();
         if (info1 == null) {
             Toast.makeText(RadomActivity.this, "暂无数据",
                     Toast.LENGTH_SHORT).show();
         }else {
             for (int i = 0; i < info1.length; i++) {
-                AnSwerInfo info = new AnSwerInfo();
-                info.setQuestionId(info1[i].questionId);// 试题主键
-                info.setQuestionName(info1[i].questionName);// 试题题目
-                info.setAnalysis(info1[i].analysis);// 试题分析
-                info.setQuestionType("0");
-                info.setCorrectAnswer(info1[i].correctAnswer);// 正确答案
-                info.setOptionA(info1[i].optionA);// 试题选项A
-                info.setOptionB(info1[i].optionB);// 试题选项B
-                info.setOptionC(info1[i].optionC);// 试题选项C
-                info.setOptionD(info1[i].optionD);// 试题选项D
-                info.setOption_type("0");
-                info.setUrl(info1[i].url);
+                AnSwerInfo.DataBean info = new AnSwerInfo.DataBean();
+                info.setId(info1[i].getId());// 试题主键
+                info.setQuestion(info1[i].getQuestion());// 试题题目
+                info.setExplains(info1[i].getExplains());// 试题分析
+                info.setAnswer(info1[i].getAnswer());// 正确答案
+                info.setItem1(info1[i].getItem1());// 试题选项A
+                info.setItem2(info1[i].getItem2());// 试题选项B
+                info.setItem3(info1[i].getItem3());// 试题选项C
+                info.setItem4(info1[i].getItem4());// 试题选项D
+                info.setUrl(info1[i].getUrl());
                 dataItems.add(info);
             }
         }
@@ -154,6 +145,7 @@ public class RadomActivity extends AppCompatActivity {
                 RadomActivity.this, viewItems,
                 dataItems, imgServerUrl);
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setOffscreenPageLimit(dataItems.size()-1);
         viewPager.getParent()
                 .requestDisallowInterceptTouchEvent(false);
     }

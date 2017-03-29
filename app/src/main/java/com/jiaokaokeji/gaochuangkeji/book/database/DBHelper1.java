@@ -43,18 +43,6 @@ public class DBHelper1 extends SQLiteOpenHelper {
                 "_question_option_d varchar(20)," +
                 "_question_url varchar(20)" +
                 ")";
-//        String cerateTable_testLibrary = "CREATE TABLE "
-//                + TABLE_NAME_TEST_LIBRARY + " ("
-//                + TEST_LIBRARY_QUESTION_ID + " TEXT,"
-//                + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-//                + TEST_LIBRARY_QUESTION_NAME + " TEXT,"
-//                + TEST_LIBRARY_QUESTION_ANSWER + " TEXT,"
-//                + TEST_LIBRARY_QUESTION_ANALYSIS + " TEXT,"
-//                + TEST_LIBRARY_QUESTION_OPTION_A + " TEXT,"
-//                + TEST_LIBRARY_QUESTION_OPTION_B + " TEXT,"
-//                + TEST_LIBRARY_QUESTION_OPTION_C + " TEXT,"
-//                +TEST_LIBRARY_QUESTION_URL+"TEXT,"
-//                + TEST_LIBRARY_QUESTION_OPTION_D + " TEXT)";
         db.execSQL(sql);
     }
 
