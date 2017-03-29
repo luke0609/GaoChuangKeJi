@@ -161,7 +161,12 @@
             android:name=".myclass.Activity.Simulation.Km3ExamActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".login.SplashActivity" />
-        <activity android:name=".login.RegisterActivity"></activity>
+        <activity android:name=".login.RegisterActivity" />
+        <activity android:name=".login.GuideActivity" />
+        <activity
+            android:name=".RetrieveActivity"
+            android:label="@string/title_activity_retrieve" />
+        <activity android:name=".login.LoginActivity"></activity>
     </application>
 
 </manifest>
