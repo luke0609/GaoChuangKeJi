@@ -77,15 +77,6 @@ public class MainActivity extends AppCompatActivity {
             getGonggao();
         }
 
-        // StatusBarCompat.compat(this, Color.parseColor("#4EAFAB"));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-        }
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setNavigationBarTintEnabled(true);
-        // 自定义颜色
-        tintManager.setTintColor(Color.parseColor("#56ABE4"));
 
 
         home = new Home();
