@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.jiaokaokeji.gaochuangkeji">
 
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 相机 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- 振动 -->
@@ -44,11 +51,7 @@
             android:name=".MainActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".home.Activity.ApplyActivity"
@@ -160,13 +163,28 @@
         <activity
             android:name=".myclass.Activity.Simulation.Km3ExamActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".login.SplashActivity" />
+        <activity android:name=".login.SplashActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".login.RegisterActivity" />
         <activity android:name=".login.GuideActivity" />
         <activity
-            android:name=".RetrieveActivity"
-            android:label="@string/title_activity_retrieve" />
-        <activity android:name=".login.LoginActivity"></activity>
+            android:name=".login.RetrieveActivity"
+             >
+
+        </activity>
+        <activity android:name=".login.LoginActivity">
+
+        </activity>
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
     </application>
 
 </manifest>
