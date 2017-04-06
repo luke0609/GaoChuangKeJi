@@ -46,76 +46,24 @@
             android:layout_marginTop="62dip"
             android:orientation="vertical">
 
-
-            <LinearLayout
-                android:id="@+id/liner1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dip"
-                android:layout_marginRight="30dip"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_weight="7"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
-                    <com.jiaokaokeji.gaochuangkeji.login.widget.ClearWriteEditText
-                        android:id="@+id/app_phoneNum"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/rc_ed_public_service_search_selector"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:hint="手机号"
-                        android:singleLine="true"
-                        android:textColor="#FFFFFF"
-                        android:textColorHint="#FFFFFF" />
-
-                    <FrameLayout
-                        android:id="@+id/fr_username_delete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignRight="@+id/app_phoneNum"
-                        android:layout_centerVertical="true"
-                        android:visibility="gone">
-
-
-                    </FrameLayout>
-                </RelativeLayout>
-
-                <Button
-                    android:id="@+id/btn_post"
-                    android:layout_toRightOf="@+id/app_phoneNum"
-                    android:layout_weight="3"
-                    android:layout_width="0dp"
-                    android:background="@drawable/rp_login_selector"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="#FFFFFF"
-                    android:text="发送验证码"/>
-
-            </LinearLayout>
-
             <RelativeLayout
                 android:id="@+id/liner4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dip"
                 android:layout_marginRight="30dip"
-                android:layout_marginTop="37dip"
                 android:orientation="horizontal">
 
 
                 <com.jiaokaokeji.gaochuangkeji.login.widget.ClearWriteEditText
-                    android:id="@+id/app_code"
+                    android:id="@+id/app_phoneNum"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rc_ed_public_service_search_selector"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:hint="请输入验证码"
+                    android:hint="请输入手机号"
                     android:singleLine="true"
-                    android:inputType="textPassword"
                     android:textColor="#FFFFFF"
                     android:textColorHint="#FFFFFF" />
 
@@ -123,7 +71,7 @@
                     android:id="@+id/code_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignRight="@+id/app_code"
+                    android:layout_alignRight="@+id/app_phoneNum"
                     android:layout_centerVertical="true"
                     android:visibility="gone">
 
@@ -165,8 +113,10 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentStart="true" />
             </RelativeLayout>
-            <RelativeLayout
-                android:id="@+id/liner3"
+
+
+            <LinearLayout
+                android:id="@+id/liner1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dip"
@@ -174,30 +124,48 @@
                 android:layout_marginTop="37dip"
                 android:orientation="horizontal">
 
+                <RelativeLayout
+                    android:layout_weight="7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    <com.jiaokaokeji.gaochuangkeji.login.widget.ClearWriteEditText
+                        android:id="@+id/app_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rc_ed_public_service_search_selector"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:hint="请输入验证码"
+                        android:singleLine="true"
+                        android:textColor="#FFFFFF"
+                        android:textColorHint="#FFFFFF" />
 
-                <com.jiaokaokeji.gaochuangkeji.login.widget.ClearWriteEditText
-                    android:id="@+id/app_password2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rc_ed_public_service_search_selector"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:hint="再次输入密码"
-                    android:singleLine="true"
-                    android:inputType="textPassword"
+                    <FrameLayout
+                        android:id="@+id/fr_username_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@+id/app_code"
+                        android:layout_centerVertical="true"
+                        android:visibility="gone">
+
+
+                    </FrameLayout>
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/btn_post"
+                    android:layout_toRightOf="@+id/app_code"
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:background="@drawable/rp_login_selector"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
                     android:textColor="#FFFFFF"
-                    android:textColorHint="#FFFFFF" />
+                    android:text="发送验证码"/>
 
-                <FrameLayout
-                    android:id="@+id/fr_psd2_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignRight="@+id/app_password2"
-                    android:layout_centerVertical="true"
-                    android:visibility="gone">
-                </FrameLayout>
+            </LinearLayout>
 
-            </RelativeLayout>
+
 
 
             <Button

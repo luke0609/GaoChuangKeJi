@@ -164,13 +164,15 @@
             android:name=".myclass.Activity.Simulation.Km3ExamActivity"
             android:screenOrientation="landscape" />
         <activity android:name=".login.SplashActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
-        <activity android:name=".login.RegisterActivity" />
+        <activity android:name=".login.RegisterActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".login.GuideActivity" />
         <activity
             android:name=".login.RetrieveActivity"
