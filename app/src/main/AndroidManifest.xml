@@ -51,7 +51,11 @@
             android:name=".MainActivity"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".home.Activity.ApplyActivity"
@@ -167,11 +171,7 @@
 
         </activity>
         <activity android:name=".login.RegisterActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity android:name=".login.GuideActivity" />
