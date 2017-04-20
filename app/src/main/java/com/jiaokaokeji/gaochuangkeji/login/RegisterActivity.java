@@ -1,6 +1,5 @@
 package com.jiaokaokeji.gaochuangkeji.login;
 
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -8,7 +7,6 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -20,10 +18,7 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 import java.util.Random;
 
 import butterknife.ButterKnife;
@@ -32,8 +27,7 @@ import butterknife.OnClick;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
-import static android.R.attr.key;
-import static com.jiaokaokeji.gaochuangkeji.R.id.app_password1;
+
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -81,11 +75,12 @@ public class RegisterActivity extends AppCompatActivity {
                     String zh = appPhoneNum.getText().toString().trim();
                     SMSSDK.getVerificationCode("86", zh);
                     timer.start();
+                    btnPost.setClickable(false);
                 }
                 break;
             case R.id.app_regist_bt:
-              //  VaildateputInfo();
-                doRegister();
+              VaildateputInfo();
+
                 break;
         }
     }
@@ -104,8 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
                     //提交验证码成功
                     Toast.makeText(RegisterActivity.this, "提交验证码成功", Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(RegisterActivity.this, "注册完成", Toast.LENGTH_SHORT).show();
-
+                    doRegister();
                 } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                     //获取验证码成功
                     Toast.makeText(RegisterActivity.this, "获取验证码成功", Toast.LENGTH_SHORT).show();
@@ -149,23 +143,22 @@ public class RegisterActivity extends AppCompatActivity {
 
         @Override
         public void onFinish() {
-            btnPost.setEnabled(true);
+            btnPost.setClickable(true);
             btnPost.setText("获取验证码");
         }
     };
 
     private boolean vaildateinfo() {
-
         String zh = appPhoneNum.getText().toString().trim();
         String pwd = appPassword1.getText().toString().trim();
         //首先要判断是否为空
         if (!zh.equals("") || null != zh) {
             if (zh.length() == 11) {
                 if (!pwd.equals("") || null != pwd) {
-                    if (pwd.length() == 8) {
+                    if (pwd.length() >= 8&&pwd.length()<=16) {
                         return true;
                     } else {
-                        Toast.makeText(RegisterActivity.this, "密码不足8位", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "密码为8到16位", Toast.LENGTH_SHORT).show();
                         appPassword1.requestFocus();
                     }
                 } else {
@@ -173,7 +166,7 @@ public class RegisterActivity extends AppCompatActivity {
                     appPassword1.requestFocus();
                 }
             } else {
-                Toast.makeText(RegisterActivity.this, "手机号不足11位", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "请输入11位手机号", Toast.LENGTH_SHORT).show();
                 appPhoneNum.requestFocus();
             }
         } else {
@@ -186,17 +179,12 @@ public class RegisterActivity extends AppCompatActivity {
         // user_name=18500551431&password=123456&code=801312
         String zh = appPhoneNum.getText().toString().trim();
         String pwd = appPassword1.getText().toString().trim();
-
-
-
         RequestParams requestParams = new RequestParams("http://192.168.0.113:8888/tianbaoApp/index.php/login/user/register");
-
         requestParams.addBodyParameter("key","tbjxappgaochuang");
         requestParams.addBodyParameter("iphone",zh);
         requestParams.addBodyParameter("password",pwd);
         Toast.makeText(this,requestParams+"" , Toast.LENGTH_SHORT).show();
         x.http().post(requestParams, new Callback.CommonCallback<String>() {
-
             @Override
             public void onSuccess(String result) {
                 Toast.makeText(RegisterActivity.this, "succ", Toast.LENGTH_SHORT).show();
