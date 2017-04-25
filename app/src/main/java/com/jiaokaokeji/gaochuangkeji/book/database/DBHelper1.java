@@ -43,6 +43,18 @@ public class DBHelper1 extends SQLiteOpenHelper {
                 "_question_option_d varchar(20)," +
                 "_question_url varchar(20)" +
                 ")";
+        String sql1="create table examination_question(" +
+                "_question_id PRIMARY KEY," +
+                "_question_name varchar(200)," +
+                "_question_answer varchar(20)," +
+                "_question_analysis varchar(200)," +
+                "_question_option_a varchar(20)," +
+                "_question_option_b varchar(20)," +
+                "_question_option_c varchar(20)," +
+                "_question_option_d varchar(20)," +
+                "_question_url varchar(20)" +
+                ")";
+        db.execSQL(sql1);
         db.execSQL(sql);
     }
 

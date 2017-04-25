@@ -66,7 +66,6 @@ int width;
     private CaptureActivityHandler handler;
     private InactivityTimer inactivityTimer;
     private BeepManager beepManager;
-    private  View view1;
     private SurfaceView scanPreview = null;
     private RelativeLayout scanContainer;
     private RelativeLayout scanCropView;
@@ -198,18 +197,20 @@ int width;
         inactivityTimer.onActivity();
         beepManager.playBeepSoundAndVibrate();
         String resultString = rawResult.getText();
-        view1=getLayoutInflater().inflate(R.layout.dialog,null);
-        //final AlertDialog alertDialog = new AlertDialog.Builder(CaptureActivity.this).create();
-        final MyDialog alertDialog = new MyDialog(CaptureActivity.this,0,0,view1,R.style.DialogTheme);
-        //显示扫描的信息
-        //alertDialog.setContentView(view1);
+        final AlertDialog alertDialog = new AlertDialog.Builder(CaptureActivity.this).create();
         alertDialog.setCancelable(false);
+        alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         alertDialog.show();
-        TextView tv_title = (TextView) view1.findViewById(R.id.tv_dialog_title);
+        Window window = alertDialog.getWindow();
+        window.setContentView(R.layout.dialog);
+        alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        TextView tv_title = (TextView)window.findViewById(R.id.tv_dialog_title);
         tv_title.setText("签到信息");
-        TextView tv_message = (TextView) view1.findViewById(R.id.tv_dialog_message);
+        TextView tv_message = (TextView) window.findViewById(R.id.tv_dialog_message);
         tv_message.setText(resultString);
-        Button quxiao = (Button) view1.findViewById(R.id.quxiao);
+        Button quxiao = (Button)window.findViewById(R.id.quxiao);
         quxiao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -217,7 +218,7 @@ int width;
                 CaptureActivity.this.finish();
             }
         });
-        Button queding = (Button) view1.findViewById(R.id.queding);
+        Button queding = (Button) window.findViewById(R.id.queding);
         queding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

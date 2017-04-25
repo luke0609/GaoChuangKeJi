@@ -29,7 +29,6 @@ import java.util.Map;
 
 public class MymistakesActivity extends AppCompatActivity {
 
-    private ImageView left;
     private TextView title;
 
     private List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();// 列表数据
@@ -98,6 +97,7 @@ public class MymistakesActivity extends AppCompatActivity {
                 errorQuestion.setQuestionName(errorQuestionInfos[i].questionName);
                 errorQuestion.setQuestionAnswer(errorQuestionInfos[i].questionAnswer);
                 errorQuestion.setQuestionSelect(errorQuestionInfos[i].questionSelect);
+                errorQuestion.setOptionType(errorQuestionInfos[i].optionType);
                 errorQuestion.setIsRight(errorQuestionInfos[i].isRight);
                 errorQuestion.setAnalysis(errorQuestionInfos[i].Analysis);
                 errorQuestion.setOptionA(errorQuestionInfos[i].optionA);
@@ -105,11 +105,9 @@ public class MymistakesActivity extends AppCompatActivity {
                 errorQuestion.setOptionC(errorQuestionInfos[i].optionC);
                 errorQuestion.setOptionD(errorQuestionInfos[i].optionD);
                 errorQuestion.setUrl(errorQuestionInfos[i].url);
-                //errorQuestion.setOptionE(errorQuestionInfos[i].optionE);
-                //errorQuestion.setOptionType(errorQuestionInfos[i].optionType);
                 list.add(errorQuestion);
             }
-            left.setOnClickListener(new View.OnClickListener() {
+            iv.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View arg0) {
@@ -139,13 +137,10 @@ public class MymistakesActivity extends AppCompatActivity {
                     intent.putExtra("optionC", question.getOptionC());
                     intent.putExtra("optionD", question.getOptionD());
                     intent.putExtra("url", question.getUrl());
-                    //intent.putExtra("optionE", question.getOptionE());
-                    //intent.putExtra("optionType", question.getOptionType());
                     startActivity(intent);
                 }
             });
-
         }
     }
-    }
+}
 

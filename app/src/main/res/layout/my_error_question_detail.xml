@@ -60,6 +60,7 @@ android:id="@+id/activity_prepare_test_question"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:layout_marginLeft="@dimen/home_menu_margin_8"
+    android:inputType="textNoSuggestions"
 android:textColor="@color/practice_test_content_text"
 android:textSize="16sp" />
 </LinearLayout>
@@ -76,7 +77,9 @@ android:layout_marginLeft="@dimen/margin_10"
 <ImageView
     android:id="@+id/iv1"
     android:layout_width="match_parent"
-    android:layout_height="150dp" />
+    android:layout_height="150dp"
+    android:visibility="gone"
+    android:scaleType="fitXY"/>
 <LinearLayout
 android:id="@+id/activity_prepare_test_layout_a"
 android:layout_width="match_parent"
@@ -208,41 +211,6 @@ android:layout_marginLeft="@dimen/home_menu_margin_8"
 android:scaleType="fitXY"
 />
 </LinearLayout>
-
-<LinearLayout
-android:id="@+id/activity_prepare_test_layout_e"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:gravity="center_vertical"
-android:orientation="horizontal"
-android:padding="@dimen/home_menu_margin_8" >
-
-<ImageView
-android:id="@+id/vote_submit_select_image_e"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:src="@drawable/ic_practice_test_normal" />
-
-<TextView
-android:id="@+id/vote_submit_select_text_e"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_marginLeft="@dimen/home_menu_margin_8"
-android:text="您给出的回答选项？"
-android:textSize="16sp"
-android:textColor="@color/practice_test_result_text" />
-<ImageView
-android:id="@+id/vote_submit_select_image_e_"
-android:layout_width="150dip"
-android:layout_height="75dip"
-android:src="@drawable/ic_practice_test_normal"
-android:visibility="gone"
-android:layout_marginLeft="@dimen/home_menu_margin_8"
-android:scaleType="fitXY"
-/>
-</LinearLayout>
-
-
 </LinearLayout>
 
 <!-- 错题分析 -->

@@ -1,43 +1,45 @@
 package com.jiaokaokeji.gaochuangkeji.book.fragement;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.jiaokaokeji.gaochuangkeji.book.Activity.ChapterActivity;
 import com.jiaokaokeji.gaochuangkeji.book.Activity.MymistakesActivity;
 import com.jiaokaokeji.gaochuangkeji.book.Activity.OrderActivity;
 import com.jiaokaokeji.gaochuangkeji.book.Activity.RadomActivity;
+import com.jiaokaokeji.gaochuangkeji.book.Activity.SimulationTestActivity;
+import com.jiaokaokeji.gaochuangkeji.my.Activity.PersonalActivity;
+import com.jiaokaokeji.gaochuangkeji.my.prjo.WheelView;
 import com.jiaokaokeji.gaochuangkeji.myclass.Activity.SimulationActivity;
+
+import java.util.Arrays;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+import static com.jiaokaokeji.gaochuangkeji.R.layout.dialog;
+
 public class Book1_fragement extends Fragment {
     private View view1;
-    ImageView mHeadImg;
-    @InjectView(R.id.rb_rb4)
-    RadioButton rbRb4;
     @InjectView(R.id.v1)
     View v1;
-    @InjectView(R.id.rb_rb1)
-    RadioButton rbRb1;
-    @InjectView(R.id.rb_rb2)
-    RadioButton rbRb2;
-    @InjectView(R.id.rb_rb3)
-    RadioButton rbRb3;
-    @InjectView(R.id.rg_tab)
-    RadioGroup rgTab;
     @InjectView(R.id.rl)
     RelativeLayout rl;
     @InjectView(R.id.scroll_view)
@@ -47,7 +49,6 @@ public class Book1_fragement extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view1 = inflater.inflate(R.layout.fragment_book1_fragement, null);
-
         ButterKnife.inject(this, view1);
         return view1;
     }
@@ -65,8 +66,7 @@ public class Book1_fragement extends Fragment {
                 startActivity(intent);
                 break;
             case R.id.btn_2:
-                Intent intent2=new Intent(getActivity(), ChapterActivity.class);
-                startActivity(intent2);
+                showDiaog();
                 break;
             case R.id.btn_3:
                 Intent intent3=new Intent(getActivity(), OrderActivity.class);
@@ -77,9 +77,27 @@ public class Book1_fragement extends Fragment {
                 startActivity(intent4);
                 break;
             case R.id.btn_8:
-                Intent intent8=new Intent(getActivity(),SimulationActivity.class);
+                Intent intent8=new Intent(getActivity(),SimulationTestActivity.class);
                 startActivity(intent8);
                 break;
         }
+    }
+    public void showDiaog() {
+        final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setCancelable(false);
+        alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        alertDialog.show();
+        Window window = alertDialog.getWindow();
+        window.setContentView(R.layout.dialog1);
+        alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        Button queding = (Button) window.findViewById(R.id.queding);
+        queding.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
     }
 }

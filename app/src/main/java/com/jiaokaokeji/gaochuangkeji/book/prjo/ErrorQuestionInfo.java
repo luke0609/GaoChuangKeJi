@@ -91,7 +91,7 @@ public class ErrorQuestionInfo {
 		return optionType;
 	}
 
-	public void setOptionType(String questionType) {
+	public void setOptionType(String optionType) {
 		this.optionType = optionType;
 	}
 

@@ -114,7 +114,7 @@ public class SignInActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
 
         tvSignDay.setText(Html.fromHtml(String.format(getString(R.string.you_have_sign), "#999999", "#1B89CD", 3)));
-        tvScore.setText(String.valueOf(3015));
+        tvScore.setText(String.valueOf(0));
         tvYear.setText(String.valueOf(calendar.get(Calendar.YEAR)));
         tvMonth.setText(getResources().getStringArray(R.array.month_array)[month]);
 

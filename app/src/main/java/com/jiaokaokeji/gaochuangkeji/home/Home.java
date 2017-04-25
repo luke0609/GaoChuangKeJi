@@ -23,9 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.jiaokaokeji.gaochuangkeji.MainActivity;
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.jiaokaokeji.gaochuangkeji.application.ListViewForScrollView;
 import com.jiaokaokeji.gaochuangkeji.application.ObservableScrollView;
+import com.jiaokaokeji.gaochuangkeji.book.database.DBManager;
 import com.jiaokaokeji.gaochuangkeji.home.Activity.ApplyActivity;
 import com.jiaokaokeji.gaochuangkeji.home.Activity.MessageActivity;
 import com.jiaokaokeji.gaochuangkeji.home.Activity.ProblemActivity;
@@ -64,7 +66,7 @@ public class Home extends Fragment implements View.OnClickListener {
     private ObservableScrollView sv_main;
     private String url;
     private String title;
-
+DBManager dbManager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,7 +75,6 @@ public class Home extends Fragment implements View.OnClickListener {
         initData();
         initView();
         initEvent();
-
         return  view;
 
     }

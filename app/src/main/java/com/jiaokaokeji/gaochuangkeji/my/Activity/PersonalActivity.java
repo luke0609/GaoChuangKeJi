@@ -17,9 +17,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.jiaokaokeji.gaochuangkeji.Netutil;
 import com.jiaokaokeji.gaochuangkeji.R;
+import com.jiaokaokeji.gaochuangkeji.my.prjo.Person;
 import com.jiaokaokeji.gaochuangkeji.my.prjo.WheelView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +35,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-import static com.jiaokaokeji.gaochuangkeji.R.layout.dialog;
 import static com.jiaokaokeji.gaochuangkeji.R.layout.rb_item;
 
 public class PersonalActivity extends AppCompatActivity {
@@ -48,12 +54,31 @@ public class PersonalActivity extends AppCompatActivity {
     @InjectView(R.id.tv6)
     TextView tv6;
     private RadioGroup rg;
-    private static int checkedId1;
+    ArrayList<Person.DataBean> dataBeanArrayList=new ArrayList<>();private String iid;
+    String user_nick;
+    String user_name;
+    String user_sex;
+     String user_age;
+    String user_idcard;
+     String user_address;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
         ButterKnife.inject(this);
+        getPersonal();
+        user_nick=tv.getText().toString();
+        user_name=tv1.getText().toString();
+        if(tv3.getText().equals("男")){
+            user_sex = "0";
+        }else{
+            user_sex="1";
+        }
+        user_age=tv4.getText().toString();
+        user_idcard=tv5.getText().toString();
+        user_address=tv6.getText().toString();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
         }
@@ -113,7 +138,7 @@ public class PersonalActivity extends AppCompatActivity {
         alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         alertDialog.show();
         Window window = alertDialog.getWindow();
-        window.setContentView(dialog);
+        window.setContentView(R.layout.dialog);
         alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -179,15 +204,48 @@ public class PersonalActivity extends AppCompatActivity {
                 String nich= String.valueOf(tv_message.getText());
                 if (i==1) {
                     tv.setText(nich);
+                    user_nick=nich;
+                    user_name=tv1.getText().toString();
+                    if(tv3.getText().equals("男")){
+                        user_sex = "0";
+                    }else{
+                        user_sex="1";
+                    }
+                    user_age=tv4.getText().toString();
+                    user_idcard=tv5.getText().toString();
+                    user_address=tv6.getText().toString();
                     alertDialog.dismiss();
+                    xiuGai();
                 }
                 if (i==2) {
                     tv1.setText(nich);
+                    user_name=nich;
+                    user_nick=tv.getText().toString();
+                    if(tv3.getText().equals("男")){
+                        user_sex = "0";
+                    }else{
+                        user_sex="1";
+                    }
+                    user_age=tv4.getText().toString();
+                    user_idcard=tv5.getText().toString();
+                    user_address=tv6.getText().toString();
                     alertDialog.dismiss();
+                    xiuGai();
                 }
                 if (i==3){
                      tv4.setText(b[0]);
+                    user_age=b[0];
+                    user_nick=tv.getText().toString();
+                    user_name=tv1.getText().toString();
+                    if(tv3.getText().equals("男")){
+                        user_sex = "0";
+                    }else{
+                        user_sex="1";
+                    }
+                    user_idcard=tv5.getText().toString();
+                    user_address=tv6.getText().toString();
                     alertDialog.dismiss();
+                    xiuGai();
                 }
                 if (i==4){
                     boolean judge = isMobile(nich);
@@ -195,12 +253,34 @@ public class PersonalActivity extends AppCompatActivity {
                         tv8.setVisibility(View.VISIBLE);
                     }else {
                         tv5.setText(nich);
+                        user_idcard=nich;
+                        user_nick=tv.getText().toString();
+                        user_name=tv1.getText().toString();
+                        if(tv3.getText().equals("男")){
+                            user_sex = "0";
+                        }else{
+                            user_sex="1";
+                        }
+                        user_age=tv4.getText().toString();
+                        user_address=tv6.getText().toString();
                         alertDialog.dismiss();
+                        xiuGai();
                     }
                 }
                 if (i==5) {
                     tv6.setText(nich);
+                    user_address=nich;
+                    user_nick=tv.getText().toString();
+                    user_name=tv1.getText().toString();
+                    if(tv3.getText().equals("男")){
+                        user_sex = "0";
+                    }else{
+                        user_sex="1";
+                    }
+                    user_age=tv4.getText().toString();
+                    user_idcard=tv5.getText().toString();
                     alertDialog.dismiss();
+                    xiuGai();
                 }
             }
         });
@@ -226,17 +306,29 @@ public class PersonalActivity extends AppCompatActivity {
                 int radioButtonId = group.getCheckedRadioButtonId();
                 rb = ((RadioButton) window.findViewById(radioButtonId));
                 tv3.setText(rb.getText().toString());
+                user_nick=tv.getText().toString();
+                user_name=tv1.getText().toString();
+                if(tv3.getText().equals("男")){
+                    user_sex = "0";
+                }else{
+                    user_sex="1";
+                }
+                user_age=tv4.getText().toString();
+                user_idcard=tv5.getText().toString();
+                user_address=tv6.getText().toString();
             }
         });
         rb1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                xiuGai();
                 alertDialog.dismiss();
             }
         });
         rb2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                xiuGai();
                 alertDialog.dismiss();
             }
         });
@@ -269,5 +361,96 @@ public class PersonalActivity extends AppCompatActivity {
         win.setAttributes(winParams);
     }
 
+    public void getPersonal() {
+        RequestParams params = new RequestParams(Netutil.url + "/index.php/userinfo/user/selectuser");
+        params.addBodyParameter("key", "tbjxappgaochuang");
+        params.addBodyParameter("userid", "1");
+        x.http().get(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                Person dataBean=gson.fromJson(result,Person.class);
+                dataBeanArrayList.clear();
+                dataBeanArrayList.addAll(dataBean.getData());
+                getPersonal1();
+            }
 
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast toast=Toast.makeText(PersonalActivity.this,"请检查网络连接",Toast.LENGTH_LONG);
+                toast.show();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
+    public void getPersonal1() {
+        if (dataBeanArrayList.get(0).getUser_nick()!=null){
+            tv.setText(dataBeanArrayList.get(0).getUser_nick());
+        }
+        if (dataBeanArrayList.get(0).getUser_name()!=null){
+            tv1.setText(dataBeanArrayList.get(0).getUser_name());
+        }
+        if (dataBeanArrayList.get(0).getUser_phone()!=null){
+            tv2.setText(dataBeanArrayList.get(0).getUser_phone());
+        }
+        if (dataBeanArrayList.get(0).getUser_sex()!=null){
+           if (dataBeanArrayList.get(0).getUser_sex().equals("0")){
+               tv3.setText("男");
+           }else{
+               tv3.setText("女");
+           }
+        }
+        if (dataBeanArrayList.get(0).getUser_age()!=null){
+            tv4.setText(dataBeanArrayList.get(0).getUser_age());
+        }
+        if (dataBeanArrayList.get(0).getUser_idcard()!=null){
+            tv5.setText(dataBeanArrayList.get(0).getUser_idcard());
+        }
+        if (dataBeanArrayList.get(0).getUser_address()!=null){
+            tv6.setText(dataBeanArrayList.get(0).getUser_address());
+        }
+    }
+    public void xiuGai(){
+        RequestParams params = new RequestParams(Netutil.url + "/index.php/userinfo/user/modifyuser");
+        params.addBodyParameter("key", "tbjxappgaochuang");
+        params.addBodyParameter("userid", "1");
+        params.addBodyParameter("nick",user_nick);
+        params.addBodyParameter("name", user_name);
+        params.addBodyParameter("sex", user_sex);
+        params.addBodyParameter("age", user_age);
+        params.addBodyParameter("idcard", user_idcard);
+        params.addBodyParameter("address", user_address);
+        x.http().get(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Toast toast=Toast.makeText(PersonalActivity.this,"修改成功",Toast.LENGTH_LONG);
+                toast.show();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast toast=Toast.makeText(PersonalActivity.this,"请检查网络连接",Toast.LENGTH_LONG);
+                toast.show();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+}

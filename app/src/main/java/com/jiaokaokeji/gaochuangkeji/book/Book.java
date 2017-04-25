@@ -40,12 +40,6 @@ import butterknife.InjectView;
 
 public class Book extends Fragment {
     View view1;
-    @InjectView(R.id.button_photo)
-    TextView buttonPhoto;
-    @InjectView(R.id.button_photo1)
-    TextView buttonPhoto1;
-    @InjectView(R.id.button_people)
-    TextView buttonPeople;
     private int unSelectTextColor;
     private ScrollIndicatorView tab;
     private ViewPager viewpage;
@@ -76,21 +70,6 @@ public class Book extends Fragment {
         lp.width = width;
         lp.height = width / 3;
         iv.setLayoutParams(lp);
-        buttons_wrapper_layout = (RelativeLayout) view1.findViewById(R.id.buttons_wrapper_layout);
-        buttons_show_hide_button_layout = (RelativeLayout) view1.findViewById(R.id.buttons_show_hide_button_layout);
-        buttons_show_hide_button = (TextView) view1.findViewById(R.id.buttons_show_hide_button);
-        for (int i = 0; i < buttons_wrapper_layout.getChildCount(); i++) {
-            buttons_wrapper_layout.getChildAt(i).setOnClickListener(new OnClickImageButton());
-        }
-        buttons_show_hide_button_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttons_wrapper_layout.setVisibility(View.VISIBLE);
-                Animations();
-            }
-
-        });
-
         tab.setScrollBar(new DrawableBar(getActivity(), R.drawable.round_border_green_selector, ScrollBar.Gravity.CENTENT_BACKGROUND) {
             @Override
             public int getHeight(int tabHeight) {
@@ -165,46 +144,6 @@ public class Book extends Fragment {
             return PagerAdapter.POSITION_NONE;
         }
     }
-
-    public class OnClickImageButton implements View.OnClickListener {
-
-        @Override
-        public void onClick(View arg0) {
-            switch (arg0.getId()) {
-                case R.id.button_photo:
-                    buttons_show_hide_button.setText(buttonPhoto.getText());
-                    Animations();
-                    buttons_wrapper_layout.setVisibility(View.GONE);
-                    break;
-                case R.id.button_people:
-                    buttons_show_hide_button.setText(buttonPeople.getText());
-                    Animations();
-                    buttons_wrapper_layout.setVisibility(View.GONE);
-                    break;
-                case R.id.button_photo1:
-                    buttons_show_hide_button.setText(buttonPhoto1.getText());
-                    Animations();
-                    buttons_wrapper_layout.setVisibility(View.GONE);
-                    break;
-            }
-        }
-    }
-    public void Animations(){
-        if (!isShowing) {
-            MyAnimations.startAnimationsIn(buttons_wrapper_layout, 300);
-            buttons_show_hide_button
-                    .startAnimation(MyAnimations.getRotateAnimation(0,
-                            0, 0));
-        } else {
-            MyAnimations
-                    .startAnimationsOut(buttons_wrapper_layout, 300);
-            buttons_show_hide_button
-                    .startAnimation(MyAnimations.getRotateAnimation(
-                            0, 0, 0));
-        }
-        isShowing = !isShowing;
-    }
-
         //}
 
 //            @Override

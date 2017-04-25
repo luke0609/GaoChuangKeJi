@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 /**
  * @author wisdomhu 重写ViewPager禁止其左右滑动
  */
-public class VoteSubmitViewPager extends ViewPager {
+public class  VoteSubmitViewPager extends ViewPager {
 
 	private boolean isScrollable = false;
 
