@@ -1,6 +1,8 @@
 package com.jiaokaokeji.gaochuangkeji.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,19 +10,28 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.jiaokaokeji.gaochuangkeji.MainActivity;
 import com.jiaokaokeji.gaochuangkeji.R;
+import com.jiaokaokeji.gaochuangkeji.login.pojo.Contant;
+import com.jiaokaokeji.gaochuangkeji.login.pojo.ResultBean;
+import com.jiaokaokeji.gaochuangkeji.login.pojo.UserBean;
 import com.jiaokaokeji.gaochuangkeji.login.widget.ClearWriteEditText;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+
+import static android.media.CamcorderProfile.get;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -81,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
             appPasswordEt.setShakeAnimation();
             return;
         }
-        RequestParams requestParams = new RequestParams("http://192.168.191.2:8888/tianbaoApp/index.php/login/user/login");
+        RequestParams requestParams = new RequestParams("http://192.168.0.113:8888/tianbaoApp/index.php/login/user/login");
         requestParams.addBodyParameter("key", "tbjxappgaochuang");
         requestParams.addBodyParameter("iphone",sUserName );
         requestParams.addBodyParameter("password",sPassword);
@@ -90,12 +101,30 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(String result) {
-
+                        Gson gson=new Gson();
+                        String userId = null;
+                        List<UserBean.DataBean> sList=new ArrayList<UserBean.DataBean>();
+                        UserBean ub=gson.fromJson(result,UserBean.class);
+                        if (ub.getResultCode()==200){
+                            Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                            sList=ub.getData();
+                            userId= sList.get(0).getUser_id();
+                            //写入本地文件
+                            SharedPreferences shared_prefs = getSharedPreferences(Contant.userinfo_shared_prefs, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = shared_prefs.edit();
+                            System.out.println(userId+" ");
+                            editor.putString("userId", userId);
+                            editor.putBoolean("isLogin", true);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else if(ub.getResultCode()==500){
+                            Toast.makeText(LoginActivity.this, "登陆失败", Toast.LENGTH_SHORT).show();
+                        }
                     }
-
                     @Override
                     public void onError(Throwable ex, boolean isOnCallback) {
-
+                        Toast.makeText(LoginActivity.this,"网络错误", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

@@ -43,7 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
     @InjectView(R.id.app_regist_bt)
     Button appRegistBt;
     private static final String[] AVATARS = new String[400];
-
+    private String zh;
+    private String pwd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +81,6 @@ public class RegisterActivity extends AppCompatActivity {
                 break;
             case R.id.app_regist_bt:
               VaildateputInfo();
-
                 break;
         }
     }
@@ -149,8 +149,8 @@ public class RegisterActivity extends AppCompatActivity {
     };
 
     private boolean vaildateinfo() {
-        String zh = appPhoneNum.getText().toString().trim();
-        String pwd = appPassword1.getText().toString().trim();
+        zh = appPhoneNum.getText().toString().trim();
+        pwd = appPassword1.getText().toString().trim();
         //首先要判断是否为空
         if (!zh.equals("") || null != zh) {
             if (zh.length() == 11) {
@@ -183,20 +183,24 @@ public class RegisterActivity extends AppCompatActivity {
         requestParams.addBodyParameter("key","tbjxappgaochuang");
         requestParams.addBodyParameter("iphone",zh);
         requestParams.addBodyParameter("password",pwd);
-        Toast.makeText(this,requestParams+"" , Toast.LENGTH_SHORT).show();
         x.http().post(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Toast.makeText(RegisterActivity.this, "succ", Toast.LENGTH_SHORT).show();
-                System.out.println(result);
                 Gson gson=new Gson();
                 ResultBean rb=gson.fromJson(result,ResultBean.class);
-                Toast.makeText(RegisterActivity.this, rb.getMessage(), Toast.LENGTH_SHORT).show();
+                if (rb.getResultCode()==200){
+                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                }else if (rb.getResultCode()==300){
+                    Toast.makeText(RegisterActivity.this, "注册失败，用户名已存在", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
+                }
+
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(RegisterActivity.this,ex+ "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this,"网络错误", Toast.LENGTH_SHORT).show();
             }
 
             @Override
