@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.bumptech.glide.Glide;
 import com.dl7.player.media.IjkPlayerView;
 import com.jiaokaokeji.gaochuangkeji.R;
+import com.squareup.picasso.Picasso;
 
 public class VideoActivity extends AppCompatActivity {
     private  String VIDEO_URL;
@@ -31,7 +32,7 @@ public class VideoActivity extends AppCompatActivity {
         mToolbar.setTitle("Video Player");
         mToolbar.setSubtitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Glide.with(this).load(IMAGE_URL).fitCenter().into(mPlayerView.mPlayerThumb);
+        Picasso.with(VideoActivity.this).load(IMAGE_URL).into(mPlayerView.mPlayerThumb);
         mPlayerView.init()
                 .setTitle("科目二考试记录")
 

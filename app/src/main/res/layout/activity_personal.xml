@@ -27,6 +27,26 @@
             android:textSize="20sp"
             android:layout_centerInParent="true"
             android:text="个人资料"/>
+        <Button
+            android:id="@+id/bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_selector1"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:text="修改"
+            />
+        <Button
+            android:id="@+id/bt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_selector1"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:text="确定"
+            android:visibility="gone"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rl_mytx"

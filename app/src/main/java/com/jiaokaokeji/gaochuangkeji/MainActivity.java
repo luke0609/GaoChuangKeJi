@@ -295,49 +295,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void timu(){
-        String[] gonggaoList = new String[]{"1", "这个标志是何含义?", "7", "小型车车道", "小型车专用车道",
-                "多乘员车辆专用车道", "机动车车道", "此为机动车车道,比多乘员车辆专用车道少俩人.", "http://images.juheapi.com/jztk/c1c2subject1/1.jpg"};
-        String[] gonggaoList1 = new String[]{"2", "这个标志是何含义?", "10", "分向行驶车道", "掉头和左转合用车道",
-                "", "", "左转和掉头合并在一个标志里,你应该能看到的.", "http://images.juheapi.com/jztk/c1c2subject1/10.jpg"};
-        String[] gonggaoList2 = new String[]{"2", "这个标志是何含义?", "1", "分向行驶车道", "掉头和左转合用车道",
-                "", "", "左转和掉头合并在一个标志里,你应该能看到的.", "http://images.juheapi.com/jztk/c1c2subject1/10.jpg"};
-        for (int i = 0; i < gonggaoList.length; i++) {
-           dataBean.setId (gonggaoList[0]);
-            dataBean.setAnswer(gonggaoList[2]);
-            dataBean.setQuestion(gonggaoList[1]);
-            dataBean.setExplains(gonggaoList[7]);
-            dataBean.setItem1(gonggaoList[3]);
-            dataBean.setItem2(gonggaoList[4]);
-            dataBean.setItem3(gonggaoList[5]);
-            dataBean.setItem4(gonggaoList[6]);
-            dataBean.setUrl(gonggaoList[8]);
-        }
-        dataBeanArrayList1.add(dataBean);
-        for (int i = 0; i < gonggaoList2.length; i++) {
-            dataBean1.setId (gonggaoList2[0]);
-            dataBean1.setAnswer(gonggaoList2[2]);
-            dataBean1.setQuestion(gonggaoList2[1]);
-            dataBean1.setExplains(gonggaoList2[7]);
-            dataBean1.setItem1(gonggaoList2[3]);
-            dataBean1.setItem2(gonggaoList2[4]);
-            dataBean1.setItem3(gonggaoList2[5]);
-            dataBean1.setItem4(gonggaoList2[6]);
-            dataBean1.setUrl(gonggaoList2[8]);
-        }
-        dataBeanArrayList1.add(dataBean1);
-        for (int i = 0; i < gonggaoList1.length; i++) {
-            dataBean2.setId (gonggaoList1[0]);
-            dataBean2.setAnswer(gonggaoList1[2]);
-            dataBean2.setQuestion(gonggaoList1[1]);
-            dataBean2.setExplains(gonggaoList1[7]);
-            dataBean2.setItem1(gonggaoList1[3]);
-            dataBean2.setItem2(gonggaoList1[4]);
-            dataBean2.setItem3(gonggaoList1[5]);
-            dataBean2.setItem4(gonggaoList1[6]);
-            dataBean2.setUrl(gonggaoList1[8]);
-        }
-        dataBeanArrayList1.add(dataBean2);
-        dbManager.insertQuestion1(dataBeanArrayList1);
-    }
 }
