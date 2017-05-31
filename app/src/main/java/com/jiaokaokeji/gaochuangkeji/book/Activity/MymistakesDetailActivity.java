@@ -145,7 +145,8 @@ public class MymistakesDetailActivity extends Activity {
 				tvC.setText("C." + optionC);
 				tvD.setText("D." + optionD);
 				//tvE.setText("E." + optionE);
-		if(url!=null){
+		if(!url.equals("")){
+			iv1.setVisibility(View.VISIBLE);
 			Glide.with(MymistakesDetailActivity.this).load(url).into(iv1);
 		}else {
 			iv1.setVisibility(View.GONE);
@@ -156,30 +157,31 @@ public void cuowu(){
 	if(option_type.equals("0")){
 		questionTypeTV.setText("(单选题)");
 		//显示正确选项
-		if(questionAnswer.contains("A")){
+
+		if(questionAnswer.contains("1")){
 			ivA.setImageResource(R.drawable.ic_practice_test_right);
 			tvA.setTextColor(Color.parseColor("#61bc31"));
-		}else if(questionAnswer.contains("B")){
+		}else if(questionAnswer.contains("2")){
 			ivB.setImageResource(R.drawable.ic_practice_test_right);
 			tvB.setTextColor(Color.parseColor("#61bc31"));
-		}else if(questionAnswer.contains("C")){
+		}else if(questionAnswer.contains("3")){
 			ivC.setImageResource(R.drawable.ic_practice_test_right);
 			tvC.setTextColor(Color.parseColor("#61bc31"));
-		}else if(questionAnswer.contains("D")){
+		}else if(questionAnswer.contains("4")){
 			ivD.setImageResource(R.drawable.ic_practice_test_right);
 			tvD.setTextColor(Color.parseColor("#61bc31"));
 		}
 
-		if(questionSelect.contains("A")){
+		if(questionSelect.contains("1")){
 			ivA.setImageResource(R.drawable.ic_practice_test_wrong);
 			tvA.setTextColor(Color.parseColor("#d53235"));
-		}else if(questionSelect.contains("B")){
+		}else if(questionSelect.contains("2")){
 			ivB.setImageResource(R.drawable.ic_practice_test_wrong);
 			tvB.setTextColor(Color.parseColor("#d53235"));
-		}else if(questionSelect.contains("C")){
+		}else if(questionSelect.contains("3")){
 			ivC.setImageResource(R.drawable.ic_practice_test_wrong);
 			tvC.setTextColor(Color.parseColor("#d53235"));
-		}else if(questionSelect.contains("D")){
+		}else if(questionSelect.contains("4")){
 			ivD.setImageResource(R.drawable.ic_practice_test_wrong);
 			tvD.setTextColor(Color.parseColor("#d53235"));
 		}
@@ -187,59 +189,59 @@ public void cuowu(){
 	}else if(option_type.equals("1")){
 		questionTypeTV.setText("(多选题)");
 		//显示正确选项
-		if(questionAnswer.contains("A")){
+		if(questionAnswer.contains("1")){
 			ivA.setImageResource(R.drawable.ic_practice_test_right);
 			tvA.setTextColor(Color.parseColor("#61bc31"));
-		}if(questionAnswer.contains("B")){
+		}if(questionAnswer.contains("2")){
 			ivB.setImageResource(R.drawable.ic_practice_test_right);
 			tvB.setTextColor(Color.parseColor("#61bc31"));
-		}if(questionAnswer.contains("C")){
+		}if(questionAnswer.contains("3")){
 			ivC.setImageResource(R.drawable.ic_practice_test_right);
 			tvC.setTextColor(Color.parseColor("#61bc31"));
-		}if(questionAnswer.contains("D")){
+		}if(questionAnswer.contains("4")){
 			ivD.setImageResource(R.drawable.ic_practice_test_right);
 			tvD.setTextColor(Color.parseColor("#61bc31"));
 		}
 
-		if(questionSelect.contains("A")){
+		if(questionSelect.contains("1")){
 			ivA.setImageResource(R.drawable.ic_practice_test_wrong);
 			tvA.setTextColor(Color.parseColor("#d53235"));
-		}if(questionSelect.contains("B")){
+		}if(questionSelect.contains("2")){
 			ivB.setImageResource(R.drawable.ic_practice_test_wrong);
 			tvB.setTextColor(Color.parseColor("#d53235"));
-		}if(questionSelect.contains("C")){
+		}if(questionSelect.contains("3")){
 			ivC.setImageResource(R.drawable.ic_practice_test_wrong);
 			tvC.setTextColor(Color.parseColor("#d53235"));
-		}if(questionSelect.contains("D")){
+		}if(questionSelect.contains("4")){
 			ivD.setImageResource(R.drawable.ic_practice_test_wrong);
 			tvD.setTextColor(Color.parseColor("#d53235"));
 		}
 	}else if(option_type.equals("2")){
 		questionTypeTV.setText("(判断题)");
 		//显示正确选项
-		if(questionAnswer.contains("A")){
+		if(questionAnswer.contains("1")){
 			ivA.setImageResource(R.drawable.ic_practice_test_right);
 			tvA.setTextColor(Color.parseColor("#61bc31"));
-		}else if(questionAnswer.contains("B")){
+		}else if(questionAnswer.contains("2")){
 			ivB.setImageResource(R.drawable.ic_practice_test_right);
 			tvB.setTextColor(Color.parseColor("#61bc31"));
-		}else if(questionAnswer.contains("C")){
+		}else if(questionAnswer.contains("3")){
 			ivC.setImageResource(R.drawable.ic_practice_test_right);
 			tvC.setTextColor(Color.parseColor("#61bc31"));
-		}else if(questionAnswer.contains("D")){
+		}else if(questionAnswer.contains("4")){
 			ivD.setImageResource(R.drawable.ic_practice_test_right);
 			tvD.setTextColor(Color.parseColor("#61bc31"));
 		}
-		if(questionSelect.contains("A")){
+		if(questionSelect.contains("1")){
 			ivA.setImageResource(R.drawable.ic_practice_test_wrong);
 			tvA.setTextColor(Color.parseColor("#d53235"));
-		}else if(questionSelect.contains("B")){
+		}else if(questionSelect.contains("2")){
 			ivB.setImageResource(R.drawable.ic_practice_test_wrong);
 			tvB.setTextColor(Color.parseColor("#d53235"));
-		}else if(questionSelect.contains("C")){
+		}else if(questionSelect.contains("3")){
 			ivC.setImageResource(R.drawable.ic_practice_test_wrong);
 			tvC.setTextColor(Color.parseColor("#d53235"));
-		}else if(questionSelect.contains("D")){
+		}else if(questionSelect.contains("4")){
 			ivD.setImageResource(R.drawable.ic_practice_test_wrong);
 			tvD.setTextColor(Color.parseColor("#d53235"));
 		}

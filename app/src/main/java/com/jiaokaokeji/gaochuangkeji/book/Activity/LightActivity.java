@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ImageView;
 
 import com.jiaokaokeji.gaochuangkeji.R;
@@ -19,12 +21,14 @@ import butterknife.OnClick;
 public class LightActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView iv;
+    private WebView web;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light);
         iv = ((ImageView) findViewById(R.id.iv));
+        web = ((WebView) findViewById(R.id.web));
         ButterKnife.inject(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
@@ -35,6 +39,14 @@ public class LightActivity extends AppCompatActivity implements View.OnClickList
         tintManager.setNavigationBarTintEnabled(true);
         // 自定义颜色
         tintManager.setTintColor(Color.parseColor("#56ABE4"));
+        WebSettings wv_setttig = web.getSettings();
+        wv_setttig.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        wv_setttig.setJavaScriptEnabled(true);
+        web.setVerticalScrollBarEnabled(false);
+        wv_setttig.setTextSize(WebSettings.TextSize.NORMAL);
+        String url = "file:///android_asset/dengguang.html";
+        //    webview.setInitialScale(200);
+        web.loadUrl(url);
     }
 
     @OnClick(R.id.iv)

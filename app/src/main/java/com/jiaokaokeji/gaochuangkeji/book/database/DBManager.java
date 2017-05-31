@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
 import com.jiaokaokeji.gaochuangkeji.MainActivity;
+import com.jiaokaokeji.gaochuangkeji.book.Activity.Radom1Activity;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.AnSwerInfo;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.ErrorQuestionInfo;
 
@@ -57,6 +58,13 @@ public class DBManager {
 				null, null);
 		return ConvertToQuestion1(result);
 	}
+	//查询题库
+	public AnSwerInfo.DataBean[] queryAllData2() {
+		Cursor result = database.query("examination_question",
+				null, null, null, null,
+				null, null);
+		return ConvertToQuestion1(result);
+	}
 	/**
 	 * 添加一条我的错题数据
 	 * 
@@ -65,7 +73,7 @@ public class DBManager {
 	 */
 	public long insertErrorQuestion(ErrorQuestionInfo info) {
 		ContentValues newValues = new ContentValues();
-        newValues.put("_question_id", info.getIsRight());
+		newValues.put("_question_id", info.getQuestionId());
 		newValues.put("_question_name", info.getQuestionName());
 		newValues.put("_question_option_type", info.getOptionType());
 		newValues.put("_question_answer", info.getQuestionAnswer());
@@ -77,10 +85,24 @@ public class DBManager {
 		newValues.put("_question_option_c", info.getOptionC());
 		newValues.put("_question_option_d", info.getOptionD());
 		newValues.put("_question_url", info.getUrl());
-		//newValues.put(DBHelper.MY_ERROR_QUESTION_OPTION_E, info.getOptionE());
-		//newValues.put(DBHelper.MY_ERROR_QUESTION_OPTION_TYPE, info.getOptionType());
-
 		return database.insert("table_my_error_question", null,
+				newValues);
+	}
+	public long insertErrorQuestion1(ErrorQuestionInfo info) {
+		ContentValues newValues = new ContentValues();
+		newValues.put("_question_id", info.getQuestionId());
+		newValues.put("_question_name", info.getQuestionName());
+		newValues.put("_question_option_type", info.getOptionType());
+		newValues.put("_question_answer", info.getQuestionAnswer());
+		newValues.put("_question_selected", info.getQuestionSelect());
+		newValues.put("_question_isright", info.getIsRight());
+		newValues.put("_question_analysis", info.getAnalysis());
+		newValues.put("_question_option_a", info.getOptionA());
+		newValues.put("_question_option_b", info.getOptionB());
+		newValues.put("_question_option_c", info.getOptionC());
+		newValues.put("_question_option_d", info.getOptionD());
+		newValues.put("_question_url", info.getUrl());
+		return database.insert("table_my_error_question1", null,
 				newValues);
 	}
 //	//添加题库
@@ -101,15 +123,34 @@ public void insertQuestion(ArrayList<AnSwerInfo.DataBean> infoArrayList) {
 				newValues);
 	}
 }
+	public void insertQuestion1(ArrayList<AnSwerInfo.DataBean> infoArrayList) {
+		Toast.makeText(context, infoArrayList.size()+"",
+				Toast.LENGTH_LONG).show();
+		ContentValues newValues = new ContentValues();
+		for (int i=0;i<infoArrayList.size();i++) {
+			newValues.clear();
+			newValues.put("_question_id", infoArrayList.get(i).getId());
+			newValues.put("_question_name", infoArrayList.get(i).getQuestion());
+			newValues.put("_question_answer", infoArrayList.get(i).getAnswer());
+			newValues.put("_question_analysis", infoArrayList.get(i).getExplains());
+			newValues.put("_question_option_a", infoArrayList.get(i).getItem1());
+			newValues.put("_question_option_b",infoArrayList.get(i).getItem2());
+			newValues.put("_question_option_c", infoArrayList.get(i).getItem3());
+			newValues.put("_question_option_d", infoArrayList.get(i).getItem4());
+			newValues.put("_question_url", infoArrayList.get(i).getUrl());
+			database.insert("examination_question", null,
+					newValues);
+		}
+	}
 	/**
 	 * 删除我的错题所有数据
 	 * 
 	 * @return
 	 */
-//	public long deleteAllData() {
-//		return database.delete(DBHelper.TABLE_NAME_MY_ERROR_QUESTION, null,
-//				null);
-//	}
+	public void deleteAllData() {
+         database.delete("table_my_error_question", null,
+                null);
+    }
 
 	/**
 	 * 查询全部我的错题数据
@@ -122,7 +163,12 @@ public void insertQuestion(ArrayList<AnSwerInfo.DataBean> infoArrayList) {
 				null, null);
 		return ConvertToQuestion(result);
 	}
-
+	public ErrorQuestionInfo[] queryAllData3() {
+		Cursor result = database.query("table_my_error_question1",
+				null, null, null, null,
+				null, null);
+		return ConvertToQuestion(result);
+	}
 	/**
 	 * 错题
 	 */
@@ -167,7 +213,6 @@ public void insertQuestion(ArrayList<AnSwerInfo.DataBean> infoArrayList) {
 	//所有题目
 	private AnSwerInfo.DataBean[] ConvertToQuestion1(Cursor cursor) {
 		int resultCounts = cursor.getCount();
-
 		if (resultCounts == 0 || !cursor.moveToFirst()) {
 			return null;
 		}
@@ -187,4 +232,5 @@ public void insertQuestion(ArrayList<AnSwerInfo.DataBean> infoArrayList) {
 		}
 		return peoples;
 	}
+
 }

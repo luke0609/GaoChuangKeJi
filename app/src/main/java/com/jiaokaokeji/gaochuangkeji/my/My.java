@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.jiaokaokeji.gaochuangkeji.R;
 import com.jiaokaokeji.gaochuangkeji.my.Activity.ArchivesActivity;
+import com.jiaokaokeji.gaochuangkeji.my.Activity.MyOrderActivity;
 import com.jiaokaokeji.gaochuangkeji.my.Activity.PersonalActivity;
 import com.jiaokaokeji.gaochuangkeji.my.Activity.SettingActivity;
 
@@ -57,6 +58,8 @@ public class My extends Fragment {
                 startActivity(intent1);
                 break;
             case R.id.btn_3:
+                Intent intent4=new Intent(getActivity(),MyOrderActivity.class);
+                startActivity(intent4);
                 break;
             case R.id.btn_4:
                 Intent intent3=new Intent(getActivity(),SettingActivity.class);

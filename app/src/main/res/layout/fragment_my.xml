@@ -5,7 +5,8 @@
     tools:context="com.jiaokaokeji.gaochuangkeji.my.My">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#F4F4F4">
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="match_parent"
@@ -33,14 +34,17 @@
         <RelativeLayout
             android:layout_below="@id/rl"
             android:id="@+id/rl1"
+            android:background="@drawable/round_border_green_selector1"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-            android:background="@color/white"
             android:layout_marginTop="-20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:id="@+id/ll"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -52,7 +56,7 @@
                 android:background="@color/white"
                 android:gravity="center"
                 android:textColor="@color/main_bg"
-                android:drawableTop="@drawable/data"
+                android:drawableTop="@drawable/menu1"
                 android:textSize="13sp"
                 android:layout_weight="1"
                 android:paddingTop="10dp"
@@ -66,7 +70,7 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:textColor="@color/main_bg"
-                    android:drawableTop="@drawable/archives"
+                    android:drawableTop="@drawable/menu2"
                     android:textSize="13sp"
                     android:layout_weight="1"
                     android:paddingTop="10dp"
@@ -80,7 +84,7 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:textColor="@color/main_bg"
-                    android:drawableTop="@drawable/order1"
+                    android:drawableTop="@drawable/menu3"
                     android:textSize="13sp"
                     android:layout_weight="1"
                     android:paddingTop="10dp"
@@ -88,11 +92,14 @@
                     />
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="18dp"
                 android:id="@+id/ll1"
                 android:layout_below="@id/ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="15dp"
+               android:paddingRight="5dp"
+                android:paddingLeft="5dp"
                 android:orientation="horizontal">
                 <Button
                     android:id="@+id/btn_5"
@@ -102,7 +109,7 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:textColor="@color/main_bg"
-                    android:drawableTop="@drawable/jialei"
+                    android:drawableTop="@drawable/menu4"
                     android:textSize="13sp"
                     android:layout_weight="1"
                     android:paddingTop="10dp"
@@ -116,7 +123,7 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:textColor="@color/main_bg"
-                    android:drawableTop="@drawable/video"
+                    android:drawableTop="@drawable/menu5"
                     android:textSize="13sp"
                     android:layout_weight="1"
                     android:paddingTop="10dp"
@@ -130,7 +137,7 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:textColor="@color/main_bg"
-                    android:drawableTop="@drawable/feedback"
+                    android:drawableTop="@drawable/menu6"
                     android:textSize="13sp"
                     android:layout_weight="1"
                     android:paddingTop="10dp"

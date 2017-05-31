@@ -4,4 +4,5 @@
     <color name="green">#7a7</color>
     <color name="main_style">#56ABE4</color>
     <color name="submit_btn_pressed">#166EA5</color>
+    <color name="submit_btn_disabled">#bcbcbc</color>
 </resources>

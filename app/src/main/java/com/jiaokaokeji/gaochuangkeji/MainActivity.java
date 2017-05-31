@@ -20,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.jiaokaokeji.gaochuangkeji.book.Activity.Radom1Activity;
 import com.jiaokaokeji.gaochuangkeji.book.Book;
 import com.jiaokaokeji.gaochuangkeji.book.database.DBManager;
 import com.jiaokaokeji.gaochuangkeji.book.prjo.AnSwerInfo;
@@ -39,7 +40,11 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<AnSwerInfo.DataBean> dataBeanArrayList=new ArrayList<>();
+    ArrayList<AnSwerInfo.DataBean> dataBeanArrayList = new ArrayList<>();
+    AnSwerInfo.DataBean dataBean=new AnSwerInfo.DataBean();
+    AnSwerInfo.DataBean dataBean1=new AnSwerInfo.DataBean();
+    AnSwerInfo.DataBean dataBean2=new AnSwerInfo.DataBean();
+    ArrayList<AnSwerInfo.DataBean> dataBeanArrayList1 = new ArrayList<>();
     private long exitTime = 0;
     Fragment[] fragments;
     Home home;
@@ -53,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<AnSwerInfo> infoArrayList = new ArrayList<>();
     int oldIndex;//用户看到的item
     int newIndex;//用户即将看到的item
-    String tag="1";
+    String tag = "1";
     RadioButton[] tabs;
     @InjectView(R.id.rb_rb1)
     RadioButton rbRb1;
@@ -64,21 +69,40 @@ public class MainActivity extends AppCompatActivity {
     @InjectView(R.id.rb_rb4)
     RadioButton rbRb4;
     private boolean isFirst;
+    AnSwerInfo.DataBean[] info1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         dbManager.openDB1();
-        SharedPreferences setting = getSharedPreferences("share", 0);
-        Boolean user_first = setting.getBoolean("FIRST",true);
-        if(user_first){//第一次
-            setting.edit().putBoolean("FIRST", false).commit();
-            getGonggao();
+        dbManager.openDB();
+        info1 = dbManager.queryAllData1();
+        if(info1==null) {
+            Toast.makeText(getApplicationContext(), "正在加载数据，请等待...", Toast.LENGTH_SHORT).show();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(1000);
+                        getTimu1();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(1000);
+                        getTimu2();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         }
-
-
-
         home = new Home();
         book = new Book();
         my = new My();
@@ -144,16 +168,16 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rb_rb1:
-                newIndex=0;//选中第一项
+                newIndex = 0;//选中第一项
                 break;
             case R.id.rb_rb2:
-                newIndex=1;//选中第二项
+                newIndex = 1;//选中第二项
                 break;
             case R.id.rb_rb3:
-                newIndex=2;//选中第三项
+                newIndex = 2;//选中第三项
                 break;
             case R.id.rb_rb4:
-                newIndex=3;//选中第四项
+                newIndex = 3;//选中第四项
                 break;
         }
         addshow(newIndex);
@@ -175,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
     public interface MyTouchListener {
         public void onTouchEvent(MotionEvent event);
     }
@@ -184,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 提供给Fragment通过getActivity()方法来注册自己的触摸事件的方法
+     *
      * @param listener
      */
     public void registerMyTouchListener(MyTouchListener listener) {
@@ -192,10 +218,11 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 提供给Fragment通过getActivity()方法来取消注册自己的触摸事件的方法
+     *
      * @param listener
      */
     public void unRegisterMyTouchListener(MyTouchListener listener) {
-        myTouchListeners.remove( listener );
+        myTouchListeners.remove(listener);
     }
 
     /**
@@ -208,63 +235,64 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.dispatchTouchEvent(ev);
     }
-    public void getGonggao() {
-        RequestParams params = new RequestParams("http://192.168.191.2:8888/tianbao/tianbao.php");
+
+    public  void getTimu1() {
+        RequestParams params = new RequestParams(Netutil.url1 + "/tianbao.php");
+        params.addBodyParameter("num", "1");
         x.http().get(params, new Callback.CommonCallback<String>() {
-                    @Override
-                    public void onSuccess(String result) {
-                        Gson gson = new Gson();
-                        AnSwerInfo dataBean=gson.fromJson(result,AnSwerInfo.class);
-                        dataBeanArrayList.addAll(dataBean.getData());
-                        dbManager.insertQuestion(dataBeanArrayList);
-                        Toast toast=Toast.makeText(MainActivity.this,"成功",Toast.LENGTH_LONG);
-                        toast.show();
-                    }
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                AnSwerInfo dataBean = gson.fromJson(result, AnSwerInfo.class);
+                dataBeanArrayList.addAll(dataBean.getData());
+                dbManager.insertQuestion(dataBeanArrayList);
+            }
 
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
-                      Toast toast=Toast.makeText(MainActivity.this,"lianjie",Toast.LENGTH_LONG);
-                        toast.show();
-                    }
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast toast = Toast.makeText(MainActivity.this,ex.toString(), Toast.LENGTH_LONG);
+                toast.show();
+            }
 
-                    @Override
-                    public void onCancelled(CancelledException cex) {
+            @Override
+            public void onCancelled(CancelledException cex) {
 
-                    }
+            }
 
-                    @Override
-                    public void onFinished() {
+            @Override
+            public void onFinished() {
 
-                    }
-                });
-//        String[] gonggaoList = new String[]{"1", "这个标志是何含义?", "D", "小型车车道", "小型车专用车道",
-//                "多乘员车辆专用车道", "机动车车道", "此为机动车车道,比多乘员车辆专用车道少俩人.","http://images.juheapi.com/jztk/c1c2subject1/1.jpg"};
-//        String[] gonggaoList1 = new String[]{"2", "这个标志是何含义?", "B", "分向行驶车道", "掉头和左转合用车道",
-//                "", "", "左转和掉头合并在一个标志里,你应该能看到的.","http://images.juheapi.com/jztk/c1c2subject1/10.jpg"};
-//        for (int i = 0; i < gonggaoList.length; i++) {
-//            anSwerInfo1.(Integer.parseInt(gonggaoList[0]));
-//            anSwerInfo1.setCorrectAnswer(gonggaoList[2]);
-//            anSwerInfo1.setQuestionName(gonggaoList[1]);
-//            anSwerInfo1.setAnalysis(gonggaoList[7]);
-//            anSwerInfo1.setOptionA(gonggaoList[3]);
-//            anSwerInfo1.setOptionB(gonggaoList[4]);
-//            anSwerInfo1.setOptionC(gonggaoList[5]);
-//            anSwerInfo1.setOptionD(gonggaoList[6]);
-//            anSwerInfo1.setUrl(gonggaoList[8]);
-//        }
-//        infoArrayList.add(anSwerInfo1);
-//        for (int i = 0; i < gonggaoList.length; i++) {
-//            anSwerInfo.setQuestionId(Integer.parseInt(gonggaoList1[0]));
-//            anSwerInfo.setCorrectAnswer(gonggaoList1[2]);
-//            anSwerInfo.setQuestionName(gonggaoList1[1]);
-//            anSwerInfo.setAnalysis(gonggaoList1[7]);
-//            anSwerInfo.setOptionA(gonggaoList1[3]);
-//            anSwerInfo.setOptionB(gonggaoList1[4]);
-//            anSwerInfo.setOptionC(gonggaoList1[5]);
-//            anSwerInfo.setOptionD(gonggaoList1[6]);
-//            anSwerInfo.setUrl(gonggaoList1[8]);
-//        }
-//        infoArrayList.add(anSwerInfo);
+            }
+        });
     }
 
+    public void getTimu2() {
+        RequestParams params = new RequestParams(Netutil.url1+ "/tianbao.php");
+        params.addBodyParameter("num", "4");
+        x.http().get(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                AnSwerInfo dataBean = gson.fromJson(result, AnSwerInfo.class);
+                dataBeanArrayList1.addAll(dataBean.getData());
+                dbManager.insertQuestion1(dataBeanArrayList1);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast toast = Toast.makeText(MainActivity.this, ex.toString(), Toast.LENGTH_LONG);
+                toast.show();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
 }

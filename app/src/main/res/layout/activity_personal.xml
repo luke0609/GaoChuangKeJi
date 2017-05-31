@@ -27,6 +27,26 @@
             android:textSize="20sp"
             android:layout_centerInParent="true"
             android:text="个人资料"/>
+        <Button
+            android:id="@+id/bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_selector1"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:text="修改"
+            />
+        <Button
+            android:id="@+id/bt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_selector1"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:text="确定"
+            android:visibility="gone"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rl_mytx"
@@ -102,7 +122,6 @@
            android:layout_marginRight="20dp"
            android:layout_centerVertical="true"
            android:textSize="13sp"
-           android:text="123"
            android:textColor="@color/grey"
            />
     </RelativeLayout>
@@ -140,7 +159,6 @@
             android:id="@+id/tv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="123"
             android:layout_toLeftOf="@id/iv_to_myxm"
             android:layout_marginRight="20dp"
             android:layout_centerVertical="true"
@@ -170,19 +188,17 @@
             android:textColor="@color/commo_text_color"/>
         <ImageView
             android:id="@+id/iv_to_myph"
-            android:layout_width="wrap_content"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="6dp"
-            android:src="@drawable/more"
             android:layout_marginRight="10dp"
             />
         <TextView
             android:id="@+id/tv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="123"
             android:layout_toLeftOf="@id/iv_to_myph"
             android:layout_marginRight="20dp"
             android:layout_centerVertical="true"
@@ -224,7 +240,6 @@
             android:id="@+id/tv3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="女"
             android:layout_toLeftOf="@id/iv_to_mysex"
             android:layout_marginRight="20dp"
             android:layout_centerVertical="true"
@@ -266,7 +281,6 @@
             android:id="@+id/tv4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="18"
             android:layout_toLeftOf="@id/iv_to_myyear"
             android:layout_marginRight="20dp"
             android:layout_centerVertical="true"
@@ -308,7 +322,6 @@
             android:id="@+id/tv5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="123"
             android:layout_toLeftOf="@id/iv_to_mysf"
             android:layout_marginRight="20dp"
             android:layout_centerVertical="true"
@@ -350,7 +363,6 @@
             android:id="@+id/tv6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="123"
             android:layout_toLeftOf="@id/iv_to_mydz"
             android:layout_marginRight="20dp"
             android:layout_centerVertical="true"

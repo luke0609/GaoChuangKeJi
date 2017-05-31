@@ -33,31 +33,6 @@
                 android:layout_marginTop="@dimen/home_menu_margin_5"
                 android:text="上一题" />
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/activity_prepare_test_totalLayout"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/home_menu_margin_5"
-                android:src="@drawable/ic_practice_tatal_index" />
-
-            <TextView
-                android:id="@+id/activity_prepare_test_totalTv"
-                style="@style/menu_bottom_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/home_menu_margin_8"
-                android:layout_marginTop="@dimen/home_menu_margin_5"
-                android:text="4/32" />
-        </LinearLayout>
-
         <LinearLayout
             android:id="@+id/activity_prepare_test_errorLayout"
             android:layout_width="0dip"
@@ -141,6 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/home_menu_margin_8"
+                    android:inputType="textNoSuggestions"
                     android:textColor="@color/practice_test_content_text"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -151,6 +127,7 @@
                  android:paddingLeft="15dp"
                  android:paddingRight="15dp"
                  android:scaleType="fitXY"
+                 android:visibility="gone"
                  />
             <!-- 单选 -->
 

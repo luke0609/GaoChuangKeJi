@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jiaokaokeji.gaochuangkeji.R;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016/12/15.
@@ -20,28 +23,26 @@ import com.jiaokaokeji.gaochuangkeji.R;
 public class MyGridViewAdapter extends BaseAdapter {
     private static final String TAG = "MyGridViewAdapter";
     private Context context;
+    ArrayList<Shipin.DataBean> shipinArrayList;
     private int layoutId;
-    private String listData[];
-    private String title[];
 
 
     public MyGridViewAdapter(Context context, int layoutId,
-                             String[] listData,String title[]) {
+                             ArrayList<Shipin.DataBean> shipinArrayList) {
         this.context = context;
         this.layoutId = layoutId;
-        this.listData = listData;
-        this.title=title;
+        this.shipinArrayList=shipinArrayList;
     }
 
     @Override
     public int getCount() {
-        return listData.length;
+        return shipinArrayList.size();
     }
 
     @Override
     public Object getItem(int position) {
         // TODO Auto-generated method stub
-        return listData[position];
+        return shipinArrayList.get(position);
     }
 
     @Override
@@ -63,12 +64,9 @@ public class MyGridViewAdapter extends BaseAdapter {
             holder.tv = (TextView) convertView.findViewById(R.id.tv);
             convertView.setTag(holder);
         }
-
         holder = (ViewHolder) convertView.getTag();
-
-        //mLoader.DisplayImage(getItem(position), holder.imageView);
-        Glide.with(context).load(listData[position]).fitCenter().into(holder.imageView);
-        holder.tv.setText(title[position].toString());
+        Picasso.with(context).load(shipinArrayList.get(position).getVideos_imge()).into(holder.imageView);
+        holder.tv.setText(shipinArrayList.get(position).getVideos_title());
         return convertView;
     }
 

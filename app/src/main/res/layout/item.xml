@@ -12,9 +12,10 @@
         android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:textSize="13sp"
+        android:singleLine="true"
         android:layout_gravity="center_vertical"
-        android:textColor="@color/main_style"
+        android:textColor="@color/black_text"
         android:background="@color/white"/>
 </LinearLayout>

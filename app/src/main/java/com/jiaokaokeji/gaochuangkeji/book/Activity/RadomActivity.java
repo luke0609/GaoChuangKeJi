@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class RadomActivity extends AppCompatActivity {
+public class RadomActivity extends AppCompatActivity  {
     private ImageView leftIv;
     private TextView titleTv;
     private TextView right;
@@ -42,30 +43,13 @@ public class RadomActivity extends AppCompatActivity {
     List<View> viewItems = new ArrayList<View>();
     List<AnSwerInfo.DataBean> dataItems = new ArrayList<AnSwerInfo.DataBean>();
     private ProgressDialog progressDialog;
-
-    private String pageCode;
-    private int pageScore;
-    private int errortopicNums;// 错题数
-    private int errortopicNums1;// 错题数
-    private String isPerfectData = "1";// 是否完善资料0完成 1未完成
-    private String type = "0";// 0模拟 1竞赛
-    private String errorMsg = "";
-    //Dialog builderSubmit;
-
+    private Handler handler = new Handler();
     public List<Map<String, SaveQuestionInfo>> list = new ArrayList<Map<String, SaveQuestionInfo>>();
     public Map<String, SaveQuestionInfo> map2 = new HashMap<String, SaveQuestionInfo>();
     public List<SaveQuestionInfo> questionInfos = new ArrayList<SaveQuestionInfo>();
-
-    Timer timer;
-    TimerTask timerTask;
-    int minute = 2;
-    int second = 0;
-
-    boolean isPause = false;
-    int isFirst;
-
+    AnSwerInfo.DataBean[] info1;
     DBManager dbManager;
-
+    int ppstinoPage;
     String dateStr = "";
     String imgServerUrl = "";
 
@@ -75,6 +59,9 @@ public class RadomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radom);
+        DBManager dbManager = new DBManager(RadomActivity.this);
+        dbManager.openDB1();
+        info1 = dbManager.queryAllData1();
         iv = ((ImageView) findViewById(R.id.iv));
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,15 +80,26 @@ public class RadomActivity extends AppCompatActivity {
         // 自定义颜色
         tintManager.setTintColor(Color.parseColor("#56ABE4"));
         initViewPagerScroll();
-        //initView();
-        loadData();
-//        ErrorQuestionInfo[] errorQuestionInfos = dbManager.queryAllData();
-//        if (errorQuestionInfos != null) {
-//            // 删除上次保存的我的错题
-//            int colunm = (int) dbManager.deleteAllData();
-//        }
-    }
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
 
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        //initView();
+
+        loadData();
+        //loadData1();
+    }
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
         Window win = getWindow();
@@ -116,14 +114,11 @@ public class RadomActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        DBManager dbManager = new DBManager(RadomActivity.this);
-        dbManager.openDB1();
-        AnSwerInfo.DataBean[] info1 = dbManager.queryAllData1();
         if (info1 == null) {
-            Toast.makeText(RadomActivity.this, "暂无数据",
+            Toast.makeText(RadomActivity.this, "暂无数据，请检查网络连接是否正常，如正常请退出耐心等待",
                     Toast.LENGTH_SHORT).show();
-        }else {
-            for (int i = 0; i < info1.length; i++) {
+        } else {
+            for (int i = 0; i <15; i++) {
                 AnSwerInfo.DataBean info = new AnSwerInfo.DataBean();
                 info.setId(info1[i].getId());// 试题主键
                 info.setQuestion(info1[i].getQuestion());// 试题题目
@@ -136,20 +131,57 @@ public class RadomActivity extends AppCompatActivity {
                 info.setUrl(info1[i].getUrl());
                 dataItems.add(info);
             }
+            for (int i = 0; i <15; i++) {
+                viewItems.add(getLayoutInflater().inflate(
+                        R.layout.vote_submit_viewpager_item, null));
+            }
+            pagerAdapter = new ExaminationSubmitAdapter(
+                    RadomActivity.this,info1, viewItems,
+                    dataItems, imgServerUrl);
+            viewPager.setAdapter(pagerAdapter);
+            viewPager.getParent()
+                    .requestDisallowInterceptTouchEvent(false);
+            loadData1();
         }
-        for (int i = 0; i < dataItems.size(); i++) {
-            viewItems.add(getLayoutInflater().inflate(
-                    R.layout.vote_submit_viewpager_item, null));
-        }
-        pagerAdapter = new ExaminationSubmitAdapter(
-                RadomActivity.this, viewItems,
-                dataItems, imgServerUrl);
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.setOffscreenPageLimit(dataItems.size()-1);
-        viewPager.getParent()
-                .requestDisallowInterceptTouchEvent(false);
     }
+    private void loadData1() {
+        new Thread() {
+            @Override
+            public void run() {//在run()方法实现业务逻辑；
+                if (info1 == null) {
+                    Toast.makeText(RadomActivity.this, "暂无数据",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    for (int i = 15; i < info1.length; i++) {
+                        AnSwerInfo.DataBean info = new AnSwerInfo.DataBean();
+                        info.setId(info1[i].getId());// 试题主键
+                        info.setQuestion(info1[i].getQuestion());// 试题题目
+                        info.setExplains(info1[i].getExplains());// 试题分析
+                        info.setAnswer(info1[i].getAnswer());// 正确答案
+                        info.setItem1(info1[i].getItem1());// 试题选项A
+                        info.setItem2(info1[i].getItem2());// 试题选项B
+                        info.setItem3(info1[i].getItem3());// 试题选项C
+                        info.setItem4(info1[i].getItem4());// 试题选项D
+                        info.setUrl(info1[i].getUrl());
+                        dataItems.add(info);
+                    }
 
+                    for (int i = 15; i < dataItems.size(); i++) {
+                        viewItems.add(getLayoutInflater().inflate(
+                                R.layout.vote_submit_viewpager_item, null));
+                    }
+                    //更新UI操作；
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                           pagerAdapter.notifyDataSetChanged();
+                        }
+                    });
+                }
+                }
+            }.start();
+
+    }
     /**
      * 设置ViewPager的滑动速度
      */

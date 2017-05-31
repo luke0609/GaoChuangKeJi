@@ -87,12 +87,13 @@
                     app:cb_pressedRingWidth="4dip" />
                 <TextView
                     android:layout_below="@+id/btn_3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="64dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textColor="#999999"
+                    android:singleLine="true"
                     android:layout_centerHorizontal="true"
-                    android:text="上坡起步"/>
+                    android:text="坡道定点停车和起步"/>
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout
@@ -186,13 +187,13 @@
                 android:id="@+id/staggeredGridView1"
                 android:layout_below="@id/tv"
                 android:numColumns="2"
+                android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:horizontalSpacing="5dp"
                 android:verticalSpacing="5dp"
                 android:background="#f0f0f0"
-                android:scrollbars="none"
-                >
+                android:scrollbars="none">
             </com.jiaokaokeji.gaochuangkeji.book.StaggeredGridView.MyGrigview>
     </RelativeLayout>
     </com.jiaokaokeji.gaochuangkeji.book.prjo.MyScollview>

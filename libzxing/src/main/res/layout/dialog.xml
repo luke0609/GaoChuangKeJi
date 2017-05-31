@@ -30,21 +30,22 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
-            android:id="@+id/quxiao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="取消"
-            android:layout_weight="1"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/btn_selector"
-            />
-        <Button
             android:id="@+id/queding"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="确定"
             android:layout_weight="1"
             android:layout_alignParentRight="true"
+            android:background="@drawable/btn_selector"
+            />
+        <Button
+            android:id="@+id/quxiao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentLeft="true"
             android:background="@drawable/btn_selector"
             />
     </LinearLayout>
