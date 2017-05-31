@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                         List<UserBean.DataBean> sList=new ArrayList<UserBean.DataBean>();
                         UserBean ub=gson.fromJson(result,UserBean.class);
                         if (ub.getResultCode()==200){
-                            Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                             sList=ub.getData();
                             userId= sList.get(0).getUser_id();
                             //写入本地文件
