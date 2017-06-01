@@ -25,14 +25,12 @@ public class RetrieveActivity extends AppCompatActivity {
 
     @InjectView(R.id.app_phoneNum)
     ClearWriteEditText appPhoneNum;
-    @InjectView(R.id.btn_post)
-    Button btnPost;
-    @InjectView(R.id.app_code)
-    ClearWriteEditText appCode;
     @InjectView(R.id.app_password1)
     ClearWriteEditText appPassword1;
-    @InjectView(R.id.app_password2)
-    ClearWriteEditText appPassword2;
+    @InjectView(R.id.app_code)
+    ClearWriteEditText appCode;
+    @InjectView(R.id.btn_post)
+    Button btnPost;
     @InjectView(R.id.app_regist_bt)
     Button appRegistBt;
 
@@ -52,21 +50,12 @@ public class RetrieveActivity extends AppCompatActivity {
             }
         });
     }
+
     protected void onDestroy() {
         super.onDestroy();
         SMSSDK.unregisterAllEventHandler();
     }
 
-    @OnClick({R.id.btn_post, R.id.app_regist_bt})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn_post:
-
-                break;
-            case R.id.app_regist_bt:
-                break;
-        }
-    }
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -95,6 +84,15 @@ public class RetrieveActivity extends AppCompatActivity {
         }
     };
 
+    @OnClick({R.id.btn_post, R.id.app_regist_bt})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_post:
+                break;
+            case R.id.app_regist_bt:
+                break;
+        }
+    }
 }
 
 
