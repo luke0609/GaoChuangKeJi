@@ -29,4 +29,9 @@
     <color name="submit_btn_disabled">#bcbcbc</color>
     <color name="playing">#FAAF13</color>
     <color name="info_layout_bg">#eaeaea</color>
+    <color name="bk">#30A9CD</color>
+    <color name="red1">#E6534B</color>
+    <color name="red2">#C03F39</color>
+    <color name="green1">#9BCA3E</color>
+    <color name="green2">#7DB018</color>
 </resources>
