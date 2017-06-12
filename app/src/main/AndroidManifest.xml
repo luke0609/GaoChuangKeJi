@@ -88,6 +88,30 @@
             android:name=".book.Activity.MymistakesActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
+            android:name=".book.Activity.MymistakesDetailActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".book.Activity.MymistakesDetail1Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".book.Activity.Mymistakes1Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".book.Activity.SimulationTest1Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".book.Activity.SimulationTestActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".book.Activity.Order1Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".book.Activity.Radom1Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".book.Activity.Chapter1Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".book.Activity.SkinActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
@@ -156,6 +180,9 @@
         <activity android:name=".myclass.Activity.ChooseActivity" />
         <activity
             android:name=".myclass.Activity.Simulation.Km2ExamActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".myclass.Activity.Simulation.Km3ExamActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".myclass.Activity.Simulation.Km3ExamActivity"

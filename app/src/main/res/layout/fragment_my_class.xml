@@ -108,11 +108,13 @@
             android:text="服务是根本，质量求生存"/>
     </LinearLayout>
     <LinearLayout
-        android:layout_below="@+id/mid_bar"
         android:padding="5dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_below="@+id/mid_bar"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
 
         <Button
             android:id="@+id/btn_1"

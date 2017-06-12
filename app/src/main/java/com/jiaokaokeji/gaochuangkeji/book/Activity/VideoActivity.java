@@ -32,7 +32,7 @@ public class VideoActivity extends AppCompatActivity {
         mToolbar.setTitle("Video Player");
         mToolbar.setSubtitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Picasso.with(VideoActivity.this).load(IMAGE_URL).into(mPlayerView.mPlayerThumb);
+        Picasso.with(VideoActivity.this).load(IMAGE_URL ).into(mPlayerView.mPlayerThumb);
         mPlayerView.init()
                 .setTitle("科目二考试记录")
 
