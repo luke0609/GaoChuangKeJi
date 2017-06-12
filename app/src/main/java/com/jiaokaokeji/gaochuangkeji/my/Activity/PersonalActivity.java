@@ -2,6 +2,8 @@ package com.jiaokaokeji.gaochuangkeji.my.Activity;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -65,6 +67,7 @@ public class PersonalActivity extends AppCompatActivity {
     private Button bt;
     private Button bt1;
     int i;
+    int id;
     private ImageView iv;
 
     @Override
@@ -72,6 +75,8 @@ public class PersonalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
         ButterKnife.inject(this);
+        SharedPreferences sp = getSharedPreferences("sp_demo", Context.MODE_PRIVATE);
+        id = sp.getInt("userId", 0);
         getPersonal();
         bt = ((Button) findViewById(R.id.bt));
         bt1 = ((Button) findViewById(R.id.bt1));
@@ -382,9 +387,9 @@ public class PersonalActivity extends AppCompatActivity {
     }
 
     public void getPersonal() {
-        RequestParams params = new RequestParams(Netutil.url + "/index.php/userinfo/user/selectuser");
+        RequestParams params = new RequestParams(Netutil.url + "/index.php/login/myinfo/selectUser");
         params.addBodyParameter("key", "tbjxappgaochuang");
-        params.addBodyParameter("userid", "6");
+        params.addBodyParameter("userid", String.valueOf(id));
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -450,9 +455,9 @@ public class PersonalActivity extends AppCompatActivity {
         }else{
             user_sex="1";
         }
-        RequestParams params = new RequestParams(Netutil.url + "/index.php/userinfo/user/modifyuser");
+        RequestParams params = new RequestParams(Netutil.url + "/index.php/login/myinfo/modifyUser");
         params.addBodyParameter("key", "tbjxappgaochuang");
-        params.addBodyParameter("userid", "1");
+        params.addBodyParameter("userid", String.valueOf(id));
         params.addBodyParameter("nick",user_nick);
         params.addBodyParameter("name", user_name);
         params.addBodyParameter("sex", user_sex);
